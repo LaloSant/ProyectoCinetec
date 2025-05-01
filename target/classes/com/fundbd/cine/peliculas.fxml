@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.media.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -15,7 +16,8 @@
       <Label text="Primary View" />
       <Button fx:id="primaryButton" onAction="#mvPlay" text="Play al video" />
       <Button fx:id="btnPausa" mnemonicParsing="false" onAction="#mvPausa" text="Pausa al video" />
-      <MediaView fx:id="mediaView" fitHeight="600.0" fitWidth="600.0" />
+      <MediaView fx:id="mediaView" fitHeight="300.0" fitWidth="300.0" />
+      <ImageView fx:id="imgView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

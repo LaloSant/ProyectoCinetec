@@ -25,7 +25,7 @@ public class PeliculasController {
     @FXML
     private void mvPlay(ActionEvent event) {
         if (mediaView.getMediaPlayer() == null) {
-            cargarVideo(8);
+            //cargarVideo(8);
             String encoded = RUTA_VIDEO_TEMP.replace(" ", "%20");
             File f = new File(encoded);
             Media video = new Media(f.toURI().toString());
