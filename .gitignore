@@ -1,0 +1,26 @@
+# NetBeans specific files
+nbproject/private/
+nbproject/nbactions.xml
+nbproject/nb-configuration.xml
+
+# Maven target directory
+target/
+
+# Java compiled files
+*.class
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.idea/
+.vscode/
+
+# JavaFX cache (optional)
+*.jar.pack.gz
