@@ -1,5 +1,6 @@
-package com.fundbd.cine;
+package com.fundbd.cine.controller;
 
+import com.fundbd.cine.ConexionSQL;
 import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,7 +47,7 @@ public class PeliculasController {
         ConexionSQL conec = new ConexionSQL();
 //        conec.subirBlob(RUTA_VIDEO_TEMP, App.queryInsert("trailer"));
         
-        conec.leerBlob(RUTA_VIDEO_TEMP, App.querySelect("trailer", id));
+//        conec.leerBlob(RUTA_VIDEO_TEMP, App.querySelect("trailer", id));
         conec.cerrar();
     }
 }
