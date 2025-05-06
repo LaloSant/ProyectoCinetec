@@ -11,7 +11,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fundbd.cine.PeliculasController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fundbd.cine.controller.PeliculasController">
    <children>
       <Label text="Primary View" />
       <Button fx:id="primaryButton" onAction="#mvPlay" text="Play al video" />

@@ -1,6 +1,5 @@
 package com.fundbd.cine.controller;
 
-import com.fundbd.cine.ConexionSQL;
 import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

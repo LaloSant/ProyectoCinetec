@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * JavaFX App
@@ -14,21 +16,27 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
-    private static final String RUTARESOURCES = "src/main/resources/";
+    private static Stage stage;
 
     public static void main(String[] args) {
         launch();
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stageLocal) throws IOException {
         scene = new Scene(loadFXML("Home"));
+        stage = stageLocal;
         stage.setScene(scene);
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+    public static void cambiarVista(String nombre){
+        try {
+            scene = new Scene(loadFXML("vistas/" + nombre));
+            stage.setScene(scene);
+        } catch (IOException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
@@ -36,7 +44,4 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static String rutaArchivo(String nombre) {
-        return RUTARESOURCES + nombre;
-    }
 }
