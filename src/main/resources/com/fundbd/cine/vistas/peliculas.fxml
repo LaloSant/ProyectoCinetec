@@ -1,25 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.media.*?>
-<?import java.lang.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fundbd.cine.controller.PeliculasController">
-   <children>
-      <Label text="Primary View" />
-      <Button fx:id="primaryButton" onAction="#mvPlay" text="Play al video" />
-      <Button fx:id="btnPausa" mnemonicParsing="false" onAction="#mvPausa" text="Pausa al video" />
-      <MediaView fx:id="mediaView" fitHeight="300.0" fitWidth="300.0" />
-      <ImageView fx:id="imgView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-   </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
+<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fundbd.cine.controller.PeliculasController">
+  <children>
+      <MenuBar>
+         <menus>
+            <Menu mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Peliculas" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Informacion">
+               <items>
+                  <MenuItem fx:id="mnItAcercaDe" mnemonicParsing="false" onAction="#mnuItemAcercaDeOnAction" text="Acerca de..." />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <BorderPane prefHeight="689.0" prefWidth="1280.0">
+         <bottom>
+            <Pane prefHeight="201.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextArea editable="false" layoutX="145.0" layoutY="14.0" prefHeight="169.0" prefWidth="1106.0" text="CINETEC&#10;Elaborado por:&#10;                        Alan Daniel Farfan Gomez&#10;                        Miguel Angel Torres Diaz&#10;                        Erik Carbajal Sanchez&#10;                        Eduardo Jair Bautista Santiesteban&#10;                        Yael Sampayo Marin" />
+                  <ImageView fitHeight="93.0" fitWidth="114.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../temp/CineTecLogo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </bottom>
+         <top>
+            <Pane prefHeight="71.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="1102.0" layoutY="20.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="162.0" text="Ver cartelera" textAlignment="CENTER">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor></Button>
+                  <ComboBox layoutX="894.0" layoutY="20.0" prefHeight="31.0" prefWidth="182.0" promptText="Seleccionar cine" />
+               </children>
+            </Pane>
+         </top>
+         <right>
+            <ScrollPane prefHeight="417.0" prefWidth="386.0" BorderPane.alignment="CENTER">
+              <content>
+                <AnchorPane prefHeight="410.0" prefWidth="380.0" />
+              </content>
+            </ScrollPane>
+         </right>
+         <center>
+            <AnchorPane prefHeight="435.0" prefWidth="921.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+  </children>
 </VBox>

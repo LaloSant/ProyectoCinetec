@@ -27,6 +27,8 @@ public class App extends Application {
         scene = new Scene(loadFXML("Home"));
         stage = stageLocal;
         stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setTitle("CINETEC MANAGING SYSTEM S.A. de C.V.");
         stage.show();
     }
 
