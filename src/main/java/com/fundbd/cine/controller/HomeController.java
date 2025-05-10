@@ -5,16 +5,19 @@
 package com.fundbd.cine.controller;
 
 import com.fundbd.cine.App;
+import com.fundbd.cine.Global;
+import com.fundbd.cine.Queries;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
@@ -40,7 +43,17 @@ public class HomeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<String> datos = FXCollections.observableArrayList("Cine 1", "Cine 2", "Cine 3");
+        ResultSet rs = Global.getConSql().consulta(Queries.selectAllCines());
+        ArrayList<String> nombresCines = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                nombresCines.add(rs.getString(2));
+            }
+        } catch (SQLException ex) {
+            Global.mostrarAlertaError(ex.getMessage());
+        }
+        Global.setCinesRegistrados(nombresCines);
+        ObservableList<String> datos = FXCollections.observableArrayList(nombresCines);
         cbBoxCines.setItems(datos);
     }    
 
@@ -51,20 +64,13 @@ public class HomeController implements Initializable {
 
     @FXML
     private void mnuItemAcercaDeOnAction(ActionEvent event) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION, 
-                "Creado por: "
-                        + "\nAlan Daniel Farfan Gomez"
-                        + "\nMiguel Angel Torres Diaz"
-                        + "\nErik Carbajal Sanchez"
-                        + "\nEduardo Jair Bautista Santiesteban"
-                        + "\nYael Sampayo Marin"
-                , ButtonType.CLOSE);
-        alerta.show();
-        
+        Global.mostrarMenuCreditos();
     }
 
     @FXML
     private void btnFuncionesOnAction(ActionEvent event) {
+        Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
+        Global.mostrarAlertaError("Aqui va cambio a cartelera");
         App.cambiarVista("peliculas");
     }
     

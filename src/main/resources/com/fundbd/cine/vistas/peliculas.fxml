@@ -12,13 +12,14 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fundbd.cine.controller.PeliculasController">
+<VBox prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #10182a;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fundbd.cine.controller.PeliculasController">
   <children>
       <MenuBar>
          <menus>
             <Menu mnemonicParsing="false" text="Menu">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Peliculas" />
+                  <MenuItem fx:id="mnuCines" mnemonicParsing="false" onAction="#mnuCinesOnAction" text="Seleccionar cine" />
+                  <MenuItem fx:id="mnuCartelera" mnemonicParsing="false" onAction="#mnuCarteleraOnAction" text="Ver cartelera" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Informacion">
@@ -30,10 +31,9 @@
       </MenuBar>
       <BorderPane prefHeight="689.0" prefWidth="1280.0">
          <bottom>
-            <Pane prefHeight="201.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="120.0" prefWidth="1280.0" style="-fx-background-color: #1a2b3f;" BorderPane.alignment="CENTER">
                <children>
-                  <TextArea editable="false" layoutX="145.0" layoutY="14.0" prefHeight="169.0" prefWidth="1106.0" text="CINETEC&#10;Elaborado por:&#10;                        Alan Daniel Farfan Gomez&#10;                        Miguel Angel Torres Diaz&#10;                        Erik Carbajal Sanchez&#10;                        Eduardo Jair Bautista Santiesteban&#10;                        Yael Sampayo Marin" />
-                  <ImageView fitHeight="93.0" fitWidth="114.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="93.0" fitWidth="114.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../temp/CineTecLogo.png" />
                      </image>
@@ -42,7 +42,7 @@
             </Pane>
          </bottom>
          <top>
-            <Pane prefHeight="71.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="71.0" prefWidth="1280.0" style="-fx-background-color: #1a2b3f;" BorderPane.alignment="CENTER">
                <children>
                   <Button layoutX="1102.0" layoutY="20.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="162.0" text="Ver cartelera" textAlignment="CENTER">
                      <opaqueInsets>
@@ -51,20 +51,137 @@
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
                      </cursor></Button>
-                  <ComboBox layoutX="894.0" layoutY="20.0" prefHeight="31.0" prefWidth="182.0" promptText="Seleccionar cine" />
+                  <ComboBox fx:id="cbBoxCines" layoutX="894.0" layoutY="20.0" onAction="#cbBoxCinesOnAction" prefHeight="31.0" prefWidth="182.0" promptText="Seleccionar cine">
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant color="#e8d0a7" />
+                           </light>
+                        </Lighting>
+                     </effect></ComboBox>
+                  <ImageView fitHeight="61.0" fitWidth="122.0" layoutX="22.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../temp/CineTecLogoEstilo2.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
          </top>
-         <right>
-            <ScrollPane prefHeight="417.0" prefWidth="386.0" BorderPane.alignment="CENTER">
-              <content>
-                <AnchorPane prefHeight="410.0" prefWidth="380.0" />
-              </content>
-            </ScrollPane>
-         </right>
          <center>
-            <AnchorPane prefHeight="435.0" prefWidth="921.0" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="435.0" prefWidth="921.0">
+               <children>
+                  <TextArea fx:id="txtArSinopsis" editable="false" layoutX="69.0" layoutY="142.0" prefHeight="179.0" prefWidth="344.0" text="&#10;&#10;&#10;">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </TextArea>
+                  <Label fx:id="lblTitulo" layoutX="67.0" layoutY="34.0" text="lblTitulo" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="70.0" layoutY="97.0" text="Sinopsis:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="iVImagen" fitHeight="412.0" fitWidth="291.0" layoutX="565.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="83.0" layoutY="346.0" text="Idioma:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="83.0" layoutY="385.0" text="Clasificacion:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="83.0" layoutY="423.0" text="Genero:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="83.0" layoutY="461.0" text="Duracion:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblDuracion" layoutX="274.0" layoutY="460.0" text="lblDuracion" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblGenero" layoutX="274.0" layoutY="422.0" text="lblGenero" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblClasificacion" layoutX="274.0" layoutY="384.0" text="lblClasificacion" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblIdioma" layoutX="274.0" layoutY="345.0" text="lblIdioma" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
          </center>
+         <right>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane prefHeight="478.0" prefWidth="305.0" style="-fx-background-color: #dedede; -fx-border-radius: 10 10 0 0;">
+                     <children>
+                        <Label layoutX="101.0" layoutY="20.0" text="Trailer" textAlignment="CENTER">
+                           <font>
+                              <Font name="Arial Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <MediaView fx:id="mVTrailer" fitHeight="162.0" fitWidth="288.0" layoutX="15.0" layoutY="97.0" preserveRatio="false" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+                        <Button fx:id="btnPlay" layoutX="20.0" layoutY="295.0" mnemonicParsing="false" onAction="#onBtnPlayAction" prefHeight="50.0" prefWidth="110.0" text="Play">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
+                        <Button fx:id="btnPausa" layoutX="174.0" layoutY="295.0" mnemonicParsing="false" onAction="#onBtnPausaAction" prefHeight="50.0" prefWidth="110.0" text="Pausa">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="btnComprar" layoutX="45.0" layoutY="27.0" mnemonicParsing="false" onAction="#onBtnComprarAction" text="COMPRAR BOLETOS">
+                           <font>
+                              <Font name="Arial Bold Italic" size="18.0" />
+                           </font>
+                           <textFill>
+                              <LinearGradient cycleMethod="REFLECT" endX="0.7281553398058253" startX="1.0">
+                                 <stops>
+                                    <Stop color="WHITE" />
+                                    <Stop color="#a39734" offset="0.007246376811594203" />
+                                    <Stop color="BLACK" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </textFill>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </BorderPane.margin>
+            </VBox>
+         </right>
       </BorderPane>
   </children>
 </VBox>

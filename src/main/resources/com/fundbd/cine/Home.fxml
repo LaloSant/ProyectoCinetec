@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fundbd.cine.controller.HomeController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #1a2b3f;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fundbd.cine.controller.HomeController">
    <children>
       <MenuBar>
         <menus>
@@ -32,13 +32,23 @@
                   <Image url="@../../../temp/CineTecLogo.png" />
                </image>
             </ImageView>
-            <Label layoutX="505.0" layoutY="407.0" text="Seleccione cine:">
+            <Label layoutX="487.0" layoutY="396.0" text="Seleccione cine:" textFill="#e8d0a7">
                <font>
-                  <Font name="Arial Black" size="30.0" />
+                  <Font name="Arial Black" size="36.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cbBoxCines" layoutX="505.0" layoutY="462.0" onAction="#cbBoxCinesOnAction" prefHeight="46.0" prefWidth="290.0" promptText="-Seleccione-" />
-            <Button fx:id="btnVerFunciones" disable="true" layoutX="565.0" layoutY="557.0" mnemonicParsing="false" onAction="#btnFuncionesOnAction" text="Ver funciones">
+            <ComboBox fx:id="cbBoxCines" layoutX="505.0" layoutY="462.0" onAction="#cbBoxCinesOnAction" prefHeight="46.0" prefWidth="290.0" promptText="-Seleccione-">
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant color="#e8d0a7" />
+                     </light>
+                  </Lighting>
+               </effect></ComboBox>
+            <Button fx:id="btnVerFunciones" disable="true" layoutX="565.0" layoutY="557.0" mnemonicParsing="false" onAction="#btnFuncionesOnAction" style="-fx-background-color: #FFFFFF;" text="Ver funciones">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>

@@ -70,6 +70,20 @@ public class ConexionSQL {
         return resultado;
     }
     
+    public ResultSet consulta(String query) {
+        ArrayList<String> resultado = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            this.conectar();
+            PreparedStatement sentencia = conn.prepareStatement(query);
+            rs = sentencia.executeQuery(query);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+    
     public void subirBlob(String ruta, String query) {
         try {
             this.conectar();
