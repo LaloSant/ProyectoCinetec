@@ -5,7 +5,7 @@
 package com.fundbd.cine;
 
 import com.fundbd.cine.controller.ConexionSQL;
-import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
@@ -16,8 +16,9 @@ import javafx.scene.control.ButtonType;
 public class Global {
 
     private static ConexionSQL conSql = new ConexionSQL();
-    private static ArrayList<String> cinesRegistrados;
+    private static HashMap<String, String> cines;
     private static int cineActual = -1;
+    private static String idPeliculaActual;
 
     public Global() {
 
@@ -38,17 +39,17 @@ public class Global {
     }
 
     /**
-     * @return the cinesRegistrados
+     * @return the cines
      */
-    public static ArrayList<String> getCinesRegistrados() {
-        return cinesRegistrados;
+    public static HashMap<String, String> getCines() {
+        return cines;
     }
 
     /**
-     * @param aCinesRegistrados the cinesRegistrados to set
+     * @param aCines the cines to set
      */
-    public static void setCinesRegistrados(ArrayList<String> aCinesRegistrados) {
-        cinesRegistrados = aCinesRegistrados;
+    public static void setCines(HashMap<String, String> aCines) {
+        cines = aCines;
     }
 
     /**
@@ -63,6 +64,20 @@ public class Global {
      */
     public static void setCineActual(int aCineActual) {
         cineActual = aCineActual;
+    }
+
+    /**
+     * @return the idPeliculaActual
+     */
+    public static String getIdPeliculaActual() {
+        return idPeliculaActual;
+    }
+
+    /**
+     * @param aIdPeliculaActual the idPeliculaActual to set
+     */
+    public static void setIdPeliculaActual(String aIdPeliculaActual) {
+        idPeliculaActual = aIdPeliculaActual;
     }
 
     public static void mostrarMenuCreditos() {

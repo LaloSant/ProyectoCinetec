@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #10182a;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fundbd.cine.controller.CarteleraController">
+  <children>
+      <MenuBar>
+         <menus>
+            <Menu mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem fx:id="mnuCines" mnemonicParsing="false" onAction="#mnuCinesOnAction" text="Seleccionar cine" />
+                  <MenuItem fx:id="mnuCartelera" mnemonicParsing="false" onAction="#mnuCarteleraOnAction" text="Ver cartelera" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Informacion">
+               <items>
+                  <MenuItem fx:id="mnItAcercaDe" mnemonicParsing="false" onAction="#mnuItemAcercaDeOnAction" text="Acerca de..." />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <BorderPane prefHeight="689.0" prefWidth="1280.0">
+         <bottom>
+            <Pane prefHeight="120.0" prefWidth="1280.0" style="-fx-background-color: #1a2b3f;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="93.0" fitWidth="114.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../temp/CineTecLogo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </bottom>
+         <top>
+            <Pane prefHeight="71.0" prefWidth="1280.0" style="-fx-background-color: #1a2b3f;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="1102.0" layoutY="20.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="162.0" text="Ver cartelera" textAlignment="CENTER">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor></Button>
+                  <ComboBox fx:id="cbBoxCines" layoutX="894.0" layoutY="20.0" onAction="#cbBoxCinesOnAction" prefHeight="31.0" prefWidth="182.0" promptText="Seleccionar cine">
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant color="#e8d0a7" />
+                           </light>
+                        </Lighting>
+                     </effect></ComboBox>
+                  <ImageView fitHeight="61.0" fitWidth="122.0" layoutX="22.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../temp/CineTecLogoEstilo2.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </top>
+         <right>
+            <VBox prefHeight="468.0" prefWidth="223.0" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane prefHeight="366.0" prefWidth="236.0" style="-fx-background-color: #dedede; -fx-border-radius: 10 10 0 0;">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin>
+                     <children>
+                        <TextArea fx:id="txtArHorarios" editable="false" layoutX="14.0" layoutY="48.0" prefHeight="246.0" prefWidth="200.0">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                        </TextArea>
+                        <Label layoutX="14.0" layoutY="14.0" text="HORARIOS:" textAlignment="CENTER">
+                           <font>
+                              <Font name="Arial Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="PAGINA:" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="lblPagina" editable="false" layoutX="136.0" layoutY="14.0" prefHeight="21.0" prefWidth="54.0" text="1">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="btnSiguiente" layoutX="131.0" layoutY="72.0" mnemonicParsing="false" onAction="#btnSiguienteOnAction" text="Siguiente" />
+                        <Button fx:id="btnAnterior" layoutX="14.0" layoutY="72.0" mnemonicParsing="false" onAction="#btnAnteriorOnAction" text="Anterior" />
+                     </children></AnchorPane>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </BorderPane.margin>
+            </VBox>
+         </right>
+         <center>
+            <GridPane fx:id="gridPaneCentro" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <BorderPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </BorderPane.margin>
+            </GridPane>
+         </center>
+      </BorderPane>
+  </children>
+</VBox>

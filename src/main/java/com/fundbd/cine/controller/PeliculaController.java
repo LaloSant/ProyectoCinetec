@@ -8,6 +8,7 @@ import com.fundbd.cine.App;
 import com.fundbd.cine.Global;
 import com.fundbd.cine.Queries;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,7 +39,7 @@ import javafx.scene.media.MediaView;
  *
  * @author eduar
  */
-public class PeliculasController implements Initializable {
+public class PeliculaController implements Initializable {
 
     private static String RUTA_VIDEO = "src/main/resources/temp/video.mp4";
     private static String RUTA_IMAGEN = "src/main/resources/temp/img.jpg";
@@ -73,8 +74,10 @@ public class PeliculasController implements Initializable {
     private Button btnComprar;
     @FXML
     private ComboBox<String> cbBoxCines;
+    @FXML
+    private Button btnVerCartelera;
 
-    public PeliculasController() {
+    public PeliculaController() {
 
     }
 
@@ -83,7 +86,9 @@ public class PeliculasController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        leerDatos("PE0001");
+        leerDatos(Global.getIdPeliculaActual());
+        cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCines().values()));
+        cbBoxCines.getSelectionModel().select(Global.getCineActual());
     }
 
     private void leerDatos(String idPelicula) {
@@ -102,16 +107,21 @@ public class PeliculasController implements Initializable {
             nombre = rs.getString(2);
             sinopsis = rs.getString(3);
             duracion = rs.getInt(4);
-            iVImagen.setImage(new Image(rs.getBinaryStream(5)));
             leerBlob(idPelicula, rs.getBinaryStream(6), RUTA_VIDEO);
             mVTrailer.setMediaPlayer(new MediaPlayer(new Media(new File(RUTA_VIDEO).toURI().toString())));
             idioma = rs.getString(7);
             clasificacion = rs.getString(8);
             genero = rs.getString(9);
+
+            iVImagen.setImage(new Image(rs.getBinaryStream(5)));
+            if (iVImagen.getImage().getHeight() == 0 || iVImagen.getImage().getWidth() == 0) {
+                FileInputStream fis = new FileInputStream("src/main/resources/temp/img404.jpg");
+                iVImagen.setImage(new Image(fis));
+            }
         } catch (SQLException ex) {
             Global.mostrarAlertaError(ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(PeliculasController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PeliculaController.class.getName()).log(Level.SEVERE, null, ex);
         }
         lblTitulo.setText(nombre);
         txtArSinopsis.setText(sinopsis);
@@ -119,8 +129,7 @@ public class PeliculasController implements Initializable {
         lblIdioma.setText(idioma);
         lblClasificacion.setText(clasificacion);
         lblGenero.setText(genero);
-        cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCinesRegistrados()));
-        cbBoxCines.getSelectionModel().select(Global.getCineActual());
+
     }
 
     public boolean leerBlob(String idPelicula, InputStream is, String ruta) throws FileNotFoundException, IOException {
@@ -155,7 +164,7 @@ public class PeliculasController implements Initializable {
 
     @FXML
     private void onBtnComprarAction(ActionEvent event) {
-        
+
     }
 
     @FXML
@@ -172,11 +181,19 @@ public class PeliculasController implements Initializable {
 
     @FXML
     private void mnuCarteleraOnAction(ActionEvent event) {
-        
+        mVTrailer.getMediaPlayer().pause();
+        App.cambiarVista("cartelera");
     }
 
     @FXML
     private void cbBoxCinesOnAction(ActionEvent event) {
-        Global.mostrarAlertaError("Aqui va cambio a cartelera");
+        Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
+        App.cambiarVista("cartelera");
+    }
+
+    @FXML
+    private void btnVerCarteleraOnAction(ActionEvent event) {
+        mVTrailer.getMediaPlayer().pause();
+        App.cambiarVista("cartelera");
     }
 }

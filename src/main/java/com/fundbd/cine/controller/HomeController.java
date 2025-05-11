@@ -11,6 +11,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,16 +45,17 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ResultSet rs = Global.getConSql().consulta(Queries.selectAllCines());
-        ArrayList<String> nombresCines = new ArrayList<>();
+        HashMap<String, String> cines = new HashMap<>();
         try {
             while (rs.next()) {
-                nombresCines.add(rs.getString(2));
+                cines.put(rs.getString(1), rs.getString(2));
             }
         } catch (SQLException ex) {
             Global.mostrarAlertaError(ex.getMessage());
         }
-        Global.setCinesRegistrados(nombresCines);
-        ObservableList<String> datos = FXCollections.observableArrayList(nombresCines);
+        
+        Global.setCines(cines);
+        ObservableList<String> datos = FXCollections.observableArrayList(new ArrayList(cines.values()));
         cbBoxCines.setItems(datos);
     }    
 
@@ -70,8 +72,7 @@ public class HomeController implements Initializable {
     @FXML
     private void btnFuncionesOnAction(ActionEvent event) {
         Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
-        Global.mostrarAlertaError("Aqui va cambio a cartelera");
-        App.cambiarVista("peliculas");
+        App.cambiarVista("cartelera");
     }
     
 }
