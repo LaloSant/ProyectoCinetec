@@ -98,7 +98,7 @@ public class CarteleraController {
 
     private void ponerPeliculas() {
         StringBuilder horariosTxt = new StringBuilder();
-        gridPaneCentro.getChildren().clear();
+        gridPaneCentro.getChildren().clear(); //execute order 66
         int contador = 0;
         while (contador < 4 && (peliculas.size() - pagina * 4) > contador) {
             AnchorPane ap = peliculas.get(contador + (pagina * 4));
