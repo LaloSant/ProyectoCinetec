@@ -86,11 +86,11 @@ public class ClientesController implements Initializable {
             String apellidoP = txtApellidoP.getText().trim();
             String apellidoM = txtApellidoM.getText().trim();
             String contrasenia = txtContrasenia.getText().trim();
-            Date fechaNac = java.sql.Date.valueOf(dtpFecha.getValue());
-            long numTel = Long.parseLong(txtTelefono.getText().trim());
+            Date fechaNac = (dtpFecha.getValue() != null) ? java.sql.Date.valueOf(dtpFecha.getValue()) : null;
+            Long numTel = (!txtTelefono.getText().isBlank())? Long.parseLong(txtTelefono.getText().trim()): null;
             String correo = txtCorreo.getText().trim();
-            long numTarjeta = Long.parseLong(txtTarjeta.getText().trim());
-            int nip = Integer.parseInt(txtNip.getText().trim());
+            Long numTarjeta = (!txtTarjeta.getText().isBlank())? Long.parseLong(txtTarjeta.getText().trim()):null;
+            Integer nip = (!txtNip.getText().isBlank()) ? Integer.parseInt(txtNip.getText().trim()):null;
             Global.getConSql().insertarCliente(id, nombre, apellidoP, apellidoM, contrasenia, fechaNac, numTel, correo, numTarjeta, nip);
             Global.mostrarInfo("Se inserto al cliente");
         } catch (IOException | NumberFormatException | SQLException e) {
