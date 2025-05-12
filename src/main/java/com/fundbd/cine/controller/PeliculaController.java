@@ -164,7 +164,7 @@ public class PeliculaController implements Initializable {
 
     @FXML
     private void onBtnComprarAction(ActionEvent event) {
-
+        
     }
 
     @FXML
