@@ -59,69 +59,102 @@
                      <children>
                         <Label text="ID Cliente" textFill="WHITE">
                            <font>
-                              <Font name="Arial" size="27.0" />
+                              <Font name="Arial Bold" size="27.0" />
                            </font>
                         </Label>
                         <Label text="Nombre" textFill="WHITE">
                            <font>
-                              <Font name="Arial" size="27.0" />
+                              <Font name="Arial Bold" size="27.0" />
                            </font>
                         </Label>
                         <Label text="Apellido Paterno" textFill="WHITE">
                            <font>
-                              <Font name="Arial" size="27.0" />
+                              <Font name="Arial Bold" size="27.0" />
                            </font>
                         </Label>
                         <Label text="Apellido Materno" textFill="WHITE">
                            <font>
-                              <Font name="Arial" size="27.0" />
+                              <Font name="Arial Bold" size="27.0" />
                            </font>
                         </Label>
                         <Label text="Contraseña" textFill="WHITE">
                            <font>
-                              <Font name="Arial" size="27.0" />
+                              <Font name="Arial Bold" size="27.0" />
                            </font>
                         </Label>
                         <Label text="Fecha de nacimiento" textFill="WHITE">
                            <font>
-                              <Font name="Arial" size="27.0" />
+                              <Font name="Arial Bold" size="27.0" />
                            </font>
                         </Label>
                         <Label text="Telefono" textFill="WHITE">
                            <font>
-                              <Font name="Arial" size="27.0" />
+                              <Font name="Arial Bold" size="27.0" />
                            </font>
                         </Label>
                         <Label text="Correo" textFill="WHITE">
                            <font>
-                              <Font name="Arial" size="27.0" />
+                              <Font name="Arial Bold" size="27.0" />
                            </font>
                         </Label>
                         <Label text="Numero de tarjeta" textFill="WHITE">
                            <font>
-                              <Font name="Arial" size="27.0" />
+                              <Font name="Arial Bold" size="27.0" />
                            </font>
                         </Label>
                         <Label text="NIP" textFill="WHITE">
                            <font>
-                              <Font name="Arial" size="27.0" />
+                              <Font name="Arial Bold" size="27.0" />
                            </font>
                         </Label>
                      </children>
+                     <HBox.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </HBox.margin>
                   </VBox>
                   <VBox prefHeight="498.0" prefWidth="344.0" spacing="20.0">
                      <children>
-                        <TextField fx:id="txtId" prefHeight="32.0" />
-                        <TextField fx:id="txtNombre" prefHeight="32.0" />
-                        <TextField fx:id="txtApellidoP" prefHeight="32.0" />
-                        <TextField fx:id="txtApellidoM" prefHeight="32.0" />
-                        <TextField fx:id="txtContrasenia" prefHeight="32.0" />
+                        <TextField fx:id="txtId" prefHeight="32.0">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font></TextField>
+                        <TextField fx:id="txtNombre" prefHeight="32.0">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font></TextField>
+                        <TextField fx:id="txtApellidoP" prefHeight="32.0">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font></TextField>
+                        <TextField fx:id="txtApellidoM" prefHeight="32.0">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font></TextField>
+                        <TextField fx:id="txtContrasenia" prefHeight="32.0">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font></TextField>
                         <DatePicker fx:id="dtpFecha" prefHeight="32.0" />
-                        <TextField fx:id="txtTelefono" prefHeight="32.0" />
-                        <TextField fx:id="txtCorreo" prefHeight="32.0" />
-                        <TextField fx:id="txtTarjeta" prefHeight="32.0" />
-                        <TextField fx:id="txtNip" prefHeight="32.0" />
+                        <TextField fx:id="txtTelefono" prefHeight="32.0">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font></TextField>
+                        <TextField fx:id="txtCorreo" prefHeight="32.0">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font></TextField>
+                        <TextField fx:id="txtTarjeta" prefHeight="32.0">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font></TextField>
+                        <TextField fx:id="txtNip" prefHeight="32.0">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font></TextField>
                      </children>
+                     <HBox.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </HBox.margin>
                   </VBox>
                   <VBox prefHeight="498.0" prefWidth="194.0" spacing="100.0">
                      <children>

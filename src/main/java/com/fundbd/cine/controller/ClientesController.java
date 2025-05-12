@@ -16,12 +16,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 
 /**
  * FXML Controller class
@@ -64,7 +61,6 @@ public class ClientesController implements Initializable {
     /**
      * Initializes the controller class.
      */
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -84,31 +80,29 @@ public class ClientesController implements Initializable {
 
     @FXML
     private void btnAceptarOnAction(ActionEvent event) {
-
-     try {
-     String id = txtId.getText().trim();
-     String nombre = txtNombre.getText().trim();
-     String apellidoP = txtApellidoP.getText().trim();
-     String apellidoM = txtApellidoM.getText().trim();
-     String contrasenia = txtContrasenia.getText().trim();
-     Date fechaNac = java.sql.Date.valueOf(dtpFecha.getValue());
-     long numTel = Long.parseLong(txtTelefono.getText().trim());
-     String correo = txtCorreo.getText().trim();
-     long numTarjeta = Long.parseLong(txtTarjeta.getText().trim());
-     int nip = Integer.parseInt(txtNip.getText().trim());
-     Global.getConSql().insertarCliente(id, nombre, apellidoP, apellidoM, contrasenia, fechaNac, numTel, correo, numTarjeta, nip);
-     Global.mostrarInfo("Se inserto al cliente");
-        }catch(IOException | NumberFormatException | SQLException e){
-             Global.mostrarAlertaError(e.getMessage());
+        try {
+            String id = txtId.getText().trim();
+            String nombre = txtNombre.getText().trim();
+            String apellidoP = txtApellidoP.getText().trim();
+            String apellidoM = txtApellidoM.getText().trim();
+            String contrasenia = txtContrasenia.getText().trim();
+            Date fechaNac = java.sql.Date.valueOf(dtpFecha.getValue());
+            long numTel = Long.parseLong(txtTelefono.getText().trim());
+            String correo = txtCorreo.getText().trim();
+            long numTarjeta = Long.parseLong(txtTarjeta.getText().trim());
+            int nip = Integer.parseInt(txtNip.getText().trim());
+            Global.getConSql().insertarCliente(id, nombre, apellidoP, apellidoM, contrasenia, fechaNac, numTel, correo, numTarjeta, nip);
+            Global.mostrarInfo("Se inserto al cliente");
+        } catch (IOException | NumberFormatException | SQLException e) {
+            Global.mostrarAlertaError(e.getMessage());
         }
-        
+
     }
 
     @FXML
-private void btnCancelarOnAction(ActionEvent event) {
-        
+    private void btnCancelarOnAction(ActionEvent event) {
+
         App.cambiarAHome();
     }
-
 
 }

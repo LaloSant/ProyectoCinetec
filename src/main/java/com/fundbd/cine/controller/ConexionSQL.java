@@ -106,7 +106,7 @@ public class ConexionSQL {
         ps.close();
         return true;
     }
-    
+
     public boolean insertarCliente(String idCliente, String nombre,
             String apellidoP, String apellidoM, String contrasenia,
             Date fecha, long telefono, String correo, long numTarjeta,
@@ -116,10 +116,10 @@ public class ConexionSQL {
         ps.setString(2, nombre);
         ps.setString(3, apellidoP);
         ps.setString(4, apellidoM);
-        ps.setString(5,contrasenia);
-        ps.setDate(6, fecha);
-        ps.setLong(7, telefono);
-        ps.setString(8, correo);
+        ps.setString(5, correo);
+        ps.setLong(6, telefono);
+        ps.setDate(7, fecha);
+        ps.setString(8, contrasenia);
         ps.setLong(9, numTarjeta);
         ps.setInt(10, nip);
         ps.executeUpdate();

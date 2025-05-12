@@ -7,10 +7,13 @@ package com.fundbd.cine.controller;
 import com.fundbd.cine.App;
 import com.fundbd.cine.Global;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,13 +25,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+
 /**
  * FXML Controller class
  *
  * @author eduar
  */
 public class AnPeliculaController implements Initializable {
-
 
     @FXML
     private MenuItem mnuCines;
@@ -60,15 +63,16 @@ public class AnPeliculaController implements Initializable {
     private Button btnAgregar;
     @FXML
     private TextField txtClasificacion;
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {        
+    public void initialize(URL url, ResourceBundle rb) {
         cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCines().values()));
         cbBoxCines.getSelectionModel().select(Global.getCineActual());
-    }    
-    
+    }
+
     @FXML
     private void mnuCinesOnAction(ActionEvent event) {
         App.cambiarAHome();
@@ -92,10 +96,8 @@ public class AnPeliculaController implements Initializable {
         fc.setInitialDirectory(new File("/"));
         fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Imagenes", "*.jpg"));
         File selectedDirectory = fc.showOpenDialog(App.stage);
-        if (selectedDirectory != null) {
-            System.out.println("Selected directory: " + selectedDirectory.getAbsolutePath());
-        } else {
-            System.out.println("No directory selected.");
+        if (selectedDirectory == null) {
+            Global.mostrarAlertaError("En caso de no seleccionar imagen o trailer, se guardara como un BLOB vacio");
         }
         txtImagen.setText(selectedDirectory.getAbsolutePath());
     }
@@ -107,32 +109,30 @@ public class AnPeliculaController implements Initializable {
         fc.setInitialDirectory(new File("/"));
         fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Imagenes", "*.mp4"));
         File selectedDirectory = fc.showOpenDialog(App.stage);
-        if (selectedDirectory != null) {
-            System.out.println("Selected directory: " + selectedDirectory.getAbsolutePath());
-        } else {
-            System.out.println("No directory selected.");
+        if (selectedDirectory == null) {
+            Global.mostrarAlertaError("En caso de no seleccionar imagen o trailer, se guardara como un BLOB vacio");
         }
         txtTrailer.setText(selectedDirectory.getAbsolutePath());
     }
 
     @FXML
     private void btnAgregarOnAction(ActionEvent event) {
-        if (txtImagen.getText().isBlank() || txtTrailer.getText().isBlank()) {
-            Global.mostrarAlertaError("En caso de no seleccionar imagen o trailer, se guardara como un BLOB vacio");
-        }
         try {
+            String rutaImagen = txtImagen.getText();
+            String rutaVideo = txtTrailer.getText();
+            File fileImagen = (rutaImagen.isBlank()) ? new File("src/main/resources/temp/img404.jpg") : new File(rutaImagen);
+            File fileVideo = (rutaVideo.isBlank()) ? new File("src/main/resources/temp/video404.mp4") : new File(rutaVideo);
+
             String idPelicula = txtIdPelicula.getText();
             String nomPelicula = txtNomPelicula.getText();
             String sinopsis = txtSinopsis.getText();
-            int duracion = Integer.parseInt(txtDuracion.getText());
+            int duracion = (txtDuracion.getText().isBlank()) ? 0 : Integer.parseInt(txtDuracion.getText());
             String idioma = txtIdioma.getText();
             String clasificacion = txtClasificacion.getText();
             String genero = txtGenero.getText();
-            String rutaImagen = txtImagen.getText();
-            String rutaVideo = txtTrailer.getText();
-            Global.getConSql().insertarPelicula(idPelicula, nomPelicula, sinopsis, duracion, new File(rutaImagen), new File(rutaVideo), idioma, clasificacion, genero);
+            Global.getConSql().insertarPelicula(idPelicula, nomPelicula, sinopsis, duracion, fileImagen, fileVideo, idioma, clasificacion, genero);
             Global.mostrarInfo("Se inserto pelicula exitosamente!!");
-        } catch (IOException | NumberFormatException | SQLException e) {
+        } catch (SQLException | IOException e) {
             Global.mostrarAlertaError(e.getMessage());
         }
     }
