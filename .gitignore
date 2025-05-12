@@ -1,6 +1,5 @@
 # NetBeans specific files
 nbproject/private/
-nbproject/nbactions.xml
 nbproject/nb-configuration.xml
 
 # Maven target directory
