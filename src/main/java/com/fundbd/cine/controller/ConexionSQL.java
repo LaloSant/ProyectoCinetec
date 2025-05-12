@@ -107,20 +107,21 @@ public class ConexionSQL {
         return true;
     }
     
-    public boolean insertarCliente(String idPelicula, String nombre,
+    public boolean insertarCliente(String idCliente, String nombre,
             String apellidoP, String apellidoM, String contrasenia,
             Date fecha, long telefono, String correo, long numTarjeta,
             int nip) throws SQLException, IOException {
         PreparedStatement ps = conn.prepareStatement(Queries.insertarCliente());
-        ps.setString(1, idPelicula);
+        ps.setString(1, idCliente);
         ps.setString(2, nombre);
         ps.setString(3, apellidoP);
         ps.setString(4, apellidoM);
-        ps.setDate(5, fecha);
-        ps.setLong(6, telefono);
-        ps.setString(7, correo);
-        ps.setLong(8, numTarjeta);
-        ps.setInt(9, nip);
+        ps.setString(5,contrasenia);
+        ps.setDate(6, fecha);
+        ps.setLong(7, telefono);
+        ps.setString(8, correo);
+        ps.setLong(9, numTarjeta);
+        ps.setInt(10, nip);
         ps.executeUpdate();
         ps.close();
         return true;
