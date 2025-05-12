@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #10182a;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fundbd.cine.controller.ClientesController">
+  <children>
+      <MenuBar>
+         <menus>
+            <Menu mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem fx:id="mnuCines" mnemonicParsing="false" onAction="#mnuCinesOnAction" text="Seleccionar cine" />
+                  <MenuItem fx:id="mnuCartelera" mnemonicParsing="false" onAction="#mnuCarteleraOnAction" text="Ver cartelera" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Informacion">
+               <items>
+                  <MenuItem fx:id="mnItAcercaDe" mnemonicParsing="false" onAction="#mnuItemAcercaDeOnAction" text="Acerca de..." />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <BorderPane prefHeight="689.0" prefWidth="1280.0">
+         <bottom>
+            <Pane prefHeight="120.0" prefWidth="1280.0" style="-fx-background-color: #1a2b3f;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="93.0" fitWidth="114.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../temp/CineTecLogo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </bottom>
+         <top>
+            <Pane prefHeight="71.0" prefWidth="1280.0" style="-fx-background-color: #1a2b3f;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="61.0" fitWidth="122.0" layoutX="22.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../temp/CineTecLogoEstilo2.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </top>
+         <center>
+            <HBox prefHeight="498.0" prefWidth="591.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="498.0" prefWidth="268.0" spacing="20.0">
+                     <children>
+                        <Label text="Nombre" textFill="WHITE">
+                           <font>
+                              <Font name="Arial" size="27.0" />
+                           </font>
+                        </Label>
+                        <Label text="Apellido Paterno" textFill="WHITE">
+                           <font>
+                              <Font name="Arial" size="27.0" />
+                           </font>
+                        </Label>
+                        <Label text="Apellido Materno" textFill="WHITE">
+                           <font>
+                              <Font name="Arial" size="27.0" />
+                           </font>
+                        </Label>
+                        <Label text="Contraseña" textFill="WHITE">
+                           <font>
+                              <Font name="Arial" size="27.0" />
+                           </font>
+                        </Label>
+                        <Label text="Fecha de nacimiento" textFill="WHITE">
+                           <font>
+                              <Font name="Arial" size="27.0" />
+                           </font>
+                        </Label>
+                        <Label text="Telefono" textFill="WHITE">
+                           <font>
+                              <Font name="Arial" size="27.0" />
+                           </font>
+                        </Label>
+                        <Label text="Correo" textFill="WHITE">
+                           <font>
+                              <Font name="Arial" size="27.0" />
+                           </font>
+                        </Label>
+                        <Label text="Numero de tarjeta" textFill="WHITE">
+                           <font>
+                              <Font name="Arial" size="27.0" />
+                           </font>
+                        </Label>
+                        <Label text="NIP" textFill="WHITE">
+                           <font>
+                              <Font name="Arial" size="27.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="498.0" prefWidth="344.0" spacing="20.0">
+                     <children>
+                        <TextField fx:id="txtNombre" prefHeight="32.0" />
+                        <TextField fx:id="txtApellidoP" prefHeight="32.0" />
+                        <TextField fx:id="txtApellidoM" prefHeight="32.0" />
+                        <TextField fx:id="txtContrasenia" prefHeight="32.0" />
+                        <DatePicker fx:id="dtpFecha" prefHeight="32.0" />
+                        <TextField fx:id="txtTelefono" prefHeight="32.0" />
+                        <TextField fx:id="txtCorreo" prefHeight="32.0" />
+                        <TextField fx:id="txtTarjeta" prefHeight="32.0" />
+                        <TextField fx:id="txtNip" prefHeight="32.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="498.0" prefWidth="194.0" spacing="100.0">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="btnAceptar" layoutX="133.0" layoutY="120.0" mnemonicParsing="false" onAction="#btnAceptarOnAction" text="Aceptar" />
+                              <Button fx:id="btnCancelar" layoutX="12.0" layoutY="120.0" mnemonicParsing="false" text="Cancelar" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </center>
+      </BorderPane>
+  </children>
+</VBox>
