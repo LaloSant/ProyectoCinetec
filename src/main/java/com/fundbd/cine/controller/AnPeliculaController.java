@@ -7,7 +7,9 @@ package com.fundbd.cine.controller;
 import com.fundbd.cine.App;
 import com.fundbd.cine.Global;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -19,7 +21,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 /**
  * FXML Controller class
@@ -31,8 +32,6 @@ public class AnPeliculaController implements Initializable {
 
     @FXML
     private MenuItem mnuCines;
-    @FXML
-    private MenuItem mnuCartelera;
     @FXML
     private MenuItem mnItAcercaDe;
     @FXML
@@ -57,11 +56,15 @@ public class AnPeliculaController implements Initializable {
     private Button btnSelImg;
     @FXML
     private Button btnSelTrailer;
+    @FXML
+    private Button btnAgregar;
+    @FXML
+    private TextField txtClasificacion;
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) {        
         cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCines().values()));
         cbBoxCines.getSelectionModel().select(Global.getCineActual());
     }    
@@ -100,16 +103,38 @@ public class AnPeliculaController implements Initializable {
     @FXML
     private void btnSelTrailerOnAction(ActionEvent event) {
         FileChooser fc = new FileChooser();
-        fc.setTitle("Seleccione imagen");
+        fc.setTitle("Seleccione trailer");
         fc.setInitialDirectory(new File("/"));
-        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Imagenes", "*.jpg"));
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Imagenes", "*.mp4"));
         File selectedDirectory = fc.showOpenDialog(App.stage);
         if (selectedDirectory != null) {
             System.out.println("Selected directory: " + selectedDirectory.getAbsolutePath());
         } else {
             System.out.println("No directory selected.");
         }
-        txtImagen.setText(selectedDirectory.getAbsolutePath());
+        txtTrailer.setText(selectedDirectory.getAbsolutePath());
+    }
+
+    @FXML
+    private void btnAgregarOnAction(ActionEvent event) {
+        if (txtImagen.getText().isBlank() || txtTrailer.getText().isBlank()) {
+            Global.mostrarAlertaError("En caso de no seleccionar imagen o trailer, se guardara como un BLOB vacio");
+        }
+        try {
+            String idPelicula = txtIdPelicula.getText();
+            String nomPelicula = txtNomPelicula.getText();
+            String sinopsis = txtSinopsis.getText();
+            int duracion = Integer.parseInt(txtDuracion.getText());
+            String idioma = txtIdioma.getText();
+            String clasificacion = txtClasificacion.getText();
+            String genero = txtGenero.getText();
+            String rutaImagen = txtImagen.getText();
+            String rutaVideo = txtTrailer.getText();
+            Global.getConSql().insertarPelicula(idPelicula, nomPelicula, sinopsis, duracion, new File(rutaImagen), new File(rutaVideo), idioma, clasificacion, genero);
+            Global.mostrarInfo("Se inserto pelicula exitosamente!!");
+        } catch (IOException | NumberFormatException | SQLException e) {
+            Global.mostrarAlertaError(e.getMessage());
+        }
     }
 
 }

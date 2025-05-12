@@ -96,5 +96,10 @@ public class Global {
         Alert alerta = new Alert(Alert.AlertType.ERROR, msg, ButtonType.CLOSE);
         alerta.show();
     }
+    
+    public static void mostrarInfo(String msg) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION, msg, ButtonType.CLOSE);
+        alerta.show();
+    }
 
 }

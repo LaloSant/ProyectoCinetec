@@ -21,6 +21,12 @@ public class Queries {
         return String.format("SELECT * FROM CINES WHERE id_cine = '%s'", idCine);
     }
 
+    /**
+     * Para cartelera
+     *
+     * @param idCine
+     * @return
+     */
     public static String selectPeliculas(String idCine) {
         return String.format("SELECT P.*, F.HORARIO \n"
                 + "FROM PELICULAS P\n"
@@ -30,6 +36,20 @@ public class Queries {
 
     public static String selectPelicula(String idPelicula) {
         return String.format("SELECT * FROM PELICULAS WHERE id_pelicula = '%s'", idPelicula);
+    }
+
+    public static String insertarPelicula() {
+        return "INSERT INTO PELICULAS VALUES(\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?)\n"
+                + ")";
     }
 
     public static String subirImagenPelicula(String idPelicula) {

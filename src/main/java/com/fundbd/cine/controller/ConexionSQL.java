@@ -4,8 +4,11 @@
  */
 package com.fundbd.cine.controller;
 
+import com.fundbd.cine.Global;
+import com.fundbd.cine.Queries;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,7 +72,7 @@ public class ConexionSQL {
         }
         return resultado;
     }
-    
+
     public ResultSet consulta(String query) {
         ArrayList<String> resultado = new ArrayList<>();
         ResultSet rs = null;
@@ -79,11 +82,48 @@ public class ConexionSQL {
             rs = sentencia.executeQuery(query);
             return rs;
         } catch (SQLException ex) {
-            Logger.getLogger(ConexionSQL.class.getName()).log(Level.SEVERE, null, ex);
+            Global.mostrarAlertaError(ex.getMessage());
         }
         return rs;
     }
-    
+
+    public boolean insertarPelicula(String idPelicula, String nombre,
+            String sinopsis, int duracion, File imagen,
+            File video, String idioma, String clasificacion,
+            String genero) throws SQLException, IOException {
+        PreparedStatement ps = conn.prepareStatement(Queries.insertarPelicula());
+        ps.setString(1, idPelicula);
+        ps.setString(2, nombre);
+        ps.setString(3, sinopsis);
+        ps.setInt(4, duracion);
+        ps.setBlob(5, crearBlob(imagen));
+        ps.setBlob(6, crearBlob(video));
+        ps.setString(7, idioma);
+        ps.setString(8, clasificacion);
+        ps.setString(9, genero);
+        ps.executeUpdate();
+        ps.close();
+        return true;
+    }
+
+    public Blob crearBlob(File file) throws IOException, SQLException {
+        FileInputStream fis = new FileInputStream(file);
+        byte[] bytes = new byte[(int) file.length()];
+        int bytesRead;
+        int offset = 0;
+        while (offset < bytes.length) {
+            bytesRead = fis.read(bytes, offset, bytes.length - offset);
+            if (bytesRead == -1) {
+                break;
+            }
+            offset += bytesRead;
+        }
+        fis.close();
+        Blob b = conn.createBlob();
+        b.setBytes(1, bytes);
+        return b;
+    }
+
     public void subirBlob(String ruta, String query) {
         try {
             this.conectar();
