@@ -51,6 +51,20 @@ public class Queries {
                 + "    (?)\n"
                 + ")";
     }
+    
+     public static String insertarCliente() {
+        return "INSERT INTO CLIENTES VALUES(\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?)\n"
+                + ")";
+    }
 
     public static String subirImagenPelicula(String idPelicula) {
         return String.format("UPDATE PELICULAS SET IMAGEN = (?) WHERE ID_PELICULA = '%s'", idPelicula);

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -101,6 +102,25 @@ public class ConexionSQL {
         ps.setString(7, idioma);
         ps.setString(8, clasificacion);
         ps.setString(9, genero);
+        ps.executeUpdate();
+        ps.close();
+        return true;
+    }
+    
+    public boolean insertarCliente(String idPelicula, String nombre,
+            String apellidoP, String apellidoM, String contrasenia,
+            Date fecha, long telefono, String correo, long numTarjeta,
+            int nip) throws SQLException, IOException {
+        PreparedStatement ps = conn.prepareStatement(Queries.insertarCliente());
+        ps.setString(1, idPelicula);
+        ps.setString(2, nombre);
+        ps.setString(3, apellidoP);
+        ps.setString(4, apellidoM);
+        ps.setDate(5, fecha);
+        ps.setLong(6, telefono);
+        ps.setString(7, correo);
+        ps.setLong(8, numTarjeta);
+        ps.setInt(9, nip);
         ps.executeUpdate();
         ps.close();
         return true;

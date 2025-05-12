@@ -57,6 +57,11 @@
                <children>
                   <VBox prefHeight="498.0" prefWidth="268.0" spacing="20.0">
                      <children>
+                        <Label text="ID Cliente" textFill="WHITE">
+                           <font>
+                              <Font name="Arial" size="27.0" />
+                           </font>
+                        </Label>
                         <Label text="Nombre" textFill="WHITE">
                            <font>
                               <Font name="Arial" size="27.0" />
@@ -106,6 +111,7 @@
                   </VBox>
                   <VBox prefHeight="498.0" prefWidth="344.0" spacing="20.0">
                      <children>
+                        <TextField fx:id="txtId" prefHeight="32.0" />
                         <TextField fx:id="txtNombre" prefHeight="32.0" />
                         <TextField fx:id="txtApellidoP" prefHeight="32.0" />
                         <TextField fx:id="txtApellidoM" prefHeight="32.0" />
@@ -123,7 +129,7 @@
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <Button fx:id="btnAceptar" layoutX="133.0" layoutY="120.0" mnemonicParsing="false" onAction="#btnAceptarOnAction" text="Aceptar" />
-                              <Button fx:id="btnCancelar" layoutX="12.0" layoutY="120.0" mnemonicParsing="false" text="Cancelar" />
+                              <Button fx:id="btnCancelar" layoutX="12.0" layoutY="120.0" mnemonicParsing="false" onAction="#btnCancelarOnAction" text="Cancelar" />
                            </children>
                         </AnchorPane>
                      </children>

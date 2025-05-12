@@ -40,6 +40,8 @@ public class HomeController implements Initializable {
     private Button btnVerFunciones;
     @FXML
     private MenuItem mnuAnPelicula;
+    @FXML
+    private MenuItem mnuAnCliente;
 
     /**
      * Initializes the controller class.
@@ -80,6 +82,13 @@ public class HomeController implements Initializable {
     @FXML
     private void mnuAnPeliculaOnAction(ActionEvent event) {
         App.cambiarVista("anPelicula");
+    }
+
+    @FXML
+    private void mnuAnClienteOnAction(ActionEvent event) {
+        App.cambiarVista("clientes"); 
+        
+    
     }
     
 }

@@ -4,7 +4,12 @@
  */
 package com.fundbd.cine.controller;
 
+import com.fundbd.cine.App;
+import com.fundbd.cine.Global;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,13 +22,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+
 /**
  * FXML Controller class
  *
  * @author yael95
  */
 public class ClientesController implements Initializable {
-
 
     @FXML
     private MenuItem mnuCines;
@@ -53,14 +58,18 @@ public class ClientesController implements Initializable {
     private Button btnAceptar;
     @FXML
     private Button btnCancelar;
+    @FXML
+    private TextField txtId;
+
     /**
      * Initializes the controller class.
      */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
     @FXML
     private void mnuCinesOnAction(ActionEvent event) {
     }
@@ -75,9 +84,30 @@ public class ClientesController implements Initializable {
 
     @FXML
     private void btnAceptarOnAction(ActionEvent event) {
+
+     try {
+     String id = txtId.getText().trim();
+     String nombre = txtNombre.getText().trim();
+     String apellidoP = txtApellidoP.getText().trim();
+     String apellidoM = txtApellidoM.getText().trim();
+     String contrasenia = txtContrasenia.getText().trim();
+     Date fechaNac = java.sql.Date.valueOf(dtpFecha.getValue());
+     long numTel = Long.parseLong(txtTelefono.getText().trim());
+     String correo = txtCorreo.getText().trim();
+     long numTarjeta = Long.parseLong(txtTarjeta.getText().trim());
+     int nip = Integer.parseInt(txtNip.getText().trim());
+     Global.getConSql().insertarCliente(id, nombre, apellidoP, apellidoM, contrasenia, fechaNac, numTel, correo, numTarjeta, nip);
+     Global.mostrarInfo("Se inserto al cliente");
+        }catch(IOException | NumberFormatException | SQLException e){
+             Global.mostrarAlertaError(e.getMessage());
+        }
         
+    }
+
+    @FXML
+private void btnCancelarOnAction(ActionEvent event) {
         
-        
+        App.cambiarAHome();
     }
 
 
