@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #10182a;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fundbd.cine.controller.AnPeliculaController">
+  <children>
+      <MenuBar>
+         <menus>
+            <Menu mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem fx:id="mnuCines" mnemonicParsing="false" onAction="#mnuCinesOnAction" text="Seleccionar cine" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Informacion">
+               <items>
+                  <MenuItem fx:id="mnItAcercaDe" mnemonicParsing="false" onAction="#mnuItemAcercaDeOnAction" text="Acerca de..." />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <BorderPane prefHeight="689.0" prefWidth="1280.0">
+         <bottom>
+            <Pane prefHeight="120.0" prefWidth="1280.0" style="-fx-background-color: #1a2b3f;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="93.0" fitWidth="114.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../temp/CineTecLogo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </bottom>
+         <top>
+            <Pane prefHeight="71.0" prefWidth="1280.0" style="-fx-background-color: #1a2b3f;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="1102.0" layoutY="20.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="162.0" text="Ver cartelera" textAlignment="CENTER">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor></Button>
+                  <ComboBox fx:id="cbBoxCines" layoutX="894.0" layoutY="20.0" onAction="#cbBoxCinesOnAction" prefHeight="31.0" prefWidth="182.0" promptText="Seleccionar cine">
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant color="#e8d0a7" />
+                           </light>
+                        </Lighting>
+                     </effect></ComboBox>
+                  <ImageView fitHeight="61.0" fitWidth="122.0" layoutX="22.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../temp/CineTecLogoEstilo2.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </top>
+         <right>
+            <VBox prefHeight="498.0" prefWidth="252.0" BorderPane.alignment="CENTER" />
+         </right>
+         <center>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="468.0" prefWidth="289.0" spacing="15.0">
+                     <children>
+                        <Label prefHeight="31.0" text="ID PELICULA:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="31.0" text="NOMBRE PELICULA:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="31.0" text="DURACION:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="31.0" text="IMAGEN:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="31.0" text="TRAILER:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="31.0" text="IDIOMA:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="31.0" text="CLASIFICACION:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="31.0" text="GENERO:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="31.0" text="SINOPSIS:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="468.0" prefWidth="423.0" spacing="15.0">
+                     <children>
+                        <TextField fx:id="txtIdPelicula" promptText="INGRESE ID PELICULA (CHAR 6)" />
+                        <TextField fx:id="txtNomPelicula" promptText="INGRESE NOMBRE PELICULA (CHAR 20, NOT NULL)" />
+                        <TextField fx:id="txtDuracion" promptText="INGRESE DURACION EN MINUTOS (INT, NOT NULL)" />
+                        <TextField fx:id="txtImagen" editable="false" promptText="SELECCIONE ARCHIVO PARA IMAGEN" />
+                        <TextField fx:id="txtTrailer" editable="false" promptText="SELECCIONE ARCHIVO PARA IMAGEN" />
+                        <TextField fx:id="txtIdioma" promptText="INGRESE IDIOMA (CHAR 20)" />
+                        <TextField fx:id="txtIdioma" promptText="INGRESE CLASIFICACION (CHAR 4)" />
+                        <TextField fx:id="txtGenero" promptText="INGRESE CLASIFICACION (CHAR 20)" />
+                        <TextArea fx:id="txtSinopsis" prefHeight="200.0" prefWidth="200.0" promptText="AGREGUE SINOPSIS (CHAR 150)" />
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </HBox.margin></VBox>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </HBox.margin>
+                     <children>
+                        <Button fx:id="btnSelImg" layoutX="15.0" layoutY="137.0" mnemonicParsing="false" onAction="#btnSelImgOnAction" text="SELECCIONAR...">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnSelTrailer" layoutX="15.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnSelTrailerOnAction" text="SELECCIONAR...">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </BorderPane.margin>
+            </HBox>
+         </center>
+      </BorderPane>
+  </children>
+</VBox>

@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class App extends Application {
 
     private static Scene scene;
-    private static Stage stage;
+    public static Stage stage;
 
     public static void main(String[] args) {
         launch();

@@ -38,6 +38,8 @@ public class HomeController implements Initializable {
     private MenuItem mnItAcercaDe;
     @FXML
     private Button btnVerFunciones;
+    @FXML
+    private MenuItem mnuAnPelicula;
 
     /**
      * Initializes the controller class.
@@ -73,6 +75,11 @@ public class HomeController implements Initializable {
     private void btnFuncionesOnAction(ActionEvent event) {
         Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
         App.cambiarVista("cartelera");
+    }
+
+    @FXML
+    private void mnuAnPeliculaOnAction(ActionEvent event) {
+        App.cambiarVista("anPelicula");
     }
     
 }
