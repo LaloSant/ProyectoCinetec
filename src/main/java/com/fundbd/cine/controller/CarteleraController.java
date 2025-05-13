@@ -41,15 +41,6 @@ public class CarteleraController {
     private int pagina = 0;
 
     @FXML
-    private MenuItem mnuCines;
-
-    @FXML
-    private MenuItem mnItAcercaDe;
-
-    @FXML
-    private MenuItem mnuCartelera;
-
-    @FXML
     private ComboBox<String> cbBoxCines;
 
     @FXML
@@ -66,6 +57,16 @@ public class CarteleraController {
 
     @FXML
     private TextField lblPagina;
+    @FXML
+    private MenuItem mnuSelCine;
+    @FXML
+    private MenuItem mnuVerCartelera;
+    @FXML
+    private MenuItem mnuAgregarCliente;
+    @FXML
+    private MenuItem mnuAgregarPelicula;
+    @FXML
+    private MenuItem mnItAcercaDe1;
 
     public void initialize() {
         Object idCineObj = Global.getCines().keySet().toArray()[Global.getCineActual()];
@@ -115,11 +116,6 @@ public class CarteleraController {
     }
 
     @FXML
-    public void mnuCinesOnAction(ActionEvent event) {
-        App.cambiarAHome();
-    }
-
-    @FXML
     private void btnSiguienteOnAction(ActionEvent event) {
         if (((pagina + 1) * 4) < peliculas.size()) {
             lblPagina.setText(String.valueOf((++pagina)) + 1);
@@ -133,22 +129,6 @@ public class CarteleraController {
             lblPagina.setText(String.valueOf(pagina--));
             ponerPeliculas();
         }
-    }
-
-    @FXML
-    public void mnuCarteleraOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    public void mnuItemAcercaDeOnAction(ActionEvent event) {
-        Global.mostrarMenuCreditos();
-    }
-
-    @FXML
-    public void cbBoxCinesOnAction(ActionEvent event) {
-        Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
-        App.cambiarVista("cartelera");
     }
 
     private AnchorPane crearAnchorPanePelicula(String titulo, InputStream imagen, String sinapsis, String idPelicula) throws IOException {
@@ -195,6 +175,37 @@ public class CarteleraController {
     private void botonPresionado(String idPelicula) {
         Global.setIdPeliculaActual(idPelicula);
         App.cambiarVista("pelicula");
+    }
+
+    @FXML
+    public void cbBoxCinesOnAction(ActionEvent event) {
+        Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
+        App.cambiarVista("cartelera");
+    }
+
+    @FXML
+    private void mnuSelCineOnAction(ActionEvent event) {
+        App.cambiarAHome();
+    }
+
+    @FXML
+    private void mnuVerCarteleraOnAction(ActionEvent event) {
+        App.cambiarVista("cartelera");
+    }
+
+    @FXML
+    private void mnuAgregarClienteOnAction(ActionEvent event) {
+        App.cambiarVista("clientes");
+    }
+
+    @FXML
+    private void mnuAgregarPeliculaOnAction(ActionEvent event) {
+        App.cambiarVista("anPelicula");
+    }
+
+    @FXML
+    public void mnuItemAcercaDeOnAction(ActionEvent event) {
+        Global.mostrarMenuCreditos();
     }
 
 }

@@ -9,7 +9,6 @@ import com.fundbd.cine.Global;
 import com.fundbd.cine.Queries;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,12 +44,6 @@ public class PeliculaController implements Initializable {
     private static String RUTA_IMAGEN = "src/main/resources/temp/img.jpg";
 
     @FXML
-    private MenuItem mnItAcercaDe;
-    @FXML
-    private MenuItem mnuCines;
-    @FXML
-    private MenuItem mnuCartelera;
-    @FXML
     private Label lblTitulo;
     @FXML
     private TextArea txtArSinopsis;
@@ -76,6 +69,16 @@ public class PeliculaController implements Initializable {
     private ComboBox<String> cbBoxCines;
     @FXML
     private Button btnVerCartelera;
+    @FXML
+    private MenuItem mnuSelCine;
+    @FXML
+    private MenuItem mnuVerCartelera;
+    @FXML
+    private MenuItem mnuAgregarCliente;
+    @FXML
+    private MenuItem mnuAgregarPelicula;
+    @FXML
+    private MenuItem mnItAcercaDe1;
 
     public PeliculaController() {
 
@@ -129,10 +132,9 @@ public class PeliculaController implements Initializable {
         lblIdioma.setText(idioma);
         lblClasificacion.setText(clasificacion);
         lblGenero.setText(genero);
-
     }
 
-    public boolean leerBlob(String idPelicula, InputStream is, String ruta) throws FileNotFoundException, IOException {
+    public boolean leerBlob(String idPelicula, InputStream is, String ruta) throws IOException {
         boolean termino = false;
         FileOutputStream fos = new FileOutputStream(ruta);
         byte[] buffer = new byte[1024];
@@ -164,22 +166,10 @@ public class PeliculaController implements Initializable {
 
     @FXML
     private void onBtnComprarAction(ActionEvent event) {
-        
-    }
-
-    @FXML
-    private void mnuCinesOnAction(ActionEvent event) {
         mVTrailer.getMediaPlayer().pause();
-        App.cambiarAHome();
+        App.cambiarVista("asientosNorm");
     }
 
-    @FXML
-    private void mnuItemAcercaDeOnAction(ActionEvent event) {
-        mVTrailer.getMediaPlayer().pause();
-        Global.mostrarMenuCreditos();
-    }
-
-    @FXML
     private void mnuCarteleraOnAction(ActionEvent event) {
         mVTrailer.getMediaPlayer().pause();
         App.cambiarVista("cartelera");
@@ -195,5 +185,34 @@ public class PeliculaController implements Initializable {
     private void btnVerCarteleraOnAction(ActionEvent event) {
         mVTrailer.getMediaPlayer().pause();
         App.cambiarVista("cartelera");
+    }
+
+    @FXML
+    private void mnuSelCineOnAction(ActionEvent event) {
+        App.cambiarAHome();
+    }
+
+    @FXML
+    private void mnuVerCarteleraOnAction(ActionEvent event) {
+        mVTrailer.getMediaPlayer().pause();
+        App.cambiarVista("cartelera");
+    }
+
+    @FXML
+    private void mnuAgregarClienteOnAction(ActionEvent event) {
+        mVTrailer.getMediaPlayer().pause();
+        App.cambiarVista("clientes");
+    }
+
+    @FXML
+    private void mnuAgregarPeliculaOnAction(ActionEvent event) {
+        mVTrailer.getMediaPlayer().pause();
+        App.cambiarVista("anPelicula");
+    }
+
+    @FXML
+    private void mnuItemAcercaDeOnAction(ActionEvent event) {
+        mVTrailer.getMediaPlayer().pause();
+        Global.mostrarMenuCreditos();
     }
 }

@@ -7,13 +7,10 @@ package com.fundbd.cine.controller;
 import com.fundbd.cine.App;
 import com.fundbd.cine.Global;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,10 +30,6 @@ import javafx.stage.FileChooser;
  */
 public class AnPeliculaController implements Initializable {
 
-    @FXML
-    private MenuItem mnuCines;
-    @FXML
-    private MenuItem mnItAcercaDe;
     @FXML
     private ComboBox<String> cbBoxCines;
     @FXML
@@ -63,6 +56,16 @@ public class AnPeliculaController implements Initializable {
     private Button btnAgregar;
     @FXML
     private TextField txtClasificacion;
+    @FXML
+    private MenuItem mnuSelCine;
+    @FXML
+    private MenuItem mnuVerCartelera;
+    @FXML
+    private MenuItem mnuAgregarCliente;
+    @FXML
+    private MenuItem mnuAgregarPelicula;
+    @FXML
+    private MenuItem mnItAcercaDe1;
 
     /**
      * Initializes the controller class.
@@ -71,16 +74,6 @@ public class AnPeliculaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCines().values()));
         cbBoxCines.getSelectionModel().select(Global.getCineActual());
-    }
-
-    @FXML
-    private void mnuCinesOnAction(ActionEvent event) {
-        App.cambiarAHome();
-    }
-
-    @FXML
-    private void mnuItemAcercaDeOnAction(ActionEvent event) {
-        Global.mostrarMenuCreditos();
     }
 
     @FXML
@@ -122,19 +115,42 @@ public class AnPeliculaController implements Initializable {
             String rutaVideo = txtTrailer.getText();
             File fileImagen = (rutaImagen.isBlank()) ? new File("src/main/resources/temp/img404.jpg") : new File(rutaImagen);
             File fileVideo = (rutaVideo.isBlank()) ? new File("src/main/resources/temp/video404.mp4") : new File(rutaVideo);
-
             String idPelicula = txtIdPelicula.getText();
             String nomPelicula = txtNomPelicula.getText();
             String sinopsis = txtSinopsis.getText();
-            int duracion = (txtDuracion.getText().isBlank()) ? 0 : Integer.parseInt(txtDuracion.getText());
+            String duracion = txtDuracion.getText();
             String idioma = txtIdioma.getText();
             String clasificacion = txtClasificacion.getText();
             String genero = txtGenero.getText();
             Global.getConSql().insertarPelicula(idPelicula, nomPelicula, sinopsis, duracion, fileImagen, fileVideo, idioma, clasificacion, genero);
-            Global.mostrarInfo("Se inserto pelicula exitosamente!!");
+            Global.mostrarInfo("Se inserto pelicula exitosamente!");
         } catch (SQLException | IOException e) {
             Global.mostrarAlertaError(e.getMessage());
         }
     }
 
+    @FXML
+    private void mnuSelCineOnAction(ActionEvent event) {
+        App.cambiarAHome();
+    }
+
+    @FXML
+    private void mnuVerCarteleraOnAction(ActionEvent event) {
+        Global.mostrarAlertaError("Como llegaste aqui?");
+    }
+
+    @FXML
+    private void mnuAgregarClienteOnAction(ActionEvent event) {
+        App.cambiarVista("cliente");
+    }
+
+    @FXML
+    private void mnuAgregarPeliculaOnAction(ActionEvent event) {
+        App.cambiarVista("anPelicula");
+    }
+
+    @FXML
+    private void mnuItemAcercaDeOnAction(ActionEvent event) {
+        Global.mostrarMenuCreditos();
+    }
 }

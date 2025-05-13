@@ -18,12 +18,19 @@
          <menus>
             <Menu mnemonicParsing="false" text="Menu">
                <items>
-                  <MenuItem fx:id="mnuCines" mnemonicParsing="false" onAction="#mnuCinesOnAction" text="Seleccionar cine" />
+                  <MenuItem fx:id="mnuSelCine" mnemonicParsing="false" onAction="#mnuSelCineOnAction" text="Seleccionar cine" />
+                  <MenuItem fx:id="mnuVerCartelera" disable="true" mnemonicParsing="false" onAction="#mnuVerCarteleraOnAction" text="Ver cartelera" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Agregar">
+               <items>
+                  <MenuItem fx:id="mnuAgregarCliente" mnemonicParsing="false" onAction="#mnuAgregarClienteOnAction" text="Cliente" />
+                  <MenuItem fx:id="mnuAgregarPelicula" mnemonicParsing="false" onAction="#mnuAgregarPeliculaOnAction" text="Pelicula" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Informacion">
                <items>
-                  <MenuItem fx:id="mnItAcercaDe" mnemonicParsing="false" onAction="#mnuItemAcercaDeOnAction" text="Acerca de..." />
+                  <MenuItem fx:id="mnItAcercaDe1" mnemonicParsing="false" onAction="#mnuItemAcercaDeOnAction" text="Acerca de..." />
                </items>
             </Menu>
          </menus>

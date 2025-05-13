@@ -28,12 +28,6 @@ import javafx.scene.control.TextField;
 public class ClientesController implements Initializable {
 
     @FXML
-    private MenuItem mnuCines;
-    @FXML
-    private MenuItem mnuCartelera;
-    @FXML
-    private MenuItem mnItAcercaDe;
-    @FXML
     private TextField txtNombre;
     @FXML
     private TextField txtApellidoP;
@@ -57,6 +51,16 @@ public class ClientesController implements Initializable {
     private Button btnCancelar;
     @FXML
     private TextField txtId;
+    @FXML
+    private MenuItem mnuSelCine;
+    @FXML
+    private MenuItem mnuVerCartelera;
+    @FXML
+    private MenuItem mnuAgregarCliente;
+    @FXML
+    private MenuItem mnuAgregarPelicula;
+    @FXML
+    private MenuItem mnItAcercaDe1;
 
     /**
      * Initializes the controller class.
@@ -64,18 +68,6 @@ public class ClientesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
-
-    @FXML
-    private void mnuCinesOnAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void mnuCarteleraOnAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void mnuItemAcercaDeOnAction(ActionEvent event) {
     }
 
     @FXML
@@ -87,12 +79,12 @@ public class ClientesController implements Initializable {
             String apellidoM = txtApellidoM.getText().trim();
             String contrasenia = txtContrasenia.getText().trim();
             Date fechaNac = (dtpFecha.getValue() != null) ? java.sql.Date.valueOf(dtpFecha.getValue()) : null;
-            Long numTel = (!txtTelefono.getText().isBlank())? Long.parseLong(txtTelefono.getText().trim()): null;
+            String numTel = txtTelefono.getText();
             String correo = txtCorreo.getText().trim();
-            Long numTarjeta = (!txtTarjeta.getText().isBlank())? Long.parseLong(txtTarjeta.getText().trim()):null;
-            Integer nip = (!txtNip.getText().isBlank()) ? Integer.parseInt(txtNip.getText().trim()):null;
+            String numTarjeta = txtTarjeta.getText();
+            String nip = txtNip.getText();
             Global.getConSql().insertarCliente(id, nombre, apellidoP, apellidoM, contrasenia, fechaNac, numTel, correo, numTarjeta, nip);
-            Global.mostrarInfo("Se inserto al cliente");
+            Global.mostrarInfo("Se inserto al cliente!");
         } catch (IOException | NumberFormatException | SQLException e) {
             Global.mostrarAlertaError(e.getMessage());
         }
@@ -101,8 +93,32 @@ public class ClientesController implements Initializable {
 
     @FXML
     private void btnCancelarOnAction(ActionEvent event) {
-
         App.cambiarAHome();
+    }
+
+    @FXML
+    private void mnuSelCineOnAction(ActionEvent event) {
+        App.cambiarAHome();
+    }
+
+    @FXML
+    private void mnuVerCarteleraOnAction(ActionEvent event) {
+        Global.mostrarAlertaError("Como llegaste aqui?");
+    }
+
+    @FXML
+    private void mnuAgregarClienteOnAction(ActionEvent event) {
+        App.cambiarVista("clientes");
+    }
+
+    @FXML
+    private void mnuAgregarPeliculaOnAction(ActionEvent event) {
+        App.cambiarVista("anPelicula");
+    }
+
+    @FXML
+    private void mnuItemAcercaDeOnAction(ActionEvent event) {
+        Global.mostrarMenuCreditos();
     }
 
 }

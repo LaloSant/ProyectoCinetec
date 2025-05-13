@@ -39,9 +39,13 @@ public class HomeController implements Initializable {
     @FXML
     private Button btnVerFunciones;
     @FXML
-    private MenuItem mnuAnPelicula;
+    private MenuItem mnuSelCine;
     @FXML
-    private MenuItem mnuAnCliente;
+    private MenuItem mnuVerCartelera;
+    @FXML
+    private MenuItem mnuAgregarCliente;
+    @FXML
+    private MenuItem mnuAgregarPelicula;
 
     /**
      * Initializes the controller class.
@@ -57,20 +61,15 @@ public class HomeController implements Initializable {
         } catch (SQLException ex) {
             Global.mostrarAlertaError(ex.getMessage());
         }
-        
+
         Global.setCines(cines);
         ObservableList<String> datos = FXCollections.observableArrayList(new ArrayList(cines.values()));
         cbBoxCines.setItems(datos);
-    }    
+    }
 
     @FXML
     private void cbBoxCinesOnAction(ActionEvent event) {
         btnVerFunciones.setDisable(false);
-    }
-
-    @FXML
-    private void mnuItemAcercaDeOnAction(ActionEvent event) {
-        Global.mostrarMenuCreditos();
     }
 
     @FXML
@@ -80,15 +79,28 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    private void mnuAnPeliculaOnAction(ActionEvent event) {
+    private void mnuSelCineOnAction(ActionEvent event) {
+        App.cambiarAHome();
+    }
+
+    @FXML
+    private void mnuVerCarteleraOnAction(ActionEvent event) {
+        Global.mostrarAlertaError("Como llegaste aqui?");
+    }
+
+    @FXML
+    private void mnuAgregarClienteOnAction(ActionEvent event) {
+        App.cambiarVista("clientes");
+    }
+
+    @FXML
+    private void mnuAgregarPeliculaOnAction(ActionEvent event) {
         App.cambiarVista("anPelicula");
     }
 
     @FXML
-    private void mnuAnClienteOnAction(ActionEvent event) {
-        App.cambiarVista("clientes"); 
-        
-    
+    private void mnuItemAcercaDeOnAction(ActionEvent event) {
+        Global.mostrarMenuCreditos();
     }
-    
+
 }

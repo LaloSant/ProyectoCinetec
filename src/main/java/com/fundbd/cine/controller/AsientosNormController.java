@@ -8,7 +8,6 @@ import com.fundbd.cine.App;
 import com.fundbd.cine.Global;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,21 +16,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+
 /**
  * FXML Controller class
  *
  * @author eriks
  */
-public class AsientosNormController implements Initializable
-{
+public class AsientosNormController implements Initializable {
 
-
-    @FXML
-    private MenuItem mnuCines;
-    @FXML
-    private MenuItem mnuCartelera;
-    @FXML
-    private MenuItem mnItAcercaDe;
     @FXML
     private ComboBox<?> cbBoxCines;
     @FXML
@@ -40,45 +32,61 @@ public class AsientosNormController implements Initializable
     private Button btnComprar;
     @FXML
     private TextArea txtMostrar;
+    @FXML
+    private MenuItem mnuSelCine;
+    @FXML
+    private MenuItem mnuVerCartelera;
+    @FXML
+    private MenuItem mnuAgregarCliente;
+    @FXML
+    private MenuItem mnuAgregarPelicula;
+    @FXML
+    private MenuItem mnItAcercaDe1;
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
-        
-    }    
+    public void initialize(URL url, ResourceBundle rb) {
 
-    @FXML
-    private void mnuCinesOnAction(ActionEvent event)
-    {
     }
 
     @FXML
-    private void mnuCarteleraOnAction(ActionEvent event)
-    {
+    private void cbColumnas(ActionEvent event) {
     }
 
     @FXML
-    private void mnuItemAcercaDeOnAction(ActionEvent event)
-    {
+    private void cbFilas(ActionEvent event) {
     }
-    
+
     @FXML
-    private void cbBoxCinesOnAction(ActionEvent event)
-    {
+    private void cbBoxCinesOnAction(ActionEvent event) {
         Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
         App.cambiarVista("cartelera");
     }
 
     @FXML
-    private void cbColumnas(ActionEvent event)
-    {
+    private void mnuSelCineOnAction(ActionEvent event) {
+        App.cambiarAHome();
     }
 
     @FXML
-    private void cbFilas(ActionEvent event)
-    {
+    private void mnuVerCarteleraOnAction(ActionEvent event) {
+        App.cambiarVista("cartelera");
     }
-    
+
+    @FXML
+    private void mnuAgregarClienteOnAction(ActionEvent event) {
+        App.cambiarVista("clientes");
+    }
+
+    @FXML
+    private void mnuAgregarPeliculaOnAction(ActionEvent event) {
+        App.cambiarVista("anPelicula");
+    }
+
+    @FXML
+    private void mnuItemAcercaDeOnAction(ActionEvent event) {
+        Global.mostrarMenuCreditos();
+    }
 }

@@ -89,14 +89,14 @@ public class ConexionSQL {
     }
 
     public boolean insertarPelicula(String idPelicula, String nombre,
-            String sinopsis, int duracion, File imagen,
+            String sinopsis, String duracion, File imagen,
             File video, String idioma, String clasificacion,
             String genero) throws SQLException, IOException {
         PreparedStatement ps = conn.prepareStatement(Queries.insertarPelicula());
         ps.setString(1, idPelicula);
         ps.setString(2, nombre);
         ps.setString(3, sinopsis);
-        ps.setInt(4, duracion);
+        ps.setString(4, duracion);
         ps.setBlob(5, crearBlob(imagen));
         ps.setBlob(6, crearBlob(video));
         ps.setString(7, idioma);
@@ -109,21 +109,23 @@ public class ConexionSQL {
 
     public boolean insertarCliente(String idCliente, String nombre,
             String apellidoP, String apellidoM, String contrasenia,
-            Date fecha, long telefono, String correo, long numTarjeta,
-            int nip) throws SQLException, IOException {
+            Date fecha, String telefono, String correo, String numTarjeta,
+            String nip) throws SQLException, IOException {
         PreparedStatement ps = conn.prepareStatement(Queries.insertarCliente());
         ps.setString(1, idCliente);
         ps.setString(2, nombre);
         ps.setString(3, apellidoP);
         ps.setString(4, apellidoM);
         ps.setString(5, correo);
-        ps.setLong(6, telefono);
+        ps.setString(6, telefono);
         ps.setDate(7, fecha);
         ps.setString(8, contrasenia);
-        ps.setLong(9, numTarjeta);
-        ps.setInt(10, nip);
+        ps.setString(9, numTarjeta);
+        ps.setString(10, nip);
         ps.executeUpdate();
         ps.close();
+//        ps.setLong(6, telefono);
+//        ps.setLong(9, numTarjeta);
         return true;
     }
 
