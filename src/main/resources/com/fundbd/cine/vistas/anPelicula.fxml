@@ -25,7 +25,7 @@
             <Menu mnemonicParsing="false" text="Agregar">
                <items>
                   <MenuItem fx:id="mnuAgregarCliente" mnemonicParsing="false" onAction="#mnuAgregarClienteOnAction" text="Cliente" />
-                  <MenuItem fx:id="mnuAgregarPelicula" mnemonicParsing="false" onAction="#mnuAgregarPeliculaOnAction" text="Pelicula" />
+                  <MenuItem fx:id="mnuAgregarPelicula" mnemonicParsing="false" onAction="#mnuAgregarPeliculaOnAction" text="Pelicula / funcion" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Informacion">
@@ -50,54 +50,165 @@
          <top>
             <Pane prefHeight="71.0" prefWidth="1280.0" style="-fx-background-color: #1a2b3f;" BorderPane.alignment="CENTER">
                <children>
-                  <ComboBox fx:id="cbBoxCines" layoutX="894.0" layoutY="20.0" onAction="#cbBoxCinesOnAction" prefHeight="31.0" prefWidth="182.0" promptText="Seleccionar cine">
-                     <effect>
-                        <Lighting>
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant color="#e8d0a7" />
-                           </light>
-                        </Lighting>
-                     </effect></ComboBox>
                   <ImageView fitHeight="61.0" fitWidth="122.0" layoutX="22.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../temp/CineTecLogoEstilo2.png" />
                      </image>
                   </ImageView>
+                  <Label layoutX="250.0" layoutY="20.0" prefHeight="31.0" text="AÑADIR PELICULA / FUNCION" textFill="#e9d1a7">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
          </top>
          <right>
-            <VBox prefHeight="498.0" prefWidth="252.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="493.0" prefWidth="363.0" style="-fx-background-color: #1a2b3f;" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane prefHeight="428.0" prefWidth="252.0" />
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane prefHeight="430.0" prefWidth="319.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                      <children>
-                        <Button fx:id="btnAgregar" layoutX="67.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAgregarOnAction" text="Agregar">
+                        <Label layoutX="111.0" layoutY="82.0" prefHeight="31.0" text="ID FUNCION:" textFill="WHITE">
                            <font>
-                              <Font name="Arial Bold Italic" size="24.0" />
+                              <Font name="Arial Bold" size="24.0" />
                            </font>
+                        </Label>
+                        <TextField fx:id="txtIdFuncion" layoutX="106.0" layoutY="112.0" prefHeight="27.0" prefWidth="151.0" promptText="INGRESE (CHAR 6)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="146.0" layoutY="152.0" prefHeight="31.0" text="CINE:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbIdCine" layoutX="106.0" layoutY="182.0" onAction="#cbIdSalaOnAction" prefWidth="150.0" promptText="Seleccione">
                            <effect>
                               <Lighting>
                                  <bumpInput>
                                     <Shadow />
                                  </bumpInput>
                                  <light>
-                                    <Light.Distant color="#a0eea5" />
+                                    <Light.Distant color="#e9d1a7" />
                                  </light>
                               </Lighting>
                            </effect>
+                        </ComboBox>
+                        <ComboBox fx:id="cbIdSala" disable="true" layoutX="106.0" layoutY="262.0" prefWidth="150.0" promptText="Automatico">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant color="#e9d1a7" />
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </ComboBox>
+                        <Label layoutX="144.0" layoutY="232.0" prefHeight="31.0" text="SALA:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="123.0" layoutY="312.0" prefHeight="31.0" text="HORARIO:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="dpHorarioDia" layoutX="106.0" layoutY="342.0" prefHeight="31.0" prefWidth="150.0">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant color="#e9d1a7" />
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </DatePicker>
+                        <ComboBox fx:id="cbHora" layoutX="106.0" layoutY="382.0" prefHeight="31.0" prefWidth="62.0">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant color="#e9d1a7" />
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </ComboBox>
+                        <ComboBox fx:id="cbMinuto" layoutX="195.0" layoutY="382.0" prefHeight="31.0" prefWidth="62.0">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant color="#e9d1a7" />
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </ComboBox>
+                        <Label layoutX="178.0" layoutY="382.0" prefHeight="31.0" text=":" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="102.0" layoutY="12.0" prefHeight="31.0" text="ID PELICULA:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbIdPelicula" layoutX="106.0" layoutY="43.0" onAction="#cbIdPeliculaOnAction" prefWidth="150.0" promptText="Seleccione">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant color="#e9d1a7" />
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </ComboBox>
+                     </children></AnchorPane>
+                  <AnchorPane prefHeight="57.0" prefWidth="292.0">
+                     <children>
+                        <Button fx:id="btnAgregarFuncion" layoutX="100.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnAgregarFuncionOnAction" text="Agregar funcion">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant color="#e9d1a7" />
+                                 </light>
+                              </Lighting>
+                           </effect>
+                           <font>
+                              <Font name="Arial Bold Italic" size="18.0" />
+                           </font>
                         </Button>
                      </children>
-                  </AnchorPane>
-               </children></VBox>
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin></AnchorPane>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="15.0" right="15.0" top="15.0" />
+               </BorderPane.margin></VBox>
          </right>
          <center>
-            <HBox spacing="30.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="493.0" prefWidth="908.0" spacing="30.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="468.0" prefWidth="289.0" spacing="15.0">
+                  <VBox prefHeight="463.0" prefWidth="249.0" spacing="15.0">
                      <children>
                         <Label prefHeight="31.0" text="ID PELICULA:" textFill="WHITE">
                            <font>
@@ -146,65 +257,100 @@
                         </Label>
                      </children>
                      <HBox.margin>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        <Insets />
                      </HBox.margin>
                   </VBox>
-                  <VBox prefHeight="468.0" prefWidth="423.0" spacing="20.0">
+                  <VBox prefHeight="463.0" prefWidth="321.0" spacing="20.0">
                      <children>
-                        <TextField fx:id="txtIdPelicula" promptText="INGRESE ID PELICULA (CHAR 6)">
+                        <TextField fx:id="txtIdPelicula" promptText="INGRESE (CHAR 6)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtNomPelicula" promptText="INGRESE NOMBRE PELICULA (CHAR 20, NOT NULL)">
+                        <TextField fx:id="txtNomPelicula" promptText="INGRESE (CHAR 20, NOT NULL)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtDuracion" promptText="INGRESE DURACION EN MINUTOS (INT, NOT NULL)">
+                        <TextField fx:id="txtDuracion" promptText="EN MINUTOS (INT, NOT NULL)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtImagen" editable="false" promptText="SELECCIONE ARCHIVO PARA IMAGEN">
+                        <TextField fx:id="txtImagen" editable="false" promptText="SELECCIONE ARCHIVO" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtTrailer" editable="false" promptText="SELECCIONE ARCHIVO PARA IMAGEN">
+                        <TextField fx:id="txtTrailer" editable="false" promptText="SELECCIONE ARCHIVO" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtIdioma" promptText="INGRESE IDIOMA (CHAR 20)">
+                        <TextField fx:id="txtIdioma" promptText="INGRESE (CHAR 20)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtClasificacion" promptText="INGRESE CLASIFICACION (CHAR 4)">
+                        <TextField fx:id="txtClasificacion" promptText="INGRESE (CHAR 4)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtGenero" promptText="INGRESE GENERO (CHAR 20)">
+                        <TextField fx:id="txtGenero" promptText="INGRESE (CHAR 20)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextArea fx:id="txtSinopsis" maxHeight="95.0" maxWidth="402.0" prefHeight="200.0" prefWidth="200.0" promptText="AGREGUE SINOPSIS (CHAR 150)">
+                        <TextArea fx:id="txtSinopsis" maxHeight="95.0" maxWidth="402.0" prefHeight="200.0" prefWidth="200.0" promptText="AGREGUE (CHAR 150)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextArea>
                      </children>
                      <HBox.margin>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        <Insets />
                      </HBox.margin></VBox>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <HBox.margin>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        <Insets />
                      </HBox.margin>
                      <children>
-                        <Button fx:id="btnSelImg" layoutX="15.0" layoutY="142.0" mnemonicParsing="false" onAction="#btnSelImgOnAction" text="SELECCIONAR...">
+                        <Button fx:id="btnSelImg" layoutX="15.0" layoutY="142.0" mnemonicParsing="false" onAction="#btnSelImgOnAction" prefHeight="27.0" prefWidth="166.0" text="SELECCIONAR...">
                            <font>
-                              <Font name="Arial" size="15.0" />
+                              <Font name="Arial Bold" size="15.0" />
                            </font>
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant color="#e9d1a7" />
+                                 </light>
+                              </Lighting>
+                           </effect>
                         </Button>
-                        <Button fx:id="btnSelTrailer" layoutX="15.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnSelTrailerOnAction" text="SELECCIONAR...">
+                        <Button fx:id="btnSelTrailer" layoutX="15.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnSelTrailerOnAction" prefHeight="27.0" prefWidth="166.0" text="SELECCIONAR...">
                            <font>
-                              <Font name="Arial" size="15.0" />
+                              <Font name="Arial Bold" size="15.0" />
                            </font>
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant color="#e9d1a7" />
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Button>
+                        <Button fx:id="btnAgregar" layoutX="15.0" layoutY="429.0" mnemonicParsing="false" onAction="#btnAgregarOnAction" text="Agregar pelicula">
+                           <font>
+                              <Font name="Arial Bold Italic" size="18.0" />
+                           </font>
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant color="#e9d1a7" />
+                                 </light>
+                              </Lighting>
+                           </effect>
                         </Button>
                      </children>
                   </AnchorPane>
@@ -212,6 +358,9 @@
                <BorderPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </BorderPane.margin>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </padding>
             </HBox>
          </center>
       </BorderPane>

@@ -22,7 +22,7 @@
             <Menu mnemonicParsing="false" text="Agregar">
               <items>
                 <MenuItem fx:id="mnuAgregarCliente" mnemonicParsing="false" onAction="#mnuAgregarClienteOnAction" text="Cliente" />
-                  <MenuItem fx:id="mnuAgregarPelicula" mnemonicParsing="false" onAction="#mnuAgregarPeliculaOnAction" text="Pelicula" />
+                  <MenuItem fx:id="mnuAgregarPelicula" mnemonicParsing="false" onAction="#mnuAgregarPeliculaOnAction" text="Pelicula / funcion" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Informacion">

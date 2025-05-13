@@ -67,6 +67,8 @@ public class CarteleraController {
     private MenuItem mnuAgregarPelicula;
     @FXML
     private MenuItem mnItAcercaDe1;
+    @FXML
+    private Label lblCartelera;
 
     public void initialize() {
         Object idCineObj = Global.getCines().keySet().toArray()[Global.getCineActual()];
@@ -74,6 +76,7 @@ public class CarteleraController {
         ponerPeliculas();
         cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCines().values()));
         cbBoxCines.getSelectionModel().select(Global.getCineActual());
+        lblCartelera.setText("Cartelera de: " + cbBoxCines.getSelectionModel().getSelectedItem());
     }
 
     private void leerDatos(String idCine) {

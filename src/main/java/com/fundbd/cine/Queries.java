@@ -17,8 +17,23 @@ public class Queries {
         return "SELECT * FROM CINES";
     }
 
-    public static String selectCines(String idCine) {
+    public static String selectAllSalas() {
+        return "SELECT * FROM SALAS";
+    }
+
+    public static String selectAllPeliculas() {
+        return "SELECT * FROM PELICULAS";
+    }
+
+    public static String selectCine(String idCine) {
         return String.format("SELECT * FROM CINES WHERE id_cine = '%s'", idCine);
+    }
+
+    public static String selectPelicula(String idPelicula, boolean imagenYVideo) {
+        if (imagenYVideo) {
+            return String.format("SELECT * FROM PELICULAS WHERE id_pelicula = '%s'", idPelicula);
+        }
+        return String.format("SELECT ID_PELICULA, NOMBRE, SINOPSIS, DURACION, IDIOMA, CLASIFICACION, GENERO  FROM PELICULAS WHERE ID_PELICULA = '%s'", idPelicula);
     }
 
     /**
@@ -64,6 +79,16 @@ public class Queries {
                 + "    (?),\n"
                 + "    (?),\n"
                 + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?)\n"
+                + ")";
+    }
+
+    public static String insertarFuncion() {
+        return "INSERT INTO FUNCIONES VALUES(\n"
                 + "    (?),\n"
                 + "    (?),\n"
                 + "    (?),\n"

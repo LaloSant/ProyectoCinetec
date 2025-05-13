@@ -8,7 +8,6 @@ import com.fundbd.cine.Global;
 import com.fundbd.cine.Queries;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -124,8 +124,19 @@ public class ConexionSQL {
         ps.setString(10, nip);
         ps.executeUpdate();
         ps.close();
-//        ps.setLong(6, telefono);
-//        ps.setLong(9, numTarjeta);
+        return true;
+    }
+    
+    public boolean insertarFuncion(String idFuncion, String idPelicula,
+            String idSala, String idCine, Timestamp horario) throws SQLException {
+        PreparedStatement ps = conn.prepareStatement(Queries.insertarFuncion());
+        ps.setString(1, idFuncion);
+        ps.setString(2, idPelicula);
+        ps.setString(3, idSala);
+        ps.setString(4, idCine);
+        ps.setTimestamp(5, horario);
+        ps.executeUpdate();
+        ps.close();
         return true;
     }
 
@@ -147,54 +158,54 @@ public class ConexionSQL {
         return b;
     }
 
-    public void subirBlob(String ruta, String query) {
-        try {
-            this.conectar();
-            File file = new File(ruta);
-            FileInputStream fis = new FileInputStream(file);
-            byte[] bytes = new byte[(int) file.length()];
-            int bytesRead;
-            int offset = 0;
-            while (offset < bytes.length) {
-                bytesRead = fis.read(bytes, offset, bytes.length - offset);
-                if (bytesRead == -1) {
-                    break;
-                }
-                offset += bytesRead;
-            }
-            fis.close();
-            PreparedStatement stat = conn.prepareStatement(query);
-            Blob blob = conn.createBlob();
-            blob.setBytes(1, bytes);
-            stat.setBlob(1, blob);
-            stat.executeUpdate();
-            stat.close();
-            conn.close();
-
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(ConexionSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void leerBlob(String ruta, String query) {
-        Statement st;
-        try {
-            this.conectar();
-            st = conn.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            while (rs.next()) {
-                InputStream is = rs.getBinaryStream(1);
-                FileOutputStream fos = new FileOutputStream(ruta);
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                while ((bytesRead = is.read(buffer)) != -1) {
-                    fos.write(buffer, 0, bytesRead);
-                }
-                fos.close();
-            }
-            conn.close();
-        } catch (SQLException | IOException ex) {
-            Logger.getLogger(ConexionSQL.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    public void subirBlob(String ruta, String query) {
+//        try {
+//            this.conectar();
+//            File file = new File(ruta);
+//            FileInputStream fis = new FileInputStream(file);
+//            byte[] bytes = new byte[(int) file.length()];
+//            int bytesRead;
+//            int offset = 0;
+//            while (offset < bytes.length) {
+//                bytesRead = fis.read(bytes, offset, bytes.length - offset);
+//                if (bytesRead == -1) {
+//                    break;
+//                }
+//                offset += bytesRead;
+//            }
+//            fis.close();
+//            PreparedStatement stat = conn.prepareStatement(query);
+//            Blob blob = conn.createBlob();
+//            blob.setBytes(1, bytes);
+//            stat.setBlob(1, blob);
+//            stat.executeUpdate();
+//            stat.close();
+//            conn.close();
+//
+//        } catch (IOException | SQLException ex) {
+//            Logger.getLogger(ConexionSQL.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+//
+//    public void leerBlob(String ruta, String query) {
+//        Statement st;
+//        try {
+//            this.conectar();
+//            st = conn.createStatement();
+//            ResultSet rs = st.executeQuery(query);
+//            while (rs.next()) {
+//                InputStream is = rs.getBinaryStream(1);
+//                FileOutputStream fos = new FileOutputStream(ruta);
+//                byte[] buffer = new byte[1024];
+//                int bytesRead;
+//                while ((bytesRead = is.read(buffer)) != -1) {
+//                    fos.write(buffer, 0, bytesRead);
+//                }
+//                fos.close();
+//            }
+//            conn.close();
+//        } catch (SQLException | IOException ex) {
+//            Logger.getLogger(ConexionSQL.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 }
