@@ -79,58 +79,88 @@
          <center>
             <AnchorPane prefHeight="435.0" prefWidth="921.0">
                <children>
-                  <TextArea fx:id="txtArSinopsis" editable="false" layoutX="69.0" layoutY="142.0" prefHeight="179.0" prefWidth="344.0" text="&#10;&#10;&#10;">
+                  <TextArea fx:id="txtArSinopsis" editable="false" layoutX="30.0" layoutY="110.0" prefHeight="150.0" prefWidth="450.0" style="-fx-text-fill: WHITE; -fx-control-inner-background: #1a2b3f;" text="ngenge">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>
                   </TextArea>
-                  <Label fx:id="lblTitulo" layoutX="67.0" layoutY="34.0" text="lblTitulo" textFill="WHITE">
+                  <Label fx:id="lblTitulo" layoutX="20.0" layoutY="20.0" text="lblTitulo" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="36.0" />
                      </font>
                   </Label>
-                  <Label layoutX="70.0" layoutY="97.0" text="Sinopsis:" textFill="WHITE">
+                  <Label layoutX="30.0" layoutY="70.0" text="Sinopsis:" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
                   <ImageView fx:id="iVImagen" fitHeight="412.0" fitWidth="291.0" layoutX="565.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label layoutX="83.0" layoutY="346.0" text="Idioma:" textFill="WHITE">
+                  <Label layoutX="50.0" layoutY="270.0" text="Idioma:" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="83.0" layoutY="385.0" text="Clasificacion:" textFill="WHITE">
+                  <Label layoutX="50.0" layoutY="300.0" text="Clasificacion:" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="83.0" layoutY="423.0" text="Genero:" textFill="WHITE">
+                  <Label layoutX="50.0" layoutY="330.0" text="Genero:" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="83.0" layoutY="461.0" text="Duracion:" textFill="WHITE">
+                  <Label layoutX="50.0" layoutY="360.0" text="Duracion:" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblDuracion" layoutX="274.0" layoutY="460.0" text="lblDuracion" textFill="WHITE">
+                  <Label fx:id="lblIdioma" layoutX="244.0" layoutY="270.0" text="lblIdioma" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblGenero" layoutX="274.0" layoutY="422.0" text="lblGenero" textFill="WHITE">
+                  <Label fx:id="lblClasificacion" layoutX="244.0" layoutY="300.0" text="lblClasificacion" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblClasificacion" layoutX="274.0" layoutY="384.0" text="lblClasificacion" textFill="WHITE">
+                  <Label fx:id="lblGenero" layoutX="244.0" layoutY="330.0" text="lblGenero" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblIdioma" layoutX="274.0" layoutY="345.0" text="lblIdioma" textFill="WHITE">
+                  <Label fx:id="lblDuracion" layoutX="244.0" layoutY="360.0" text="lblDuracion" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblHorario" layoutX="244.0" layoutY="390.0" text="lblHorario" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="50.0" layoutY="390.0" text="Horario:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="50.0" layoutY="420.0" text="Tipo de sala:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTipoSala" layoutX="244.0" layoutY="420.0" text="lblTipoSala" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblIdFuncion" disable="true" layoutX="244.0" layoutY="450.0" text="lblIdFuncion" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="50.0" layoutY="450.0" text="ID Funcion:" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
@@ -140,9 +170,9 @@
          <right>
             <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane prefHeight="478.0" prefWidth="305.0" style="-fx-background-color: #dedede; -fx-border-radius: 10 10 0 0;">
+                  <AnchorPane prefHeight="478.0" prefWidth="305.0" style="-fx-background-color: #1a2b3f; -fx-border-radius: 10 10 0 0;">
                      <children>
-                        <Label layoutX="101.0" layoutY="20.0" text="Trailer" textAlignment="CENTER">
+                        <Label layoutX="101.0" layoutY="20.0" text="Trailer" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Arial Bold" size="36.0" />
                            </font>

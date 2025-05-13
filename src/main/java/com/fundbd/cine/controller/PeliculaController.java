@@ -79,6 +79,12 @@ public class PeliculaController implements Initializable {
     private MenuItem mnuAgregarPelicula;
     @FXML
     private MenuItem mnItAcercaDe1;
+    @FXML
+    private Label lblHorario;
+    @FXML
+    private Label lblTipoSala;
+    @FXML
+    private Label lblIdFuncion;
 
     public PeliculaController() {
 
@@ -89,13 +95,13 @@ public class PeliculaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        leerDatos(Global.getIdPeliculaActual());
+        leerDatos(Global.getIdFuncionActual());
         cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCines().values()));
         cbBoxCines.getSelectionModel().select(Global.getCineActual());
     }
 
     private void leerDatos(String idPelicula) {
-        ResultSet rs = Global.getConSql().consulta(Queries.selectPelicula(idPelicula));
+        ResultSet rs = Global.getConSql().consulta(Queries.selectFuncion(idPelicula));
         if (rs == null) {
             return;
         }
@@ -105,6 +111,9 @@ public class PeliculaController implements Initializable {
         String idioma = "";
         String clasificacion = "";
         String genero = "";
+        String horario = "";
+        String tipoSala = "";
+        String idFuncion = "";
         try {
             rs.next();
             nombre = rs.getString(2);
@@ -115,7 +124,9 @@ public class PeliculaController implements Initializable {
             idioma = rs.getString(7);
             clasificacion = rs.getString(8);
             genero = rs.getString(9);
-
+            horario = rs.getString(10);
+            tipoSala = rs.getString(11);
+            idFuncion = rs.getString(12);
             iVImagen.setImage(new Image(rs.getBinaryStream(5)));
             if (iVImagen.getImage().getHeight() == 0 || iVImagen.getImage().getWidth() == 0) {
                 FileInputStream fis = new FileInputStream("src/main/resources/temp/img404.jpg");
@@ -128,10 +139,15 @@ public class PeliculaController implements Initializable {
         }
         lblTitulo.setText(nombre);
         txtArSinopsis.setText(sinopsis);
-        lblDuracion.setText(String.valueOf(duracion));
         lblIdioma.setText(idioma);
         lblClasificacion.setText(clasificacion);
         lblGenero.setText(genero);
+        lblDuracion.setText(String.valueOf(duracion));
+        lblHorario.setText(horario);
+        lblTipoSala.setText(tipoSala);
+        lblIdFuncion.setText(idFuncion);
+        
+        
     }
 
     public boolean leerBlob(String idPelicula, InputStream is, String ruta) throws IOException {

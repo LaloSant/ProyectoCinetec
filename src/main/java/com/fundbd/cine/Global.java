@@ -18,7 +18,7 @@ public class Global {
     private static ConexionSQL conSql = new ConexionSQL();
     private static HashMap<String, String> cines;
     private static int cineActual = -1;
-    private static String idPeliculaActual;
+    private static String idFuncionActual;
 
     public Global() {
 
@@ -67,17 +67,17 @@ public class Global {
     }
 
     /**
-     * @return the idPeliculaActual
+     * @return the idFuncionActual
      */
-    public static String getIdPeliculaActual() {
-        return idPeliculaActual;
+    public static String getIdFuncionActual() {
+        return idFuncionActual;
     }
 
     /**
-     * @param aIdPeliculaActual the idPeliculaActual to set
+     * @param aIdFuncionActual the aIdFuncionActual to set
      */
-    public static void setIdPeliculaActual(String aIdPeliculaActual) {
-        idPeliculaActual = aIdPeliculaActual;
+    public static void setIdFuncionActual(String aIdFuncionActual) {
+        idFuncionActual = aIdFuncionActual;
     }
 
     public static void mostrarMenuCreditos() {

@@ -91,8 +91,9 @@ public class AnPeliculaController implements Initializable {
         File selectedDirectory = fc.showOpenDialog(App.stage);
         if (selectedDirectory == null) {
             Global.mostrarAlertaError("En caso de no seleccionar imagen o trailer, se guardara como un BLOB vacio");
+        } else {
+            txtImagen.setText(selectedDirectory.getAbsolutePath());
         }
-        txtImagen.setText(selectedDirectory.getAbsolutePath());
     }
 
     @FXML
@@ -104,8 +105,9 @@ public class AnPeliculaController implements Initializable {
         File selectedDirectory = fc.showOpenDialog(App.stage);
         if (selectedDirectory == null) {
             Global.mostrarAlertaError("En caso de no seleccionar imagen o trailer, se guardara como un BLOB vacio");
+        } else{
+            txtTrailer.setText(selectedDirectory.getAbsolutePath());
         }
-        txtTrailer.setText(selectedDirectory.getAbsolutePath());
     }
 
     @FXML

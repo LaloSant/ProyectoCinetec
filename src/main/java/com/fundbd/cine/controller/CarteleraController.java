@@ -77,7 +77,7 @@ public class CarteleraController {
     }
 
     private void leerDatos(String idCine) {
-        ResultSet rs = Global.getConSql().consulta(Queries.selectPeliculas(idCine));
+        ResultSet rs = Global.getConSql().consulta(Queries.selectAllFunciones(idCine));
         try {
             while (rs.next()) {
                 String idPelicula = rs.getString(1);
@@ -85,7 +85,9 @@ public class CarteleraController {
                 String sinopsis = rs.getString(3);
                 InputStream imagen = rs.getBinaryStream(5);
                 Date horario = rs.getDate(10);
-                AnchorPane ap = crearAnchorPanePelicula(titulo, imagen, sinopsis, idPelicula);
+                String tipoSala = rs.getString(11);
+                String idFuncion = rs.getString(12);
+                AnchorPane ap = crearAnchorPanePelicula(titulo, imagen, sinopsis, idPelicula, tipoSala, idFuncion);
                 GridPane.setMargin(ap, new Insets(15));
                 peliculas.add(ap);
                 horarios.add(horario);
@@ -131,17 +133,17 @@ public class CarteleraController {
         }
     }
 
-    private AnchorPane crearAnchorPanePelicula(String titulo, InputStream imagen, String sinapsis, String idPelicula) throws IOException {
+    private AnchorPane crearAnchorPanePelicula(String titulo, InputStream imagen, String sinapsis, String idPelicula, String tipoSala, String id_Funcion) throws IOException {
         AnchorPane panel = new AnchorPane();
         panel.setPrefSize(200, 200);
         panel.setStyle("-fx-background-color: #1a2b3f");
 
         Label lblTitulo = new Label(titulo);
         lblTitulo.setLayoutX(20);
-        lblTitulo.setLayoutY(18);
+        lblTitulo.setLayoutY(10);
         lblTitulo.setMaxWidth(300);
         lblTitulo.setTextFill(Color.WHITE);
-        lblTitulo.setStyle("-fx-font-size: 36; -fx-font-weight: bold;");
+        lblTitulo.setStyle("-fx-font-size: 30; -fx-font-weight: bold;");
 
         ImageView imageView = new ImageView(new Image(imagen));
         if (imageView.getImage().getHeight() == 0 || imageView.getImage().getWidth() == 0) {
@@ -154,26 +156,33 @@ public class CarteleraController {
         imageView.setLayoutX(326);
         imageView.setLayoutY(24);
         imageView.setPreserveRatio(true);
+        
+        Label lblTipoSala = new Label("Tipo sala: " + tipoSala);
+        lblTipoSala.setLayoutX(20);
+        lblTipoSala.setLayoutY(160);
+        lblTipoSala.setTextFill(Color.WHITE);
+        lblTipoSala.setStyle("-fx-font-size: 24; -fx-font-weight: bold;");
 
         Button btnVer = new Button("Ver");
         btnVer.setLayoutX(242);
-        btnVer.setLayoutY(149);
+        btnVer.setLayoutY(160);
         btnVer.setStyle("-fx-font-size: 15;");
-        btnVer.setOnAction(event -> botonPresionado(idPelicula));
+        btnVer.setOnAction(event -> botonPresionado(id_Funcion));
 
         TextArea textArea = new TextArea(sinapsis);
         textArea.setLayoutX(20);
-        textArea.setLayoutY(66);
-        textArea.setPrefSize(194, 110);
+        textArea.setLayoutY(55);
+        textArea.setPrefSize(265, 100);
         textArea.setEditable(false);
         textArea.setWrapText(true);
         textArea.setStyle("-fx-font-size: 15;");
-        panel.getChildren().addAll(lblTitulo, imageView, btnVer, textArea);
+        
+        panel.getChildren().addAll(lblTitulo, imageView, btnVer, textArea, lblTipoSala);
         return panel;
     }
 
-    private void botonPresionado(String idPelicula) {
-        Global.setIdPeliculaActual(idPelicula);
+    private void botonPresionado(String idFuncion) {
+        Global.setIdFuncionActual(idFuncion);
         App.cambiarVista("pelicula");
     }
 

@@ -27,15 +27,20 @@ public class Queries {
      * @param idCine
      * @return
      */
-    public static String selectPeliculas(String idCine) {
-        return String.format("SELECT P.*, F.HORARIO \n"
+    public static String selectAllFunciones(String idCine) {
+        return String.format("SELECT P.*, F.HORARIO, S.TIPO, F.ID_FUNCION \n"
                 + "FROM PELICULAS P\n"
                 + "JOIN FUNCIONES F ON P.ID_PELICULA = F.ID_PELICULA\n"
+                + "JOIN SALAS S ON F.ID_SALA = S.ID_SALA\n"
                 + "WHERE F.ID_CINE = '%s'", idCine);
     }
 
-    public static String selectPelicula(String idPelicula) {
-        return String.format("SELECT * FROM PELICULAS WHERE id_pelicula = '%s'", idPelicula);
+    public static String selectFuncion(String idFuncion) {
+        return String.format("SELECT P.*, f.horario, s.tipo, f.id_funcion\n"
+                + "FROM PELICULAS P\n"
+                + "JOIN FUNCIONES F ON P.ID_PELICULA = F.ID_PELICULA\n"
+                + "JOIN SALAS S ON F.ID_SALA = S.ID_SALA\n"
+                + "WHERE F.ID_FUNCION = '%s'", idFuncion);
     }
 
     public static String insertarPelicula() {
@@ -51,8 +56,8 @@ public class Queries {
                 + "    (?)\n"
                 + ")";
     }
-    
-     public static String insertarCliente() {
+
+    public static String insertarCliente() {
         return "INSERT INTO CLIENTES VALUES(\n"
                 + "    (?),\n"
                 + "    (?),\n"
