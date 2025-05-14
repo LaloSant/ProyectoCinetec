@@ -84,8 +84,8 @@
          <center>
             <AnchorPane prefHeight="498.0" prefWidth="865.0" BorderPane.alignment="CENTER">
                <children>
-                  <ComboBox layoutX="195.0" layoutY="225.0" onAction="#cbColumnas" prefWidth="150.0" promptText="Columnas" />
-                  <ComboBox layoutX="532.0" layoutY="225.0" onAction="#cbFilas" prefWidth="150.0" promptText="Filas" />
+                  <ComboBox fx:id="cbColumnas" layoutX="500.0" layoutY="225.0" onAction="#cbColumnas" prefWidth="150.0" promptText="Columnas" />
+                  <ComboBox fx:id="cbFilas" layoutX="223.0" layoutY="225.0" onAction="#cbFilas" prefWidth="150.0" promptText="Filas" />
                   <TextArea layoutX="298.0" layoutY="91.0" prefHeight="62.0" prefWidth="277.0" text="Eliga sus asientos ">
                      <font>
                         <Font size="30.0" />
@@ -94,11 +94,6 @@
                   <Button fx:id="btnAgregar" layoutX="387.0" layoutY="365.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="Agregar" />
                   <Button fx:id="btnComprar" layoutX="964.0" layoutY="365.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="Comprar" />
                   <TextArea fx:id="txtMostrar" layoutX="866.0" layoutY="43.0" prefHeight="235.0" prefWidth="295.0" />
-                  <VBox layoutX="963.0" layoutY="-101.0" prefHeight="463.0" prefWidth="223.0">
-                     <children>
-                        <AnchorPane prefHeight="23.0" prefWidth="872.0" />
-                     </children>
-                  </VBox>
                </children>
             </AnchorPane>
          </center>

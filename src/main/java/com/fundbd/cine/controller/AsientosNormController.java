@@ -8,6 +8,7 @@ import com.fundbd.cine.App;
 import com.fundbd.cine.Global;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,10 +23,11 @@ import javafx.scene.control.TextArea;
  *
  * @author eriks
  */
-public class AsientosNormController implements Initializable {
+public class AsientosNormController implements Initializable
+{
 
     @FXML
-    private ComboBox<?> cbBoxCines;
+    private ComboBox<String> cbBoxCines;
     @FXML
     private Button btnAgregar;
     @FXML
@@ -42,51 +44,95 @@ public class AsientosNormController implements Initializable {
     private MenuItem mnuAgregarPelicula;
     @FXML
     private MenuItem mnItAcercaDe1;
+    @FXML
+    private ComboBox<String> cbFilas;
+    @FXML
+    private ComboBox<String> cbColumnas;
+    @FXML
+    private TextArea areaTexto;
+    @FXML
+    private Button btnVerCartelera;
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCines().values()));
+        cbBoxCines.getSelectionModel().select(Global.getCineActual());
+        for (char letra = 'A'; letra <= 'J'; letra++)
+        {
+            cbFilas.getItems().add("Fila " + letra);
+        }
+
+        for (int i = 1; i <= 20; i++)
+        {
+            cbColumnas.getItems().add("Columna " + i);
+        }
+    }
+
+    @FXML
+    private void cbColumnas(ActionEvent event)
+    {
 
     }
 
     @FXML
-    private void cbColumnas(ActionEvent event) {
+    private void cbFilas(ActionEvent event)
+    {
+        
     }
 
-    @FXML
-    private void cbFilas(ActionEvent event) {
+    private void btnAgregar(ActionEvent event)
+    {
+        String fila = cbFilas.getValue();
+        String columna = cbColumnas.getValue();
+
+        if (fila != null && columna != null)
+        {
+            areaTexto.appendText(fila + " - " + columna);
+        } else
+        {
+            areaTexto.appendText("Selecciona una fila y una columna");
+        }
     }
 
+
     @FXML
-    private void cbBoxCinesOnAction(ActionEvent event) {
+    private void cbBoxCinesOnAction(ActionEvent event)
+    {
         Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
         App.cambiarVista("cartelera");
     }
 
     @FXML
-    private void mnuSelCineOnAction(ActionEvent event) {
+    private void mnuSelCineOnAction(ActionEvent event)
+    {
         App.cambiarAHome();
     }
 
     @FXML
-    private void mnuVerCarteleraOnAction(ActionEvent event) {
+    private void mnuVerCarteleraOnAction(ActionEvent event)
+    {
         App.cambiarVista("cartelera");
     }
 
     @FXML
-    private void mnuAgregarClienteOnAction(ActionEvent event) {
+    private void mnuAgregarClienteOnAction(ActionEvent event)
+    {
         App.cambiarVista("clientes");
     }
 
     @FXML
-    private void mnuAgregarPeliculaOnAction(ActionEvent event) {
+    private void mnuAgregarPeliculaOnAction(ActionEvent event)
+    {
         App.cambiarVista("anPelicula");
     }
 
     @FXML
-    private void mnuItemAcercaDeOnAction(ActionEvent event) {
+    private void mnuItemAcercaDeOnAction(ActionEvent event)
+    {
         Global.mostrarMenuCreditos();
     }
 }
