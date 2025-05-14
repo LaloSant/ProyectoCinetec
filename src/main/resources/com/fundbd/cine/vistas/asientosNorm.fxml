@@ -81,16 +81,6 @@
                </children>
             </Pane>
          </top>
-         <right>
-            <VBox prefHeight="463.0" prefWidth="223.0" BorderPane.alignment="CENTER">
-               <children>
-                  <AnchorPane prefHeight="23.0" prefWidth="872.0" />
-               </children>
-               <BorderPane.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </BorderPane.margin>
-            </VBox>
-         </right>
          <center>
             <AnchorPane prefHeight="498.0" prefWidth="865.0" BorderPane.alignment="CENTER">
                <children>
@@ -104,6 +94,11 @@
                   <Button fx:id="btnAgregar" layoutX="387.0" layoutY="365.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="Agregar" />
                   <Button fx:id="btnComprar" layoutX="964.0" layoutY="365.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="Comprar" />
                   <TextArea fx:id="txtMostrar" layoutX="866.0" layoutY="43.0" prefHeight="235.0" prefWidth="295.0" />
+                  <VBox layoutX="963.0" layoutY="-101.0" prefHeight="463.0" prefWidth="223.0">
+                     <children>
+                        <AnchorPane prefHeight="23.0" prefWidth="872.0" />
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
          </center>
