@@ -8,9 +8,7 @@ import com.fundbd.cine.Global;
 import com.fundbd.cine.Queries;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
@@ -18,7 +16,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -135,6 +132,19 @@ public class ConexionSQL {
         ps.setString(3, idSala);
         ps.setString(4, idCine);
         ps.setTimestamp(5, horario);
+        ps.executeUpdate();
+        ps.close();
+        return true;
+    }
+    
+    public boolean insertarAsiento(String idAsiento, String idFuncion,
+            String fila, String columna) throws SQLException {
+        PreparedStatement ps = conn.prepareStatement(Queries.insertarAsiento());
+        ps.setString(1, idAsiento);
+        ps.setString(2, idFuncion);
+        ps.setString(3, "True");
+        ps.setString(4, fila);
+        ps.setString(5, columna);
         ps.executeUpdate();
         ps.close();
         return true;

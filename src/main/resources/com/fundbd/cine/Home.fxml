@@ -59,6 +59,16 @@
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant color="#e9d1a7" />
+                     </light>
+                  </Lighting>
+               </effect>
             </Button>
          </children>
       </AnchorPane>

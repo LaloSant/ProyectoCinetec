@@ -125,40 +125,50 @@
                   </VBox>
                   <VBox prefHeight="498.0" prefWidth="344.0" spacing="20.0">
                      <children>
-                        <TextField fx:id="txtId" prefHeight="32.0">
+                        <TextField fx:id="txtId" prefHeight="32.0" promptText="Si" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtNombre" prefHeight="32.0">
+                        <TextField fx:id="txtNombre" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtApellidoP" prefHeight="32.0">
+                        <TextField fx:id="txtApellidoP" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtApellidoM" prefHeight="32.0">
+                        <TextField fx:id="txtApellidoM" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtContrasenia" prefHeight="32.0">
+                        <TextField fx:id="txtContrasenia" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <DatePicker fx:id="dtpFecha" prefHeight="32.0" prefWidth="344.0" />
-                        <TextField fx:id="txtTelefono" prefHeight="32.0">
+                        <DatePicker fx:id="dtpFecha" prefHeight="32.0" prefWidth="344.0">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant azimuth="172.32" color="#3b6fab" elevation="119.63" />
+                                 </light>
+                              </Lighting>
+                           </effect></DatePicker>
+                        <TextField fx:id="txtTelefono" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtCorreo" prefHeight="32.0">
+                        <TextField fx:id="txtCorreo" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtTarjeta" prefHeight="32.0">
+                        <TextField fx:id="txtTarjeta" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtNip" prefHeight="32.0">
+                        <TextField fx:id="txtNip" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
@@ -172,8 +182,28 @@
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" />
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="btnAceptar" layoutX="133.0" layoutY="120.0" mnemonicParsing="false" onAction="#btnAceptarOnAction" text="Aceptar" />
-                              <Button fx:id="btnCancelar" layoutX="12.0" layoutY="120.0" mnemonicParsing="false" onAction="#btnCancelarOnAction" text="Cancelar" />
+                              <Button fx:id="btnAceptar" layoutX="133.0" layoutY="120.0" mnemonicParsing="false" onAction="#btnAceptarOnAction" text="Aceptar">
+                                 <effect>
+                                    <Lighting>
+                                       <bumpInput>
+                                          <Shadow />
+                                       </bumpInput>
+                                       <light>
+                                          <Light.Distant color="#e9d1a7" />
+                                       </light>
+                                    </Lighting>
+                                 </effect></Button>
+                              <Button fx:id="btnCancelar" layoutX="12.0" layoutY="120.0" mnemonicParsing="false" onAction="#btnCancelarOnAction" text="Cancelar">
+                                 <effect>
+                                    <Lighting>
+                                       <bumpInput>
+                                          <Shadow />
+                                       </bumpInput>
+                                       <light>
+                                          <Light.Distant color="#e9d1a7" />
+                                       </light>
+                                    </Lighting>
+                                 </effect></Button>
                            </children>
                         </AnchorPane>
                      </children>

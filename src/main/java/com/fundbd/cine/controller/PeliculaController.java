@@ -41,7 +41,6 @@ import javafx.scene.media.MediaView;
 public class PeliculaController implements Initializable {
 
     private static String RUTA_VIDEO = "src/main/resources/temp/video.mp4";
-    private static String RUTA_IMAGEN = "src/main/resources/temp/img.jpg";
 
     @FXML
     private Label lblTitulo;
@@ -86,10 +85,6 @@ public class PeliculaController implements Initializable {
     @FXML
     private Label lblIdFuncion;
 
-    public PeliculaController() {
-
-    }
-
     /**
      * Initializes the controller class.
      */
@@ -112,7 +107,7 @@ public class PeliculaController implements Initializable {
         String clasificacion = "";
         String genero = "";
         String horario = "";
-        String tipoSala = "";
+        String nombreSala = "";
         String idFuncion = "";
         try {
             rs.next();
@@ -121,11 +116,12 @@ public class PeliculaController implements Initializable {
             duracion = rs.getInt(4);
             leerBlob(idPelicula, rs.getBinaryStream(6), RUTA_VIDEO);
             mVTrailer.setMediaPlayer(new MediaPlayer(new Media(new File(RUTA_VIDEO).toURI().toString())));
+            mVTrailer.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
             idioma = rs.getString(7);
             clasificacion = rs.getString(8);
             genero = rs.getString(9);
             horario = rs.getString(10);
-            tipoSala = rs.getString(11);
+            nombreSala = rs.getString(11);
             idFuncion = rs.getString(12);
             iVImagen.setImage(new Image(rs.getBinaryStream(5)));
             if (iVImagen.getImage().getHeight() == 0 || iVImagen.getImage().getWidth() == 0) {
@@ -144,10 +140,8 @@ public class PeliculaController implements Initializable {
         lblGenero.setText(genero);
         lblDuracion.setText(String.valueOf(duracion));
         lblHorario.setText(horario);
-        lblTipoSala.setText(tipoSala);
+        lblTipoSala.setText(nombreSala);
         lblIdFuncion.setText(idFuncion);
-        
-        
     }
 
     public boolean leerBlob(String idPelicula, InputStream is, String ruta) throws IOException {
@@ -171,6 +165,7 @@ public class PeliculaController implements Initializable {
         }
         if (mVTrailer.getMediaPlayer().getStatus().equals(MediaPlayer.Status.UNKNOWN)) {
             mVTrailer.setMediaPlayer(new MediaPlayer(new Media(new File(RUTA_VIDEO).toURI().toString())));
+            mVTrailer.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
         }
         mVTrailer.getMediaPlayer().play();
     }

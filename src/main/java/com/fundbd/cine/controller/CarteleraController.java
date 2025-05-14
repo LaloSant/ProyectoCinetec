@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,7 +37,7 @@ public class CarteleraController {
 
     private final ArrayList<AnchorPane> peliculas = new ArrayList();
 
-    private final ArrayList<Date> horarios = new ArrayList<>();
+    private final ArrayList<Timestamp> horarios = new ArrayList<>();
 
     private int pagina = 0;
 
@@ -87,7 +88,7 @@ public class CarteleraController {
                 String titulo = rs.getString(2);
                 String sinopsis = rs.getString(3);
                 InputStream imagen = rs.getBinaryStream(5);
-                Date horario = rs.getDate(10);
+                Timestamp horario = rs.getTimestamp(10);
                 String tipoSala = rs.getString(11);
                 String idFuncion = rs.getString(12);
                 AnchorPane ap = crearAnchorPanePelicula(titulo, imagen, sinopsis, idPelicula, tipoSala, idFuncion);
@@ -110,9 +111,10 @@ public class CarteleraController {
             AnchorPane ap = peliculas.get(contador + (pagina * 4));
             gridPaneCentro.add(ap, contador % 2, contador / 2);
             Label lbl = (Label) ap.getChildren().get(0);
+            String horarioTemp = horarios.get(contador + (pagina * 4)).toString();
             horariosTxt
                     .append(lbl.getText()).append(":\n")
-                    .append(horarios.get(contador + (pagina * 4)).toString())
+                    .append(horarioTemp)
                     .append("\n\n");
             contador++;
         }

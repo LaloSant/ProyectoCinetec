@@ -39,8 +39,11 @@ import javafx.stage.FileChooser;
  */
 public class AnPeliculaController implements Initializable {
 
-    ArrayList<String> cines = new ArrayList<>();
-    ArrayList<String> salas = new ArrayList<>();
+    private final ArrayList<String> idsCines = new ArrayList<>();
+    private final ArrayList<String> nomCines = new ArrayList<>();
+    private final ArrayList<String> idsSalas = new ArrayList<>();
+    private final ArrayList<String> nomSalas = new ArrayList<>();
+    private final ArrayList<Boolean> salasNormales = new ArrayList<>();
 
     @FXML
     private TextField txtIdPelicula;
@@ -79,10 +82,6 @@ public class AnPeliculaController implements Initializable {
     @FXML
     private TextField txtIdFuncion;
     @FXML
-    private ComboBox<String> cbIdSala;
-    @FXML
-    private ComboBox<String> cbIdCine;
-    @FXML
     private DatePicker dpHorarioDia;
     @FXML
     private ComboBox<String> cbHora;
@@ -92,6 +91,10 @@ public class AnPeliculaController implements Initializable {
     private Button btnAgregarFuncion;
     @FXML
     private ComboBox<String> cbIdPelicula;
+    @FXML
+    private ComboBox<String> cbNomCine;
+    @FXML
+    private ComboBox<String> cbNomSala;
 
     /**
      * Initializes the controller class.
@@ -107,27 +110,29 @@ public class AnPeliculaController implements Initializable {
 
     public void leerDatos() {
         try {
-            ResultSet rs = Global.getConSql().consulta(Queries.selectAllSalas());
+            ResultSet rs = Global.getConSql().consulta(Queries.selectAllCines());
             while (rs.next()) {
-                salas.add(rs.getString(1));
-                cines.add(rs.getString(2));
+                idsCines.add(rs.getString(1));
+                nomCines.add(rs.getString(2));
             }
-            rs = Global.getConSql().consulta(Queries.selectAllPeliculas());
-            ArrayList<String> peliculas = new ArrayList<>();
-            while (rs.next()) {
-                peliculas.add(rs.getString(1));
-            }
-            cbIdPelicula.setItems(FXCollections.observableArrayList(peliculas));
+            agregarPeliculas();
         } catch (SQLException ex) {
-            Global.mostrarAlertaError(ex.getMessage());
+            Global.mostrarAlertaError("Aqui 1: " + ex.getMessage());
         }
-        cbIdSala.setItems(FXCollections.observableArrayList(salas));
-        cbIdCine.setItems(FXCollections.observableArrayList(cines));
+        cbNomCine.setItems(FXCollections.observableArrayList(nomCines));
+    }
+
+    private void agregarPeliculas() throws SQLException {
+        ResultSet rs = Global.getConSql().consulta(Queries.selectAllPeliculas());
+        ArrayList<String> peliculas = new ArrayList<>();
+        while (rs.next()) {
+            peliculas.add(rs.getString(1));
+        }
+        cbIdPelicula.setItems(FXCollections.observableArrayList(peliculas));
     }
 
     @FXML
-    private void btnSelImgOnAction(ActionEvent event
-    ) {
+    private void btnSelImgOnAction(ActionEvent event) {
         FileChooser fc = new FileChooser();
         fc.setTitle("Seleccione imagen");
         fc.setInitialDirectory(new File("/"));
@@ -141,8 +146,7 @@ public class AnPeliculaController implements Initializable {
     }
 
     @FXML
-    private void btnSelTrailerOnAction(ActionEvent event
-    ) {
+    private void btnSelTrailerOnAction(ActionEvent event) {
         FileChooser fc = new FileChooser();
         fc.setTitle("Seleccione trailer");
         fc.setInitialDirectory(new File("/"));
@@ -156,8 +160,7 @@ public class AnPeliculaController implements Initializable {
     }
 
     @FXML
-    private void btnAgregarOnAction(ActionEvent event
-    ) {
+    private void btnAgregarOnAction(ActionEvent event) {
         try {
             String rutaImagen = txtImagen.getText();
             String rutaVideo = txtTrailer.getText();
@@ -172,8 +175,9 @@ public class AnPeliculaController implements Initializable {
             String genero = txtGenero.getText();
             Global.getConSql().insertarPelicula(idPelicula, nomPelicula, sinopsis, duracion, fileImagen, fileVideo, idioma, clasificacion, genero);
             Global.mostrarInfo("Se inserto pelicula exitosamente!");
+            agregarPeliculas();
         } catch (SQLException | IOException e) {
-            Global.mostrarAlertaError(e.getMessage());
+            Global.mostrarAlertaError("Aqui 2: " + e.getMessage());
         }
     }
 
@@ -182,7 +186,9 @@ public class AnPeliculaController implements Initializable {
         String idPelicula = cbIdPelicula.getSelectionModel().getSelectedItem();
         ResultSet rs = Global.getConSql().consulta(Queries.selectPelicula(idPelicula, false));
         try {
-            rs.next();
+            if (!rs.next()) {
+                return;
+            }
             txtIdPelicula.setText(rs.getString(1));
             txtNomPelicula.setText(rs.getString(2));
             txtSinopsis.setText(rs.getString(3));
@@ -191,21 +197,41 @@ public class AnPeliculaController implements Initializable {
             txtClasificacion.setText(rs.getString(6));
             txtGenero.setText(rs.getString(7));
         } catch (SQLException ex) {
-            Global.mostrarAlertaError(ex.getMessage());
+            Global.mostrarAlertaError("Aqui 3: " + ex.getMessage());
         }
     }
 
     @FXML
-    private void cbIdSalaOnAction(ActionEvent event) {
-        cbIdCine.getSelectionModel().select(cbIdSala.getSelectionModel().getSelectedIndex());
+    private void cbNomCineOnAction(ActionEvent event) {
+        idsSalas.clear();
+        nomSalas.clear();
+        salasNormales.clear();
+        cbNomSala.setDisable(false);
+        String idCine = idsCines.get(cbNomCine.getSelectionModel().getSelectedIndex());
+        ResultSet rs = Global.getConSql().consulta(Queries.selectSala(idCine));
+        try {
+            while (rs.next()) {
+                idsSalas.add(rs.getString(1));
+                nomSalas.add(rs.getString(3));
+                salasNormales.add((rs.getString(4).toLowerCase()).trim().equals("normal"));
+            }
+            cbNomSala.setItems(FXCollections.observableArrayList(nomSalas));
+        } catch (SQLException ex) {
+            Global.mostrarAlertaError("Aqui 4: " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void cbNomSalaOnAction(ActionEvent event) {
+
     }
 
     @FXML
     private void btnAgregarFuncionOnAction(ActionEvent event) {
         String idFuncion = txtIdFuncion.getText();
         String idPelicula = cbIdPelicula.getSelectionModel().getSelectedItem();
-        String idSala = cbIdSala.getSelectionModel().getSelectedItem();
-        String idCine = cbIdCine.getSelectionModel().getSelectedItem();
+        String idSala = idsSalas.get(cbNomSala.getSelectionModel().getSelectedIndex());
+        String idCine = idsCines.get(cbNomCine.getSelectionModel().getSelectedIndex());
         String dia = dpHorarioDia.getValue().toString();
         String hora = cbHora.getSelectionModel().getSelectedItem();
         String minuto = cbMinuto.getSelectionModel().getSelectedItem();
@@ -214,10 +240,36 @@ public class AnPeliculaController implements Initializable {
             Date horaFormateada = dateFormat.parse(String.format("%s %s:%s", dia, hora, minuto));
             Timestamp ts = new Timestamp(horaFormateada.getTime());
             Global.getConSql().insertarFuncion(idFuncion, idPelicula, idSala, idCine, ts);
+            int numAsiento = numeroAsientos() + 1;
+            char filasMax = 'E';
+            int columnasMax = 6;
+            if (salasNormales.get(cbNomSala.getSelectionModel().getSelectedIndex())) {
+                filasMax = 'J';
+                columnasMax = 20;
+            }
+            for (char filas = 'A'; filas <= filasMax; filas++) {
+                for (int columnas = 1; columnas <= columnasMax; columnas++) {
+                    String idAsiento = String.format("AS%04d", numAsiento++);
+                    Global.getConSql().insertarAsiento(idAsiento, idFuncion, String.valueOf(filas), String.valueOf(columnas));
+                }
+            }
             Global.mostrarInfo("Se inserto funcion exitosamente!");
         } catch (ParseException | SQLException ex) {
-            Global.mostrarAlertaError(ex.getMessage());
+            Global.mostrarAlertaError("Aqui 5: " + ex.getMessage());
         }
+    }
+
+    private int numeroAsientos() {
+        ResultSet rs = Global.getConSql().consulta(Queries.contarAsientos());
+        try {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (SQLException ex) {
+            Global.mostrarAlertaError("Aqui 6: " + ex.getMessage());
+        }
+        return 0;
     }
 
     @FXML

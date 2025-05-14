@@ -25,6 +25,10 @@ public class Queries {
         return "SELECT * FROM PELICULAS";
     }
 
+    public static String selectSala(String idCine) {
+        return String.format("SELECT * FROM SALAS WHERE ID_CINE = '%s'", idCine);
+    }
+
     public static String selectCine(String idCine) {
         return String.format("SELECT * FROM CINES WHERE id_cine = '%s'", idCine);
     }
@@ -51,7 +55,7 @@ public class Queries {
     }
 
     public static String selectFuncion(String idFuncion) {
-        return String.format("SELECT P.*, f.horario, s.tipo, f.id_funcion\n"
+        return String.format("SELECT P.*, F.HORARIO, S.NOMBRE, F.ID_FUNCION\n"
                 + "FROM PELICULAS P\n"
                 + "JOIN FUNCIONES F ON P.ID_PELICULA = F.ID_PELICULA\n"
                 + "JOIN SALAS S ON F.ID_SALA = S.ID_SALA\n"
@@ -95,6 +99,20 @@ public class Queries {
                 + "    (?),\n"
                 + "    (?)\n"
                 + ")";
+    }
+
+    public static String insertarAsiento() {
+        return "INSERT INTO ASIENTOS VALUES(\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?)\n"
+                + ")";
+    }
+
+    public static String contarAsientos() {
+        return "SELECT COUNT(*) FROM ASIENTOS";
     }
 
     public static String subirImagenPelicula(String idPelicula) {

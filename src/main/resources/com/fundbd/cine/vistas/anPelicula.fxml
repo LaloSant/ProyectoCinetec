@@ -86,7 +86,7 @@
                               <Font name="Arial Bold" size="24.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbIdCine" layoutX="106.0" layoutY="182.0" onAction="#cbIdSalaOnAction" prefWidth="150.0" promptText="Seleccione">
+                        <ComboBox fx:id="cbNomCine" layoutX="106.0" layoutY="182.0" onAction="#cbNomCineOnAction" prefWidth="150.0" promptText="Seleccione">
                            <effect>
                               <Lighting>
                                  <bumpInput>
@@ -98,7 +98,7 @@
                               </Lighting>
                            </effect>
                         </ComboBox>
-                        <ComboBox fx:id="cbIdSala" disable="true" layoutX="106.0" layoutY="262.0" prefWidth="150.0" promptText="Automatico">
+                        <ComboBox fx:id="cbNomSala" disable="true" layoutX="106.0" layoutY="262.0" onAction="#cbNomSalaOnAction" prefWidth="150.0" promptText="Seleccione">
                            <effect>
                               <Lighting>
                                  <bumpInput>
@@ -120,7 +120,7 @@
                               <Font name="Arial Bold" size="24.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="dpHorarioDia" layoutX="106.0" layoutY="342.0" prefHeight="31.0" prefWidth="150.0">
+                        <DatePicker fx:id="dpHorarioDia" layoutX="106.0" layoutY="342.0" prefHeight="31.0" prefWidth="150.0" promptText="Seleccione">
                            <effect>
                               <Lighting>
                                  <bumpInput>
@@ -132,7 +132,7 @@
                               </Lighting>
                            </effect>
                         </DatePicker>
-                        <ComboBox fx:id="cbHora" layoutX="106.0" layoutY="382.0" prefHeight="31.0" prefWidth="62.0">
+                        <ComboBox fx:id="cbHora" layoutX="106.0" layoutY="382.0" prefHeight="31.0" prefWidth="62.0" promptText="HH">
                            <effect>
                               <Lighting>
                                  <bumpInput>
@@ -144,7 +144,7 @@
                               </Lighting>
                            </effect>
                         </ComboBox>
-                        <ComboBox fx:id="cbMinuto" layoutX="195.0" layoutY="382.0" prefHeight="31.0" prefWidth="62.0">
+                        <ComboBox fx:id="cbMinuto" layoutX="195.0" layoutY="382.0" prefHeight="31.0" prefWidth="62.0" promptText="MM">
                            <effect>
                               <Lighting>
                                  <bumpInput>
