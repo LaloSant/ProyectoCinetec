@@ -14,8 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,10 +37,10 @@ public class AsientosNormController implements Initializable {
     private static final ArrayList<Asiento> seleccionados = new ArrayList<>();
     private static final ArrayList<ArrayList<Asiento>> ASIENTOS = new ArrayList<>();
     private static final ArrayList<String> idsClientes = new ArrayList<>();
-    private static final int precioNormal = 70;
-    private static final int precioVip = 170;
-    private static final float descuentoVip = 0.824f;
-    private static final float descuentoNormal = 0.735f;
+    private static final int PNORMAL = 70;
+    private static final int PVIP = 170;
+    private static final float DESCVIP = 0.824f;
+    private static final float DESCNOMR = 0.735f;
     private static int total = 0;
     @FXML
     private ComboBox<String> cbBoxCines;
@@ -161,55 +159,24 @@ public class AsientosNormController implements Initializable {
         if (chkNinioAdulto.isSelected()) {
             txtnino = "(Con descuento)";
             if (tipoSala.equalsIgnoreCase("VIP")) {
-                total += (precioVip * descuentoVip);
+                total += (PVIP * DESCVIP);
 
             } else {
-                total += (precioNormal * descuentoNormal);
+                total += (PNORMAL * DESCNOMR);
             }
 
         } else {
             if (tipoSala.equalsIgnoreCase("VIP")) {
-                total += precioVip;
+                total += PVIP;
 
             } else {
-                total += precioNormal;
+                total += PNORMAL;
             }
         }
         lblTotal.setText(total + "");
         txtMostrar.appendText(String.format("Fila: %s -- Columna: %s %s %n", temp.getFila(), temp.getColumna(), txtnino));
         seleccionados.add(temp);
         txtIdCompra.setDisable(false);
-    }
-
-    @FXML
-    private void cbBoxCinesOnAction(ActionEvent event) {
-        Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
-        App.cambiarVista("cartelera");
-    }
-
-    @FXML
-    private void mnuSelCineOnAction(ActionEvent event) {
-        App.cambiarAHome();
-    }
-
-    @FXML
-    private void mnuVerCarteleraOnAction(ActionEvent event) {
-        App.cambiarVista("cartelera");
-    }
-
-    @FXML
-    private void mnuAgregarClienteOnAction(ActionEvent event) {
-        App.cambiarVista("clientes");
-    }
-
-    @FXML
-    private void mnuAgregarPeliculaOnAction(ActionEvent event) {
-        App.cambiarVista("anPelicula");
-    }
-
-    @FXML
-    private void mnuItemAcercaDeOnAction(ActionEvent event) {
-        Global.mostrarMenuCreditos();
     }
 
     @FXML
@@ -248,8 +215,8 @@ public class AsientosNormController implements Initializable {
             Global.mostrarAlertaError(ex.getMessage());
         }
     }
-    
-    private int numBoletos(){
+
+    private int numBoletos() {
         ResultSet rs = Global.getConSql().consulta(Queries.contarBoletos());
         try {
             if (rs.next()) {
@@ -260,5 +227,36 @@ public class AsientosNormController implements Initializable {
             Global.mostrarAlertaError(ex.getMessage());
         }
         return 0;
+    }
+
+    @FXML
+    private void cbBoxCinesOnAction(ActionEvent event) {
+        Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
+        App.cambiarVista("cartelera");
+    }
+
+    @FXML
+    private void mnuSelCineOnAction(ActionEvent event) {
+        App.cambiarAHome();
+    }
+
+    @FXML
+    private void mnuVerCarteleraOnAction(ActionEvent event) {
+        App.cambiarVista("cartelera");
+    }
+
+    @FXML
+    private void mnuAgregarClienteOnAction(ActionEvent event) {
+        App.cambiarVista("clientes");
+    }
+
+    @FXML
+    private void mnuAgregarPeliculaOnAction(ActionEvent event) {
+        App.cambiarVista("anPelicula");
+    }
+
+    @FXML
+    private void mnuItemAcercaDeOnAction(ActionEvent event) {
+        Global.mostrarMenuCreditos();
     }
 }
