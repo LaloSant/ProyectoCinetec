@@ -118,7 +118,7 @@ public class AsientosNormController implements Initializable {
             String idFuncion = rs.getString(2);
             boolean disponible = rs.getString(3).trim().equalsIgnoreCase("true");
             char fila = rs.getString(4).charAt(0);
-            char columna = rs.getString(5).charAt(0);
+            String columna = rs.getString(5);
             if (anterior != fila) {
                 ASIENTOS.add(temp);
                 temp = new ArrayList<>();
@@ -126,6 +126,7 @@ public class AsientosNormController implements Initializable {
             }
             temp.add(new Asiento(idAsientos, idFuncion, disponible, fila, columna));
         }
+        ASIENTOS.add(temp);
     }
 
     @FXML
@@ -148,9 +149,7 @@ public class AsientosNormController implements Initializable {
             Global.mostrarInfo("SELECCIONE UN ASIENTO");
             return;
         }
-        String columnaTexto = cbColumnas.getSelectionModel().getSelectedItem();
-        int columna = Integer.parseInt(columnaTexto.replace("Columna", ""));
-        Asiento temp = ASIENTOS.get(cbFilas.getSelectionModel().getSelectedIndex()).get(columna-1);
+        Asiento temp = ASIENTOS.get(cbFilas.getSelectionModel().getSelectedIndex()).get(cbColumnas.getSelectionModel().getSelectedIndex());
         if (!temp.isDisponible()) {
             Global.mostrarAlertaError("El asiento ya esta ocupado.");
             return;
@@ -177,7 +176,7 @@ public class AsientosNormController implements Initializable {
             }
         }
         lblTotal.setText(total + "");
-        txtMostrar.appendText(String.format("Fila: %s -- Columna: %s %s %n", temp.getFila(), columna, txtnino));
+        txtMostrar.appendText(String.format("Fila: %s -- Columna: %s %s %n", temp.getFila(), temp.getColumna(), txtnino));
         seleccionados.add(temp);
         txtIdCompra.setDisable(false);
     }
@@ -219,7 +218,12 @@ public class AsientosNormController implements Initializable {
         cbColumnas.setDisable(false);
         btnAgregar.setDisable(false);
         txtMostrar.clear();
+        for (Asiento seleccionado : seleccionados) {
+            seleccionado.setDisponible(true);
+        }
         seleccionados.clear();
+        total = 0;
+        lblTotal.setText("0");
     }
 
     @FXML

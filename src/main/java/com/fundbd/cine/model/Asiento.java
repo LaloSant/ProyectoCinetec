@@ -14,12 +14,12 @@ public class Asiento {
     private String idFuncion;
     private boolean disponible;
     private char fila;
-    private char columna;
+    private String columna;
 
     public Asiento() {
     }
 
-    public Asiento(String idAsiento, String idFuncion, boolean disponible, char fila, char columna) {
+    public Asiento(String idAsiento, String idFuncion, boolean disponible, char fila, String columna) {
         this.idAsiento = idAsiento;
         this.idFuncion = idFuncion;
         this.disponible = disponible;
@@ -86,14 +86,14 @@ public class Asiento {
     /**
      * @return the columna
      */
-    public char getColumna() {
+    public String getColumna() {
         return columna;
     }
 
     /**
      * @param columna the columna to set
      */
-    public void setColumna(char columna) {
+    public void setColumna(String columna) {
         this.columna = columna;
     }
 
