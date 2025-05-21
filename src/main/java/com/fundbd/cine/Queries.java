@@ -24,6 +24,18 @@ public class Queries {
     public static String selectAllPeliculas() {
         return "SELECT * FROM PELICULAS";
     }
+    
+    public static String selectAllClientes(){
+        return "SELECT * FROM CLIENTES";
+    }
+    
+       public static String selectAllClompras(){
+        return "SELECT * FROM COMPRAS";
+    }
+       
+        public static String selectAllBoletos(){
+        return "SELECT * FROM BOLETOS";
+    }  
 
     public static String selectSala(String idCine) {
         return String.format("SELECT * FROM SALAS WHERE ID_CINE = '%s'", idCine);
@@ -31,6 +43,10 @@ public class Queries {
 
     public static String selectCine(String idCine) {
         return String.format("SELECT * FROM CINES WHERE id_cine = '%s'", idCine);
+    }
+    
+    public static String selectCliente(String idCliente){
+        return String.format("SELECT * FROM CLIENTES WHERE ID_CLIENTE = '%s'",idCliente);
     }
 
     public static String selectPelicula(String idPelicula, boolean imagenYVideo) {
@@ -105,6 +121,22 @@ public class Queries {
         return "INSERT INTO ASIENTOS VALUES(\n"
                 + "    (?),\n"
                 + "    (?),\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?)\n"
+                + ")";
+    }
+    
+    public static String insertarCompra(){
+        return "INSERT INTO COMPRAS VALUES(\n"
+                + "    (?),\n"
+                + "    (?),\n"
+                + "    (?)\n"
+                + ")";
+    }
+    
+    public static String insertarBoleto(){
+            return "INSERT INTO BOLETOS VALUES(\n"
                 + "    (?),\n"
                 + "    (?),\n"
                 + "    (?)\n"

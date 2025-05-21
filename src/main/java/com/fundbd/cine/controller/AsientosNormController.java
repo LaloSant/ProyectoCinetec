@@ -6,8 +6,13 @@ package com.fundbd.cine.controller;
 
 import com.fundbd.cine.App;
 import com.fundbd.cine.Global;
+import com.fundbd.cine.Queries;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,11 +53,11 @@ public class AsientosNormController implements Initializable
     private ComboBox<String> cbFilas;
     @FXML
     private ComboBox<String> cbColumnas;
-    @FXML
-    private Button btnVerCartelera;
     private boolean[][] asientosDisponibles;
     private int boletosAgregados = 0;
     private final int maxBoletos = 5;
+    @FXML
+    private ComboBox<String> cbBoxClientes;
 
     /**
      * Initializes the controller class.
@@ -62,7 +67,11 @@ public class AsientosNormController implements Initializable
     {
         cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCines().values()));
         cbBoxCines.getSelectionModel().select(Global.getCineActual());
-
+        try {
+            cargarClientes();
+        } catch (SQLException ex) {
+            Logger.getLogger(AsientosNormController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String tipoSala = Global.getTipoSalaActual();
         boolean esSalaVIP = tipoSala.equalsIgnoreCase("VIP");
 
@@ -93,6 +102,13 @@ public class AsientosNormController implements Initializable
         {
             cbColumnas.getItems().add("Columna " + i);
         }
+    }
+    
+    private void cargarClientes() throws SQLException{
+         ResultSet rs = Global.getConSql().consulta(Queries.selectAllClientes());
+         while(rs.next()){
+             cbBoxClientes.getItems().add(rs.getString("id_cliente")+".- "+ rs.getString("nombre"));
+         }
     }
 
     @FXML
@@ -181,5 +197,9 @@ public class AsientosNormController implements Initializable
     private void mnuItemAcercaDeOnAction(ActionEvent event)
     {
         Global.mostrarMenuCreditos();
+    }
+
+    @FXML
+    private void cbBoxClientesOnAction(ActionEvent event) {
     }
 }

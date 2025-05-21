@@ -22,7 +22,7 @@ public class Global {
     private static String tipoSalaActual;
 
     public Global() {
-
+        
     }
 
     /**
