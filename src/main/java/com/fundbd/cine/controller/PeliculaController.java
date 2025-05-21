@@ -44,6 +44,7 @@ public class PeliculaController implements Initializable {
     
     String tipoSala;
 
+    int total;
     @FXML
     private Label lblTitulo;
     @FXML

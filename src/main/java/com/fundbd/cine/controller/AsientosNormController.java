@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 
@@ -30,11 +31,14 @@ import javafx.scene.control.TextArea;
  */
 public class AsientosNormController implements Initializable {
     
-    
     private static final int MAXBOLETOS = 10;
     private static final ArrayList<Asiento> seleccionados = new ArrayList<>();
     private static final ArrayList<ArrayList<Asiento>> ASIENTOS = new ArrayList<>();
-
+    private static final int precioNormal = 70;
+    private static final int precioVip = 170;
+    private static final float descuentoVip = 0.824f;
+    private static final float descuentoNormal = 0.735f;
+    private static int total = 0;
     @FXML
     private ComboBox<String> cbBoxCines;
     @FXML
@@ -61,13 +65,14 @@ public class AsientosNormController implements Initializable {
     private ComboBox<String> cbBoxClientes;
     @FXML
     private CheckBox chkNinioAdulto;
+    @FXML
+    private Label lblTotal;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         
         cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCines().values()));
         cbBoxCines.getSelectionModel().select(Global.getCineActual());
@@ -90,14 +95,14 @@ public class AsientosNormController implements Initializable {
         cbColumnas.setDisable(true);
         btnAgregar.setDisable(true);
     }
-
+    
     private void cargarClientes() throws SQLException {
         ResultSet rs = Global.getConSql().consulta(Queries.selectAllClientes());
         while (rs.next()) {
             cbBoxClientes.getItems().add(rs.getString("id_cliente") + ".- " + rs.getString("nombre"));
         }
     }
-
+    
     private void cargarAsientos() throws SQLException {
         ResultSet rs = Global.getConSql().consulta(Queries.selectAsientos(Global.getIdFuncionActual()));
         char anterior = 'A';
@@ -116,17 +121,17 @@ public class AsientosNormController implements Initializable {
             temp.add(new Asiento(idAsientos, idFuncion, disponible, fila, columna));
         }
     }
-
+    
     @FXML
     private void cbColumnas(ActionEvent event) {
-
+        
     }
-
+    
     @FXML
     private void cbFilas(ActionEvent event) {
-
+        
     }
-
+    
     @FXML
     private void btnAgregar(ActionEvent event) {
         if (seleccionados.size() >= MAXBOLETOS) {
@@ -142,49 +147,71 @@ public class AsientosNormController implements Initializable {
             Global.mostrarAlertaError("El asiento ya esta ocupado.");
             return;
         }
+        String tipoSala = Global.getTipoSalaActual();
+        
         temp.setDisponible(false);
-        txtMostrar.appendText(String.format("Fila: %s -- Columna: %s %n", temp.getFila(), temp.getColumna()));
+        String txtnino = "";
+        if (chkNinioAdulto.isSelected()) {
+            txtnino = "(Con descuento)";
+            if (tipoSala.equalsIgnoreCase("VIP")) {
+                total += (precioVip * descuentoVip);
+                
+            } else {
+                total += (precioNormal * descuentoNormal);
+            }
+            
+        } else {
+            if (tipoSala.equalsIgnoreCase("VIP")) {
+                total += precioVip;
+                
+            } else {
+                total += precioNormal;
+            }
+        }
+        lblTotal.setText(total + "");
+        txtMostrar.appendText(String.format("Fila: %s -- Columna: %s %s %n", temp.getFila(), temp.getColumna(), txtnino));
         seleccionados.add(temp);
+        btnComprar.setDisable(false);
     }
-
+    
     @FXML
     private void cbBoxCinesOnAction(ActionEvent event) {
         Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
         App.cambiarVista("cartelera");
     }
-
+    
     @FXML
     private void mnuSelCineOnAction(ActionEvent event) {
         App.cambiarAHome();
     }
-
+    
     @FXML
     private void mnuVerCarteleraOnAction(ActionEvent event) {
         App.cambiarVista("cartelera");
     }
-
+    
     @FXML
     private void mnuAgregarClienteOnAction(ActionEvent event) {
         App.cambiarVista("clientes");
     }
-
+    
     @FXML
     private void mnuAgregarPeliculaOnAction(ActionEvent event) {
         App.cambiarVista("anPelicula");
     }
-
+    
     @FXML
     private void mnuItemAcercaDeOnAction(ActionEvent event) {
         Global.mostrarMenuCreditos();
     }
-
+    
     @FXML
     private void cbBoxClientesOnAction(ActionEvent event) {
         cbFilas.setDisable(false);
         cbColumnas.setDisable(false);
         btnAgregar.setDisable(false);
     }
-
+    
     @FXML
     private void btnComprarOnAction(ActionEvent event) {
     }
