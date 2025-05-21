@@ -94,7 +94,7 @@
          <center>
             <AnchorPane prefHeight="498.0" prefWidth="865.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnAgregar" disable="true" layoutX="100.0" layoutY="442.0" mnemonicParsing="false" onAction="#btnAgregar" prefHeight="42.0" prefWidth="100.0" text="Agregar">
+                  <Button fx:id="btnAgregar" disable="true" layoutX="100.0" layoutY="423.0" mnemonicParsing="false" onAction="#btnAgregar" prefHeight="42.0" prefWidth="100.0" text="Agregar">
                      <font>
                         <Font name="Arial Bold" size="18.0" />
                      </font>
@@ -108,7 +108,7 @@
                            </light>
                         </Lighting>
                      </effect></Button>
-                  <Button fx:id="btnComprar" disable="true" layoutX="964.0" layoutY="365.0" mnemonicParsing="false" onAction="#btnComprarOnAction" prefHeight="42.0" prefWidth="100.0" text="Comprar">
+                  <Button fx:id="btnComprar" disable="true" layoutX="964.0" layoutY="421.0" mnemonicParsing="false" onAction="#btnComprarOnAction" prefHeight="42.0" prefWidth="100.0" text="Comprar">
                      <effect>
                         <Lighting>
                            <bumpInput>
@@ -201,11 +201,17 @@
                         <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblTotal" layoutX="979.0" layoutY="306.0" prefHeight="31.0" textFill="#e9d1a7">
+                  <Label fx:id="lblTotal" layoutX="1022.0" layoutY="304.0" prefHeight="31.0" prefWidth="187.0" textFill="#e9d1a7">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
+                  <Label layoutX="866.0" layoutY="354.0" prefHeight="31.0" text="IDCOMPRA" textFill="#e9d1a7">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtIdCompra" disable="true" layoutX="1022.0" layoutY="354.0" onAction="#txtIdCompra" promptText="INGRESE ID (CHAR 6)" />
                </children>
             </AnchorPane>
          </center>

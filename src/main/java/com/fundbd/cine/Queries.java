@@ -24,18 +24,18 @@ public class Queries {
     public static String selectAllPeliculas() {
         return "SELECT * FROM PELICULAS";
     }
-    
-    public static String selectAllClientes(){
+
+    public static String selectAllClientes() {
         return "SELECT * FROM CLIENTES";
     }
-    
-       public static String selectAllClompras(){
+
+    public static String selectAllClompras() {
         return "SELECT * FROM COMPRAS";
     }
-       
-        public static String selectAllBoletos(){
+
+    public static String selectAllBoletos() {
         return "SELECT * FROM BOLETOS";
-    }  
+    }
 
     public static String selectSala(String idCine) {
         return String.format("SELECT * FROM SALAS WHERE ID_CINE = '%s'", idCine);
@@ -44,9 +44,9 @@ public class Queries {
     public static String selectCine(String idCine) {
         return String.format("SELECT * FROM CINES WHERE id_cine = '%s'", idCine);
     }
-    
-    public static String selectCliente(String idCliente){
-        return String.format("SELECT * FROM CLIENTES WHERE ID_CLIENTE = '%s'",idCliente);
+
+    public static String selectCliente(String idCliente) {
+        return String.format("SELECT * FROM CLIENTES WHERE ID_CLIENTE = '%s'", idCliente);
     }
 
     public static String selectPelicula(String idPelicula, boolean imagenYVideo) {
@@ -55,8 +55,8 @@ public class Queries {
         }
         return String.format("SELECT ID_PELICULA, NOMBRE, SINOPSIS, DURACION, IDIOMA, CLASIFICACION, GENERO  FROM PELICULAS WHERE ID_PELICULA = '%s'", idPelicula);
     }
-    
-    public static String selectAsientos(String idFuncion){
+
+    public static String selectAsientos(String idFuncion) {
         return String.format("SELECT * FROM ASIENTOS WHERE ID_FUNCION = '%s'", idFuncion);
     }
 
@@ -130,17 +130,21 @@ public class Queries {
                 + "    (?)\n"
                 + ")";
     }
-    
-    public static String insertarCompra(){
+
+    public static String updateBoleto() {
+        return "UPDATE ASIENTOS SET DISPONIBLE = 'FALSE' WHERE ID_ASIENTO = (?)";
+    }
+
+    public static String insertarCompra() {
         return "INSERT INTO COMPRAS VALUES(\n"
                 + "    (?),\n"
                 + "    (?),\n"
                 + "    (?)\n"
                 + ")";
     }
-    
-    public static String insertarBoleto(){
-            return "INSERT INTO BOLETOS VALUES(\n"
+
+    public static String insertarBoleto() {
+        return "INSERT INTO BOLETOS VALUES(\n"
                 + "    (?),\n"
                 + "    (?),\n"
                 + "    (?)\n"
@@ -149,6 +153,10 @@ public class Queries {
 
     public static String contarAsientos() {
         return "SELECT COUNT(*) FROM ASIENTOS";
+    }
+
+    public static String contarBoletos() {
+        return "SELECT COUNT(*) FROM Boletos";
     }
 
     public static String subirImagenPelicula(String idPelicula) {

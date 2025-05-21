@@ -104,16 +104,26 @@ public class ConexionSQL {
         return true;
     }
 
-    public boolean insertarCompra(String idCompra,String idCliente, int total)throws SQLException,IOException{
-          PreparedStatement ps = conn.prepareStatement(Queries.insertarCompra());
-          ps.setString(1,idCompra);
-          ps.setString(2, idCliente);
-          ps.setInt(3,total);
-          ps.executeUpdate();
-          ps.close();
-          return true;
-          
+    public boolean insertarCompra(String idCompra, String idCliente, int total) throws SQLException, IOException {
+        PreparedStatement ps = conn.prepareStatement(Queries.insertarCompra());
+        ps.setString(1, idCompra);
+        ps.setString(2, idCliente);
+        ps.setInt(3, total);
+        ps.executeUpdate();
+        ps.close();
+        return true;
     }
+    
+    public boolean insertarBoleto(String idBoleto, String idAsiento, String idCompra) throws SQLException, IOException {
+        PreparedStatement ps = conn.prepareStatement(Queries.insertarBoleto());
+        ps.setString(1, idBoleto);
+        ps.setString(2, idAsiento);
+        ps.setString(3, idCompra);
+        ps.executeUpdate();
+        ps.close();
+        return true;
+    }
+
     public boolean insertarCliente(String idCliente, String nombre,
             String apellidoP, String apellidoM, String contrasenia,
             Date fecha, String telefono, String correo, String numTarjeta,
@@ -133,7 +143,7 @@ public class ConexionSQL {
         ps.close();
         return true;
     }
-    
+
     public boolean insertarFuncion(String idFuncion, String idPelicula,
             String idSala, String idCine, Timestamp horario) throws SQLException {
         PreparedStatement ps = conn.prepareStatement(Queries.insertarFuncion());
@@ -146,7 +156,7 @@ public class ConexionSQL {
         ps.close();
         return true;
     }
-    
+
     public boolean insertarAsiento(String idAsiento, String idFuncion,
             String fila, String columna) throws SQLException {
         PreparedStatement ps = conn.prepareStatement(Queries.insertarAsiento());
@@ -158,6 +168,13 @@ public class ConexionSQL {
         ps.executeUpdate();
         ps.close();
         return true;
+    }
+    
+    public void updateAsientoDisponible(String idAsiento) throws SQLException{
+        PreparedStatement ps = conn.prepareStatement(Queries.updateBoleto());
+        ps.setString(1, idAsiento);
+        ps.executeUpdate();
+        ps.close();
     }
 
     public Blob crearBlob(File file) throws IOException, SQLException {

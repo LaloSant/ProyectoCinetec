@@ -8,11 +8,14 @@ import com.fundbd.cine.App;
 import com.fundbd.cine.Global;
 import com.fundbd.cine.Queries;
 import com.fundbd.cine.model.Asiento;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +26,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -30,10 +34,11 @@ import javafx.scene.control.TextArea;
  * @author eriks
  */
 public class AsientosNormController implements Initializable {
-    
+
     private static final int MAXBOLETOS = 10;
     private static final ArrayList<Asiento> seleccionados = new ArrayList<>();
     private static final ArrayList<ArrayList<Asiento>> ASIENTOS = new ArrayList<>();
+    private static final ArrayList<String> idsClientes = new ArrayList<>();
     private static final int precioNormal = 70;
     private static final int precioVip = 170;
     private static final float descuentoVip = 0.824f;
@@ -67,13 +72,14 @@ public class AsientosNormController implements Initializable {
     private CheckBox chkNinioAdulto;
     @FXML
     private Label lblTotal;
+    @FXML
+    private TextField txtIdCompra;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCines().values()));
         cbBoxCines.getSelectionModel().select(Global.getCineActual());
         try {
@@ -90,19 +96,19 @@ public class AsientosNormController implements Initializable {
             cbFilas.setItems(FXCollections.observableArrayList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"));
             cbColumnas.setItems(FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"));
         }
-        
         cbFilas.setDisable(true);
         cbColumnas.setDisable(true);
         btnAgregar.setDisable(true);
     }
-    
+
     private void cargarClientes() throws SQLException {
         ResultSet rs = Global.getConSql().consulta(Queries.selectAllClientes());
         while (rs.next()) {
+            idsClientes.add(rs.getString("id_cliente"));
             cbBoxClientes.getItems().add(rs.getString("id_cliente") + ".- " + rs.getString("nombre"));
         }
     }
-    
+
     private void cargarAsientos() throws SQLException {
         ResultSet rs = Global.getConSql().consulta(Queries.selectAsientos(Global.getIdFuncionActual()));
         char anterior = 'A';
@@ -121,17 +127,17 @@ public class AsientosNormController implements Initializable {
             temp.add(new Asiento(idAsientos, idFuncion, disponible, fila, columna));
         }
     }
-    
+
     @FXML
     private void cbColumnas(ActionEvent event) {
-        
+
     }
-    
+
     @FXML
     private void cbFilas(ActionEvent event) {
-        
+
     }
-    
+
     @FXML
     private void btnAgregar(ActionEvent event) {
         if (seleccionados.size() >= MAXBOLETOS) {
@@ -142,77 +148,113 @@ public class AsientosNormController implements Initializable {
             Global.mostrarInfo("SELECCIONE UN ASIENTO");
             return;
         }
-        Asiento temp = ASIENTOS.get(cbFilas.getSelectionModel().getSelectedIndex()).get(cbColumnas.getSelectionModel().getSelectedIndex());
+        String columnaTexto = cbColumnas.getSelectionModel().getSelectedItem();
+        int columna = Integer.parseInt(columnaTexto.replace("Columna", ""));
+        Asiento temp = ASIENTOS.get(cbFilas.getSelectionModel().getSelectedIndex()).get(columna-1);
         if (!temp.isDisponible()) {
             Global.mostrarAlertaError("El asiento ya esta ocupado.");
             return;
         }
         String tipoSala = Global.getTipoSalaActual();
-        
+
         temp.setDisponible(false);
         String txtnino = "";
         if (chkNinioAdulto.isSelected()) {
             txtnino = "(Con descuento)";
             if (tipoSala.equalsIgnoreCase("VIP")) {
                 total += (precioVip * descuentoVip);
-                
+
             } else {
                 total += (precioNormal * descuentoNormal);
             }
-            
+
         } else {
             if (tipoSala.equalsIgnoreCase("VIP")) {
                 total += precioVip;
-                
+
             } else {
                 total += precioNormal;
             }
         }
         lblTotal.setText(total + "");
-        txtMostrar.appendText(String.format("Fila: %s -- Columna: %s %s %n", temp.getFila(), temp.getColumna(), txtnino));
+        txtMostrar.appendText(String.format("Fila: %s -- Columna: %s %s %n", temp.getFila(), columna, txtnino));
         seleccionados.add(temp);
-        btnComprar.setDisable(false);
+        txtIdCompra.setDisable(false);
     }
-    
+
     @FXML
     private void cbBoxCinesOnAction(ActionEvent event) {
         Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
         App.cambiarVista("cartelera");
     }
-    
+
     @FXML
     private void mnuSelCineOnAction(ActionEvent event) {
         App.cambiarAHome();
     }
-    
+
     @FXML
     private void mnuVerCarteleraOnAction(ActionEvent event) {
         App.cambiarVista("cartelera");
     }
-    
+
     @FXML
     private void mnuAgregarClienteOnAction(ActionEvent event) {
         App.cambiarVista("clientes");
     }
-    
+
     @FXML
     private void mnuAgregarPeliculaOnAction(ActionEvent event) {
         App.cambiarVista("anPelicula");
     }
-    
+
     @FXML
     private void mnuItemAcercaDeOnAction(ActionEvent event) {
         Global.mostrarMenuCreditos();
     }
-    
+
     @FXML
     private void cbBoxClientesOnAction(ActionEvent event) {
         cbFilas.setDisable(false);
         cbColumnas.setDisable(false);
         btnAgregar.setDisable(false);
+        txtMostrar.clear();
+        seleccionados.clear();
     }
-    
+
+    @FXML
+    private void txtIdCompra(ActionEvent event) {
+        btnComprar.setDisable(false);
+    }
+
     @FXML
     private void btnComprarOnAction(ActionEvent event) {
+        String idCompra = txtIdCompra.getText();
+        String idCliente = idsClientes.get(cbBoxClientes.getSelectionModel().getSelectedIndex());
+        try {
+            Global.getConSql().insertarCompra(idCompra, idCliente, total);
+            Global.mostrarInfo("Se guardo la compra");
+            int contador = numBoletos() + 1;
+            for (Asiento seleccionado : seleccionados) {
+                String idBoleto = String.format("BO%04d", contador++);
+                Global.getConSql().insertarBoleto(idBoleto, seleccionado.getIdAsiento(), idCompra);
+                Global.getConSql().updateAsientoDisponible(seleccionado.getIdAsiento());
+            }
+        } catch (SQLException | IOException ex) {
+            Global.mostrarAlertaError(ex.getMessage());
+        }
+    }
+    
+    private int numBoletos(){
+        ResultSet rs = Global.getConSql().consulta(Queries.contarBoletos());
+        try {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (SQLException ex) {
+            Global.mostrarAlertaError(ex.getMessage());
+        }
+        return 0;
     }
 }
