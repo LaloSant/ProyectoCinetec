@@ -104,6 +104,16 @@ public class ConexionSQL {
         return true;
     }
 
+    public boolean insertarCompra(String idCompra,String idCliente, int total)throws SQLException,IOException{
+          PreparedStatement ps = conn.prepareStatement(Queries.insertarCompra());
+          ps.setString(1,idCompra);
+          ps.setString(2, idCliente);
+          ps.setInt(3,total);
+          ps.executeUpdate();
+          ps.close();
+          return true;
+          
+    }
     public boolean insertarCliente(String idCliente, String nombre,
             String apellidoP, String apellidoM, String contrasenia,
             Date fecha, String telefono, String correo, String numTarjeta,
