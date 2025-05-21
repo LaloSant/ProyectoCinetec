@@ -56,7 +56,17 @@
                      </opaqueInsets>
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
-                     </cursor></Button>
+                     </cursor>
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant color="#e9d1a7" />
+                           </light>
+                        </Lighting>
+                     </effect></Button>
                   <ComboBox fx:id="cbBoxCines" layoutX="894.0" layoutY="20.0" onAction="#cbBoxCinesOnAction" prefHeight="31.0" prefWidth="182.0" promptText="Seleccionar cine">
                      <effect>
                         <Lighting>
@@ -84,32 +94,102 @@
          <center>
             <AnchorPane prefHeight="498.0" prefWidth="865.0" BorderPane.alignment="CENTER">
                <children>
-                  <ComboBox fx:id="cbColumnas" layoutX="502.0" layoutY="326.0" onAction="#cbColumnas" prefWidth="150.0" promptText="Columnas" />
-                  <ComboBox fx:id="cbFilas" layoutX="225.0" layoutY="326.0" onAction="#cbFilas" prefWidth="150.0" promptText="Filas" />
-                  <TextArea layoutX="301.0" layoutY="218.0" prefHeight="62.0" prefWidth="277.0" text="Eliga sus asientos ">
+                  <Button fx:id="btnAgregar" disable="true" layoutX="100.0" layoutY="393.0" mnemonicParsing="false" onAction="#btnAgregar" prefHeight="42.0" prefWidth="100.0" text="Agregar">
                      <font>
-                        <Font size="30.0" />
+                        <Font name="Arial Bold" size="18.0" />
                      </font>
-                  </TextArea>
-                  <Button fx:id="btnAgregar" layoutX="389.0" layoutY="384.0" mnemonicParsing="false" onAction="#btnAgregar" prefHeight="42.0" prefWidth="100.0" text="Agregar" />
-                  <Button fx:id="btnComprar" layoutX="964.0" layoutY="365.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="Comprar" />
-                  <TextArea fx:id="txtMostrar" layoutX="866.0" layoutY="43.0" prefHeight="235.0" prefWidth="295.0" />
-                  <Label layoutX="146.0" layoutY="14.0" text="SELECCIONE AL CLIENTE QUE EFECTUARA LA COMPRA" textAlignment="CENTER" textFill="#e9d1a7">
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant color="#e9d1a7" />
+                           </light>
+                        </Lighting>
+                     </effect></Button>
+                  <Button fx:id="btnComprar" disable="true" layoutX="964.0" layoutY="365.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="Comprar">
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant color="#e9d1a7" />
+                           </light>
+                        </Lighting>
+                     </effect>
                      <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="cbBoxClientes" layoutX="314.0" layoutY="52.0" onAction="#cbBoxClientesOnAction" prefWidth="150.0" promptText="Clientes" />
-                  <Label layoutX="260.0" layoutY="290.0" text="FILAS:" textFill="WHITE">
+                        <Font name="Arial Bold" size="18.0" />
+                     </font></Button>
+                  <TextArea fx:id="txtMostrar" editable="false" layoutX="866.0" layoutY="43.0" prefHeight="235.0" prefWidth="295.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;" />
+                  <Label layoutX="100.0" layoutY="14.0" text="SELECCIONE AL CLIENTE QUE EFECTUARA LA COMPRA" textFill="#e9d1a7">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="500.0" layoutY="290.0" text="COLUMNAS:" textFill="WHITE">
+                  <ComboBox fx:id="cbBoxClientes" layoutX="100.0" layoutY="52.0" onAction="#cbBoxClientesOnAction" prefWidth="150.0" promptText="Clientes">
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant color="#e9d1a7" />
+                           </light>
+                        </Lighting>
+                     </effect></ComboBox>
+                  <Label layoutX="100.0" layoutY="200.0" prefHeight="31.0" text="ESCOGA ASIENTO:" textFill="#e9d1a7">
                      <font>
-                        <Font name="Arial" size="24.0" />
+                        <Font name="Arial Bold" size="24.0" />
                      </font>
                   </Label>
+                  <HBox layoutX="100.0" layoutY="250.0" prefHeight="143.0" prefWidth="481.0" spacing="50.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="164.0" spacing="50.0">
+                           <children>
+                              <Label text="FILAS:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="COLUMNAS:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="143.0" prefWidth="176.0" spacing="50.0">
+                           <children>
+                              <ComboBox fx:id="cbFilas" disable="true" onAction="#cbFilas" prefWidth="150.0" promptText="Filas">
+                                 <effect>
+                                    <Lighting>
+                                       <bumpInput>
+                                          <Shadow />
+                                       </bumpInput>
+                                       <light>
+                                          <Light.Distant color="#e9d1a7" />
+                                       </light>
+                                    </Lighting>
+                                 </effect>
+                              </ComboBox>
+                              <ComboBox fx:id="cbColumnas" disable="true" onAction="#cbColumnas" prefWidth="150.0" promptText="Columnas">
+                                 <effect>
+                                    <Lighting>
+                                       <bumpInput>
+                                          <Shadow />
+                                       </bumpInput>
+                                       <light>
+                                          <Light.Distant color="#e9d1a7" />
+                                       </light>
+                                    </Lighting>
+                                 </effect>
+                              </ComboBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
          </center>

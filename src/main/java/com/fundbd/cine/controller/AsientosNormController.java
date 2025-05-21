@@ -129,7 +129,6 @@ public class AsientosNormController implements Initializable {
             return;
         }
         Asiento temp = ASIENTOS.get(cbFilas.getSelectionModel().getSelectedIndex()).get(cbColumnas.getSelectionModel().getSelectedIndex());
-        System.out.println(temp);
         if (!temp.isDisponible()) {
             Global.mostrarAlertaError("El asiento ya esta ocupado.");
             return;
