@@ -19,6 +19,7 @@ public class Global {
     private static HashMap<String, String> cines;
     private static int cineActual = -1;
     private static String idFuncionActual;
+    private static String tipoSalaActual;
 
     public Global() {
 
@@ -80,6 +81,20 @@ public class Global {
         idFuncionActual = aIdFuncionActual;
     }
 
+    /**
+     * @return the tipoSalaActual
+     */
+    public static String getTipoSalaActual() {
+        return tipoSalaActual;
+    }
+
+    /**
+     * @param aTipoSalaActual the tipoSalaActual to set
+     */
+    public static void setTipoSalaActual(String aTipoSalaActual) {
+        tipoSalaActual = aTipoSalaActual;
+    }
+
     public static void mostrarMenuCreditos() {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION,
                 "Creado por: "
@@ -96,7 +111,7 @@ public class Global {
         Alert alerta = new Alert(Alert.AlertType.ERROR, msg, ButtonType.CLOSE);
         alerta.show();
     }
-    
+
     public static void mostrarInfo(String msg) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION, msg, ButtonType.CLOSE);
         alerta.show();

@@ -41,6 +41,8 @@ import javafx.scene.media.MediaView;
 public class PeliculaController implements Initializable {
 
     private static String RUTA_VIDEO = "src/main/resources/temp/video.mp4";
+    
+    String tipoSala;
 
     @FXML
     private Label lblTitulo;
@@ -123,6 +125,7 @@ public class PeliculaController implements Initializable {
             horario = rs.getString(10);
             nombreSala = rs.getString(11);
             idFuncion = rs.getString(12);
+            tipoSala = rs.getString(13);
             iVImagen.setImage(new Image(rs.getBinaryStream(5)));
             if (iVImagen.getImage().getHeight() == 0 || iVImagen.getImage().getWidth() == 0) {
                 FileInputStream fis = new FileInputStream("src/main/resources/temp/img404.jpg");
@@ -178,6 +181,7 @@ public class PeliculaController implements Initializable {
     @FXML
     private void onBtnComprarAction(ActionEvent event) {
         mVTrailer.getMediaPlayer().pause();
+        Global.setTipoSalaActual(tipoSala);
         App.cambiarVista("asientosNorm");
     }
 

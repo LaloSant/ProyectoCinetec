@@ -55,7 +55,7 @@ public class Queries {
     }
 
     public static String selectFuncion(String idFuncion) {
-        return String.format("SELECT P.*, F.HORARIO, S.NOMBRE, F.ID_FUNCION\n"
+        return String.format("SELECT P.*, F.HORARIO, S.NOMBRE, F.ID_FUNCION, S.TIPO\n"
                 + "FROM PELICULAS P\n"
                 + "JOIN FUNCIONES F ON P.ID_PELICULA = F.ID_PELICULA\n"
                 + "JOIN SALAS S ON F.ID_SALA = S.ID_SALA\n"
