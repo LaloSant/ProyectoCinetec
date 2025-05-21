@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
@@ -58,6 +59,8 @@ public class AsientosNormController implements Initializable {
     private ComboBox<String> cbColumnas;
     @FXML
     private ComboBox<String> cbBoxClientes;
+    @FXML
+    private CheckBox chkNinioAdulto;
 
     /**
      * Initializes the controller class.
