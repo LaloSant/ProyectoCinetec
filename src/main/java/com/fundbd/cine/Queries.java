@@ -55,6 +55,10 @@ public class Queries {
         }
         return String.format("SELECT ID_PELICULA, NOMBRE, SINOPSIS, DURACION, IDIOMA, CLASIFICACION, GENERO  FROM PELICULAS WHERE ID_PELICULA = '%s'", idPelicula);
     }
+    
+    public static String selectAsientos(String idFuncion){
+        return String.format("SELECT * FROM ASIENTOS WHERE ID_FUNCION = '%s'", idFuncion);
+    }
 
     /**
      * Para cartelera

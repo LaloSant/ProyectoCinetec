@@ -7,18 +7,17 @@ package com.fundbd.cine.controller;
 import com.fundbd.cine.App;
 import com.fundbd.cine.Global;
 import com.fundbd.cine.Queries;
+import com.fundbd.cine.model.Asiento;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
@@ -28,8 +27,12 @@ import javafx.scene.control.TextArea;
  *
  * @author eriks
  */
-public class AsientosNormController implements Initializable
-{
+public class AsientosNormController implements Initializable {
+    
+    
+    private static final int MAXBOLETOS = 10;
+    private static final ArrayList<Asiento> seleccionados = new ArrayList<>();
+    private static final ArrayList<ArrayList<Asiento>> ASIENTOS = new ArrayList<>();
 
     @FXML
     private ComboBox<String> cbBoxCines;
@@ -53,9 +56,6 @@ public class AsientosNormController implements Initializable
     private ComboBox<String> cbFilas;
     @FXML
     private ComboBox<String> cbColumnas;
-    private boolean[][] asientosDisponibles;
-    private int boletosAgregados = 0;
-    private final int maxBoletos = 5;
     @FXML
     private ComboBox<String> cbBoxClientes;
 
@@ -63,139 +63,110 @@ public class AsientosNormController implements Initializable
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCines().values()));
         cbBoxCines.getSelectionModel().select(Global.getCineActual());
         try {
             cargarClientes();
+            cargarAsientos();
         } catch (SQLException ex) {
-            Logger.getLogger(AsientosNormController.class.getName()).log(Level.SEVERE, null, ex);
+            Global.mostrarAlertaError(ex.getMessage());
         }
         String tipoSala = Global.getTipoSalaActual();
-        boolean esSalaVIP = tipoSala.equalsIgnoreCase("VIP");
-
-        int numFilas;
-        int numColumnas;
-
-        if (esSalaVIP)
-        {
-            numFilas = 5;
-            numColumnas = 10;
-        } else
-        {
-            numFilas = 10;
-            numColumnas = 20;
-        }
-
-        asientosDisponibles = new boolean[numFilas][numColumnas];
-
-        cbFilas.getItems().clear();
-        cbColumnas.getItems().clear();
-
-        for (int i = 0; i < numFilas; i++)
-        {
-            cbFilas.getItems().add("Fila " + (char) ('A' + i));
-        }
-
-        for (int i = 1; i <= numColumnas; i++)
-        {
-            cbColumnas.getItems().add("Columna " + i);
+        if (tipoSala.equalsIgnoreCase("VIP")) {
+            cbFilas.setItems(FXCollections.observableArrayList("A", "B", "C", "D", "E"));
+            cbColumnas.setItems(FXCollections.observableArrayList("1", "2", "3", "4", "5", "6"));
+        } else {
+            cbFilas.setItems(FXCollections.observableArrayList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"));
+            cbColumnas.setItems(FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"));
         }
     }
-    
-    private void cargarClientes() throws SQLException{
-         ResultSet rs = Global.getConSql().consulta(Queries.selectAllClientes());
-         while(rs.next()){
-             cbBoxClientes.getItems().add(rs.getString("id_cliente")+".- "+ rs.getString("nombre"));
-         }
+
+    private void cargarClientes() throws SQLException {
+        ResultSet rs = Global.getConSql().consulta(Queries.selectAllClientes());
+        while (rs.next()) {
+            cbBoxClientes.getItems().add(rs.getString("id_cliente") + ".- " + rs.getString("nombre"));
+        }
+    }
+
+    private void cargarAsientos() throws SQLException {
+        ResultSet rs = Global.getConSql().consulta(Queries.selectAsientos(Global.getIdFuncionActual()));
+        char anterior = 'A';
+        ArrayList<Asiento> temp = new ArrayList<>();
+        while (rs.next()) {
+            String idAsientos = rs.getString(1);
+            String idFuncion = rs.getString(2);
+            boolean disponible = rs.getString(3).trim().equalsIgnoreCase("true");
+            char fila = rs.getString(4).charAt(0);
+            char columna = rs.getString(5).charAt(0);
+            if (anterior != fila) {
+                ASIENTOS.add(temp);
+                temp = new ArrayList<>();
+                anterior = fila;
+            }
+            temp.add(new Asiento(idAsientos, idFuncion, disponible, fila, columna));
+        }
     }
 
     @FXML
-    private void cbColumnas(ActionEvent event)
-    {
+    private void cbColumnas(ActionEvent event) {
 
     }
 
     @FXML
-    private void cbFilas(ActionEvent event)
-    {
+    private void cbFilas(ActionEvent event) {
 
     }
 
     @FXML
-    private void btnAgregar(ActionEvent event)
-    {
-        if (boletosAgregados >= maxBoletos)
-        {
-            Global.mostrarAlertaError("Solo puedes agregar 5 boletos.\n");
+    private void btnAgregar(ActionEvent event) {
+        if (seleccionados.size() >= MAXBOLETOS) {
+            Global.mostrarAlertaError("Solo puedes agregar 10 boletos.");
             return;
         }
-
-        String filaTexto = cbFilas.getValue();
-        String columnaTexto = cbColumnas.getValue();
-
-        if (filaTexto != null && columnaTexto != null)
-        {
-            int fila = filaTexto.charAt(filaTexto.length() - 1) - 'A';
-            int columna = Integer.parseInt(columnaTexto.replace("Columna ", "")) - 1;
-
-            if (asientosDisponibles[fila][columna])
-            {
-                Global.mostrarAlertaError("El asiento " + filaTexto + " " + columnaTexto + " ya esta ocupado.\n");
-            } else
-            {
-                asientosDisponibles[fila][columna] = true;
-                boletosAgregados++;
-
-                String cine = cbBoxCines.getValue();
-                String tipoSala = Global.getTipoSalaActual();
-
-                txtMostrar.appendText("Boleto generado:\n");
-                txtMostrar.appendText("Sala: " + tipoSala + "\n");
-                txtMostrar.appendText("Asiento: " + filaTexto + " " + columnaTexto + "\n");
-                txtMostrar.appendText("-----------------------------------" + "\n");
-            }
-        } else
-        {
-            Global.mostrarAlertaError("Selecciona una fila o una columna.\n");
+        if (cbFilas.getValue() == null && cbColumnas.getValue() == null) {
+            Global.mostrarInfo("SELECCIONE UN ASIENTO");
+            return;
         }
+        Asiento temp = ASIENTOS.get(cbFilas.getSelectionModel().getSelectedIndex()).get(cbColumnas.getSelectionModel().getSelectedIndex());
+        System.out.println(temp);
+        if (!temp.isDisponible()) {
+            Global.mostrarAlertaError("El asiento ya esta ocupado.");
+            return;
+        }
+        temp.setDisponible(false);
+        txtMostrar.appendText(String.format("Fila: %s -- Columna: %s %n", temp.getFila(), temp.getColumna()));
+        seleccionados.add(temp);
     }
 
     @FXML
-    private void cbBoxCinesOnAction(ActionEvent event)
-    {
+    private void cbBoxCinesOnAction(ActionEvent event) {
         Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
         App.cambiarVista("cartelera");
     }
 
     @FXML
-    private void mnuSelCineOnAction(ActionEvent event)
-    {
+    private void mnuSelCineOnAction(ActionEvent event) {
         App.cambiarAHome();
     }
 
     @FXML
-    private void mnuVerCarteleraOnAction(ActionEvent event)
-    {
+    private void mnuVerCarteleraOnAction(ActionEvent event) {
         App.cambiarVista("cartelera");
     }
 
     @FXML
-    private void mnuAgregarClienteOnAction(ActionEvent event)
-    {
+    private void mnuAgregarClienteOnAction(ActionEvent event) {
         App.cambiarVista("clientes");
     }
 
     @FXML
-    private void mnuAgregarPeliculaOnAction(ActionEvent event)
-    {
+    private void mnuAgregarPeliculaOnAction(ActionEvent event) {
         App.cambiarVista("anPelicula");
     }
 
     @FXML
-    private void mnuItemAcercaDeOnAction(ActionEvent event)
-    {
+    private void mnuItemAcercaDeOnAction(ActionEvent event) {
         Global.mostrarMenuCreditos();
     }
 
