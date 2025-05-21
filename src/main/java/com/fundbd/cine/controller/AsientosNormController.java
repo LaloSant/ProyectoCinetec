@@ -64,6 +64,8 @@ public class AsientosNormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        
         cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCines().values()));
         cbBoxCines.getSelectionModel().select(Global.getCineActual());
         try {
@@ -80,6 +82,10 @@ public class AsientosNormController implements Initializable {
             cbFilas.setItems(FXCollections.observableArrayList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"));
             cbColumnas.setItems(FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"));
         }
+        
+        cbFilas.setDisable(true);
+        cbColumnas.setDisable(true);
+        btnAgregar.setDisable(true);
     }
 
     private void cargarClientes() throws SQLException {
@@ -171,5 +177,12 @@ public class AsientosNormController implements Initializable {
 
     @FXML
     private void cbBoxClientesOnAction(ActionEvent event) {
+        cbFilas.setDisable(false);
+        cbColumnas.setDisable(false);
+        btnAgregar.setDisable(false);
+    }
+
+    @FXML
+    private void btnComprarOnAction(ActionEvent event) {
     }
 }

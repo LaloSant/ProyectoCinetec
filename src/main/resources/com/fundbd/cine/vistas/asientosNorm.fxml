@@ -108,7 +108,7 @@
                            </light>
                         </Lighting>
                      </effect></Button>
-                  <Button fx:id="btnComprar" disable="true" layoutX="964.0" layoutY="365.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="Comprar">
+                  <Button fx:id="btnComprar" disable="true" layoutX="964.0" layoutY="365.0" mnemonicParsing="false" onAction="#btnComprarOnAction" prefHeight="42.0" prefWidth="100.0" text="Comprar">
                      <effect>
                         <Lighting>
                            <bumpInput>
