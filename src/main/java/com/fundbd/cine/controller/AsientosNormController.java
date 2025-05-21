@@ -49,9 +49,10 @@ public class AsientosNormController implements Initializable
     @FXML
     private ComboBox<String> cbColumnas;
     @FXML
-    private TextArea areaTexto;
-    @FXML
     private Button btnVerCartelera;
+    private boolean[][] asientosDisponibles;
+    private int boletosAgregados = 0;
+    private final int maxBoletos = 5;
 
     /**
      * Initializes the controller class.
@@ -61,12 +62,34 @@ public class AsientosNormController implements Initializable
     {
         cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCines().values()));
         cbBoxCines.getSelectionModel().select(Global.getCineActual());
-        for (char letra = 'A'; letra <= 'J'; letra++)
+
+        String tipoSala = Global.getTipoSalaActual();
+        boolean esSalaVIP = tipoSala.equalsIgnoreCase("VIP");
+
+        int numFilas;
+        int numColumnas;
+
+        if (esSalaVIP)
         {
-            cbFilas.getItems().add("Fila " + letra);
+            numFilas = 5;
+            numColumnas = 10;
+        } else
+        {
+            numFilas = 10;
+            numColumnas = 20;
         }
 
-        for (int i = 1; i <= 20; i++)
+        asientosDisponibles = new boolean[numFilas][numColumnas];
+
+        cbFilas.getItems().clear();
+        cbColumnas.getItems().clear();
+
+        for (int i = 0; i < numFilas; i++)
+        {
+            cbFilas.getItems().add("Fila " + (char) ('A' + i));
+        }
+
+        for (int i = 1; i <= numColumnas; i++)
         {
             cbColumnas.getItems().add("Columna " + i);
         }
@@ -81,23 +104,47 @@ public class AsientosNormController implements Initializable
     @FXML
     private void cbFilas(ActionEvent event)
     {
-        
+
     }
 
+    @FXML
     private void btnAgregar(ActionEvent event)
     {
-        String fila = cbFilas.getValue();
-        String columna = cbColumnas.getValue();
-
-        if (fila != null && columna != null)
+        if (boletosAgregados >= maxBoletos)
         {
-            areaTexto.appendText(fila + " - " + columna);
+            Global.mostrarAlertaError("Solo puedes agregar 5 boletos.\n");
+            return;
+        }
+
+        String filaTexto = cbFilas.getValue();
+        String columnaTexto = cbColumnas.getValue();
+
+        if (filaTexto != null && columnaTexto != null)
+        {
+            int fila = filaTexto.charAt(filaTexto.length() - 1) - 'A';
+            int columna = Integer.parseInt(columnaTexto.replace("Columna ", "")) - 1;
+
+            if (asientosDisponibles[fila][columna])
+            {
+                Global.mostrarAlertaError("El asiento " + filaTexto + " " + columnaTexto + " ya esta ocupado.\n");
+            } else
+            {
+                asientosDisponibles[fila][columna] = true;
+                boletosAgregados++;
+
+                String cine = cbBoxCines.getValue();
+                String tipoSala = Global.getTipoSalaActual();
+
+                txtMostrar.appendText("Boleto generado:\n");
+                txtMostrar.appendText("Sala: " + tipoSala + "\n");
+                txtMostrar.appendText("Asiento: " + filaTexto + " " + columnaTexto + "\n");
+                txtMostrar.appendText("-----------------------------------" + "\n");
+            }
         } else
         {
-            areaTexto.appendText("Selecciona una fila y una columna");
+            Global.mostrarAlertaError("Selecciona una fila o una columna.\n");
         }
     }
-
 
     @FXML
     private void cbBoxCinesOnAction(ActionEvent event)
