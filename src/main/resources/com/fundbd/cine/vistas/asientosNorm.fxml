@@ -212,6 +212,11 @@
                      </font>
                   </Label>
                   <TextField fx:id="txtIdCompra" disable="true" layoutX="1022.0" layoutY="354.0" onAction="#txtIdCompra" promptText="INGRESE ID (CHAR 6)" />
+                  <Label fx:id="lblDescuento" layoutX="373.0" layoutY="427.0" prefHeight="31.0" prefWidth="488.0" textFill="#e9d1a7">
+                     <font>
+                        <Font name="Arial Bold" size="18.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </center>

@@ -34,8 +34,7 @@ import javafx.scene.control.TextField;
  *
  * @author eriks
  */
-public class AsientosNormController implements Initializable
-{
+public class AsientosNormController implements Initializable {
 
     private static final int MAXBOLETOS = 10;
     private static final ArrayList<Asiento> seleccionados = new ArrayList<>();
@@ -80,89 +79,75 @@ public class AsientosNormController implements Initializable
     private TextField txtIdCompra;
     @FXML
     private Button btnCartelera;
+    @FXML
+    private Label lblDescuento;
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         cbBoxCines.setItems(FXCollections.observableArrayList(Global.getCines().values()));
         cbBoxCines.getSelectionModel().select(Global.getCineActual());
-        try
-        {
+        try {
             cargarClientes();
             cargarAsientos();
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             Global.mostrarAlertaError(ex.getMessage());
         }
         String tipoSala = Global.getTipoSalaActual();
-        if (tipoSala.equalsIgnoreCase("VIP"))
-        {
+        if (tipoSala.equalsIgnoreCase("VIP")) {
             cbFilas.setItems(FXCollections.observableArrayList("A", "B", "C", "D", "E"));
             cbColumnas.setItems(FXCollections.observableArrayList("1", "2", "3", "4", "5", "6"));
-        } else
-        {
+        } else {
             cbFilas.setItems(FXCollections.observableArrayList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"));
             cbColumnas.setItems(FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"));
         }
         cbFilas.setDisable(true);
         cbColumnas.setDisable(true);
         btnAgregar.setDisable(true);
-        if (LocalDate.now().getDayOfWeek() == DayOfWeek.WEDNESDAY)
-        {
-            System.out.println("Es miércoles");
+        if (LocalDate.now().getDayOfWeek() == DayOfWeek.WEDNESDAY) {
             descMiercoles = true;
 
         }
-        if (LocalDate.now().getDayOfWeek() == DayOfWeek.MONDAY)
-        {
-            System.out.println("Es lunes");
+        if (LocalDate.now().getDayOfWeek() == DayOfWeek.MONDAY) {
             LocalTime horaActual = LocalTime.now();
-            if (horaActual.isAfter(LocalTime.of(11, 00)) && horaActual.isBefore(LocalTime.of(13, 00)))
-            {
-                System.out.println("Son mas de las 11 y menos de las 13");
+            if (horaActual.isAfter(LocalTime.of(11, 00)) && horaActual.isBefore(LocalTime.of(13, 00))) {
                 descLunes = true;
             }
         }
-        if (descLunes == true)
-        {
+        if (descLunes) {
+            lblDescuento.setText("30% DESCUENTO (Lunes temprano)");
             txtMostrar.appendText(String.format("Lunes de 30 por ciento de descuento - Horario de 11:00 a 13:00 %n"));
             txtMostrar.appendText(String.format("----------------------------------------------------" + "%n"));
         }
-        if (descMiercoles == true)
-        {
+        if (descMiercoles) {
+            lblDescuento.setText("MIERCOLES 2 X 1 (NO SUMAN PROMOCIONES)");
             txtMostrar.appendText(String.format("Miercoles de 2 x 1 - N/A niños y adultos mayores %n"));
             txtMostrar.appendText(String.format("------------------------------------------------" + "%n"));
-            chkNinioAdulto.setDisable(descMiercoles == true);
+            chkNinioAdulto.setDisable(descMiercoles);
         }
     }
 
-    private void cargarClientes() throws SQLException
-    {
+    private void cargarClientes() throws SQLException {
         ResultSet rs = Global.getConSql().consulta(Queries.selectAllClientes());
-        while (rs.next())
-        {
+        while (rs.next()) {
             idsClientes.add(rs.getString("id_cliente"));
             cbBoxClientes.getItems().add(rs.getString("id_cliente") + ".- " + rs.getString("nombre"));
         }
     }
 
-    private void cargarAsientos() throws SQLException
-    {
+    private void cargarAsientos() throws SQLException {
         ResultSet rs = Global.getConSql().consulta(Queries.selectAsientos(Global.getIdFuncionActual()));
         char anterior = 'A';
         ArrayList<Asiento> temp = new ArrayList<>();
-        while (rs.next())
-        {
+        while (rs.next()) {
             String idAsientos = rs.getString(1);
             String idFuncion = rs.getString(2);
             boolean disponible = rs.getString(3).trim().equalsIgnoreCase("true");
             char fila = rs.getString(4).charAt(0);
             String columna = rs.getString(5);
-            if (anterior != fila)
-            {
+            if (anterior != fila) {
                 ASIENTOS.add(temp);
                 temp = new ArrayList<>();
                 anterior = fila;
@@ -173,33 +158,27 @@ public class AsientosNormController implements Initializable
     }
 
     @FXML
-    private void cbColumnas(ActionEvent event)
-    {
+    private void cbColumnas(ActionEvent event) {
 
     }
 
     @FXML
-    private void cbFilas(ActionEvent event)
-    {
+    private void cbFilas(ActionEvent event) {
 
     }
 
     @FXML
-    private void btnAgregar(ActionEvent event)
-    {
-        if (seleccionados.size() >= MAXBOLETOS)
-        {
+    private void btnAgregar(ActionEvent event) {
+        if (seleccionados.size() >= MAXBOLETOS) {
             Global.mostrarAlertaError("Solo puedes agregar 10 boletos.");
             return;
         }
-        if (cbFilas.getValue() == null && cbColumnas.getValue() == null)
-        {
+        if (cbFilas.getValue() == null && cbColumnas.getValue() == null) {
             Global.mostrarInfo("SELECCIONE UN ASIENTO");
             return;
         }
         Asiento temp = ASIENTOS.get(cbFilas.getSelectionModel().getSelectedIndex()).get(cbColumnas.getSelectionModel().getSelectedIndex());
-        if (!temp.isDisponible())
-        {
+        if (!temp.isDisponible()) {
             Global.mostrarAlertaError("El asiento ya esta ocupado.");
             return;
         }
@@ -209,83 +188,58 @@ public class AsientosNormController implements Initializable
         String txtnino = "";
         String txtmiercoles = "";
 
-        if (chkNinioAdulto.isSelected())
-        {
+        if (chkNinioAdulto.isSelected()) {
             txtnino = "(Con descuento)";
-            if (tipoSala.equalsIgnoreCase("VIP"))
-            {
-                if (descLunes == true)
-                {
+            if (tipoSala.equalsIgnoreCase("VIP")) {
+                if (descLunes) {
                     total += ((PVIP - (PVIP * 0.3)) * DESCVIP);
-                } else
-                {
+                } else {
                     total += (PVIP * DESCVIP);
                 }
-            } else
-            {
-                if (descLunes == true)
-                {
+            } else {
+                if (descLunes) {
                     total += ((PNORMAL - (PNORMAL * 0.3)) * DESCNOMR);
-                } else
-                {
+                } else {
                     total += (PNORMAL * DESCNOMR);
                 }
             }
 
-        } else
-        {
-            if (tipoSala.equalsIgnoreCase("VIP"))
-            {
-                if (descMiercoles == true)
-                {
-                    if (seleccionados.isEmpty())
-                    {
+        } else {
+            if (tipoSala.equalsIgnoreCase("VIP")) {
+                if (descMiercoles) {
+                    if (seleccionados.isEmpty()) {
                         total += PVIP;
-                    } else
-                    {
-                        if (seleccionados.size() % 2 == 0)
-                        {
+                    } else {
+                        if (seleccionados.size() % 2 == 0) {
                             total += PVIP;
-                        } else
-                        {
+                        } else {
                             txtnino = "(Segundo boleto gratis)";
                         }
                     }
                 }
 
-                if (descLunes == true)
-                {
+                if (descLunes) {
                     total += (PVIP - (PVIP * 0.3));
                 }
-                if (descMiercoles == false && descLunes == false)
-                {
+                if (!descMiercoles && !descLunes) {
                     total += PVIP;
                 }
-            } else
-            {
-                if (descMiercoles == true)
-                {
-                    if (seleccionados.isEmpty())
-                    {
+            } else {
+                if (descMiercoles) {
+                    if (seleccionados.isEmpty()) {
                         total += PNORMAL;
-                    } else
-                    {
-                        if (seleccionados.size() % 2 == 0)
-                        {
+                    } else {
+                        if (seleccionados.size() % 2 == 0) {
                             total += PNORMAL;
-                        } else
-                        {
+                        } else {
                             txtnino = "(Segundo boleto gratis)";
                         }
                     }
                 }
-                System.out.println(txtmiercoles);
-                if (descLunes == true)
-                {
+                if (descLunes) {
                     total += (PNORMAL - (PNORMAL * 0.3));
                 }
-                if (descLunes == false && descMiercoles == false)
-                {
+                if (!descLunes && !descMiercoles) {
                     total += PNORMAL;
                 }
             }
@@ -297,14 +251,12 @@ public class AsientosNormController implements Initializable
     }
 
     @FXML
-    private void cbBoxClientesOnAction(ActionEvent event)
-    {
+    private void cbBoxClientesOnAction(ActionEvent event) {
         cbFilas.setDisable(false);
         cbColumnas.setDisable(false);
         btnAgregar.setDisable(false);
         txtMostrar.clear();
-        for (Asiento seleccionado : seleccionados)
-        {
+        for (Asiento seleccionado : seleccionados) {
             seleccionado.setDisponible(true);
         }
         seleccionados.clear();
@@ -313,90 +265,74 @@ public class AsientosNormController implements Initializable
     }
 
     @FXML
-    private void txtIdCompra(ActionEvent event)
-    {
+    private void txtIdCompra(ActionEvent event) {
         btnComprar.setDisable(false);
     }
 
     @FXML
-    private void btnComprarOnAction(ActionEvent event)
-    {
+    private void btnComprarOnAction(ActionEvent event) {
         String idCompra = txtIdCompra.getText();
         String idCliente = idsClientes.get(cbBoxClientes.getSelectionModel().getSelectedIndex());
-        try
-        {
+        try {
             Global.getConSql().insertarCompra(idCompra, idCliente, total);
             Global.mostrarInfo("Se guardo la compra");
             int contador = numBoletos() + 1;
-            for (Asiento seleccionado : seleccionados)
-            {
+            for (Asiento seleccionado : seleccionados) {
                 String idBoleto = String.format("BO%04d", contador++);
                 Global.getConSql().insertarBoleto(idBoleto, seleccionado.getIdAsiento(), idCompra);
                 Global.getConSql().updateAsientoDisponible(seleccionado.getIdAsiento());
             }
-        } catch (SQLException | IOException ex)
-        {
+        } catch (SQLException | IOException ex) {
             Global.mostrarAlertaError(ex.getMessage());
         }
     }
 
-    private int numBoletos()
-    {
+    private int numBoletos() {
         ResultSet rs = Global.getConSql().consulta(Queries.contarBoletos());
-        try
-        {
-            if (rs.next())
-            {
+        try {
+            if (rs.next()) {
                 return rs.getInt(1);
             }
             return 0;
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             Global.mostrarAlertaError(ex.getMessage());
         }
         return 0;
     }
 
     @FXML
-    private void cbBoxCinesOnAction(ActionEvent event)
-    {
+    private void cbBoxCinesOnAction(ActionEvent event) {
         Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
         App.cambiarVista("cartelera");
     }
 
     @FXML
-    private void mnuSelCineOnAction(ActionEvent event)
-    {
+    private void mnuSelCineOnAction(ActionEvent event) {
         App.cambiarAHome();
     }
 
     @FXML
-    private void mnuVerCarteleraOnAction(ActionEvent event)
-    {
+    private void mnuVerCarteleraOnAction(ActionEvent event) {
         App.cambiarVista("cartelera");
     }
 
     @FXML
-    private void mnuAgregarClienteOnAction(ActionEvent event)
-    {
+    private void mnuAgregarClienteOnAction(ActionEvent event) {
         App.cambiarVista("clientes");
     }
 
     @FXML
-    private void mnuAgregarPeliculaOnAction(ActionEvent event)
-    {
+    private void mnuAgregarPeliculaOnAction(ActionEvent event) {
         App.cambiarVista("anPelicula");
     }
 
     @FXML
-    private void mnuItemAcercaDeOnAction(ActionEvent event)
-    {
+    private void mnuItemAcercaDeOnAction(ActionEvent event) {
         Global.mostrarMenuCreditos();
     }
 
     @FXML
-    private void btnCartelera(ActionEvent event)
-    {
+    private void btnCartelera(ActionEvent event) {
         App.cambiarVista("cartelera");
     }
 }
