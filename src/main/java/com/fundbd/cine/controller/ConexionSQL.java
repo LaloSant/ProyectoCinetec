@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -113,7 +114,7 @@ public class ConexionSQL {
         ps.close();
         return true;
     }
-    
+
     public boolean insertarBoleto(String idBoleto, String idAsiento, String idCompra) throws SQLException, IOException {
         PreparedStatement ps = conn.prepareStatement(Queries.insertarBoleto());
         ps.setString(1, idBoleto);
@@ -169,8 +170,8 @@ public class ConexionSQL {
         ps.close();
         return true;
     }
-    
-    public void updateAsientoDisponible(String idAsiento) throws SQLException{
+
+    public void updateAsientoDisponible(String idAsiento) throws SQLException {
         PreparedStatement ps = conn.prepareStatement(Queries.updateBoleto());
         ps.setString(1, idAsiento);
         ps.executeUpdate();
@@ -194,55 +195,4 @@ public class ConexionSQL {
         b.setBytes(1, bytes);
         return b;
     }
-
-//    public void subirBlob(String ruta, String query) {
-//        try {
-//            this.conectar();
-//            File file = new File(ruta);
-//            FileInputStream fis = new FileInputStream(file);
-//            byte[] bytes = new byte[(int) file.length()];
-//            int bytesRead;
-//            int offset = 0;
-//            while (offset < bytes.length) {
-//                bytesRead = fis.read(bytes, offset, bytes.length - offset);
-//                if (bytesRead == -1) {
-//                    break;
-//                }
-//                offset += bytesRead;
-//            }
-//            fis.close();
-//            PreparedStatement stat = conn.prepareStatement(query);
-//            Blob blob = conn.createBlob();
-//            blob.setBytes(1, bytes);
-//            stat.setBlob(1, blob);
-//            stat.executeUpdate();
-//            stat.close();
-//            conn.close();
-//
-//        } catch (IOException | SQLException ex) {
-//            Logger.getLogger(ConexionSQL.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-//
-//    public void leerBlob(String ruta, String query) {
-//        Statement st;
-//        try {
-//            this.conectar();
-//            st = conn.createStatement();
-//            ResultSet rs = st.executeQuery(query);
-//            while (rs.next()) {
-//                InputStream is = rs.getBinaryStream(1);
-//                FileOutputStream fos = new FileOutputStream(ruta);
-//                byte[] buffer = new byte[1024];
-//                int bytesRead;
-//                while ((bytesRead = is.read(buffer)) != -1) {
-//                    fos.write(buffer, 0, bytesRead);
-//                }
-//                fos.close();
-//            }
-//            conn.close();
-//        } catch (SQLException | IOException ex) {
-//            Logger.getLogger(ConexionSQL.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
 }

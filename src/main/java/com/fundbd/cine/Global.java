@@ -8,6 +8,7 @@ import com.fundbd.cine.controller.ConexionSQL;
 import java.util.HashMap;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -108,7 +109,10 @@ public class Global {
     }
 
     public static void mostrarAlertaError(String msg) {
+        Text texto =  new Text(msg);
+        texto.setWrappingWidth(400);
         Alert alerta = new Alert(Alert.AlertType.ERROR, msg, ButtonType.CLOSE);
+        alerta.getDialogPane().setContent(texto);
         alerta.show();
     }
 

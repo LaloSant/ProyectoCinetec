@@ -21,12 +21,12 @@ public class Cliente {
     private LocalDate fechaNacimiento; //Representa anio, mes, dia
     private String contrasenia;
     private long numeroTarjeta;
-    private byte nip;
+    private int nip;
 
     public Cliente() {
     }
 
-    public Cliente(String idCliente, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, long telefono, LocalDate fechaNacimiento, String contrasenia, long numeroTarjeta, byte nip) {
+    public Cliente(String idCliente, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, long telefono, LocalDate fechaNacimiento, String contrasenia, long numeroTarjeta, int nip) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -168,14 +168,14 @@ public class Cliente {
     /**
      * @return the nip
      */
-    public byte getNip() {
+    public int getNip() {
         return nip;
     }
 
     /**
      * @param nip the nip to set
      */
-    public void setNip(byte nip) {
+    public void setNip(int nip) {
         this.nip = nip;
     }
 

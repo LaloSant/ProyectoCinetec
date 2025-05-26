@@ -45,15 +45,36 @@ public class VerClientesController implements Initializable {
     private MenuItem mnItAcercaDe;
     @FXML
     private TableView<Cliente> tablaClientes;
+    @FXML
+    private TableColumn<Cliente, String> idClienteColumna;
+    @FXML
+    private TableColumn<Cliente, String> nombresColumna;
+    @FXML
+    private TableColumn<Cliente, String> apPColumna;
+    @FXML
+    private TableColumn<Cliente, String> ApMColumna;
+    @FXML
+    private TableColumn<Cliente, String> correoColumna;
+    @FXML
+    private TableColumn<Cliente, String> telefonoColumna;
+    @FXML
+    private TableColumn<Cliente, String> fechaColumna;
+    @FXML
+    private TableColumn<Cliente, String> contraColumna;
+    @FXML
+    private TableColumn<Cliente, String> tarjetaColumna;
+    @FXML
+    private TableColumn<Cliente, String> nipColumna;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        for (TableColumn<? extends Object, ?> column : tablaClientes.getColumns()) {
+        for (TableColumn<Cliente, ?> column : tablaClientes.getColumns()) {
             column.setReorderable(false);
         }
+        tablaClientes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         leerDatos();
         crearColumnas();
     }
@@ -71,18 +92,28 @@ public class VerClientesController implements Initializable {
                 String fechaNac = rs.getString(7);
                 String contrasenia = rs.getString(8);
                 long numTarjeta = rs.getLong(9);
-                byte nip = rs.getByte(10);
-                System.out.println("Aqui no llego");
-                LocalDate ld = LocalDate.parse(fechaNac);
-                Cliente cli = new Cliente(idCliente, nombre, apPat, apMat, correo, telefono, ld, contrasenia, numTarjeta, nip);
+                int nip = rs.getInt(10);
+                String dateString = fechaNac.split(" ")[0];
+                LocalDate date = LocalDate.parse(dateString);
+                Cliente cli = new Cliente(idCliente, nombre, apPat, apMat, correo, telefono, date, contrasenia, numTarjeta, nip);
                 clientes.add(cli);
             }
         } catch (SQLException ex) {
             Global.mostrarAlertaError(ex.getMessage());
         }
     }
-    
-    private void crearColumnas(){
+
+    private void crearColumnas() {
+        idClienteColumna.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdCliente()));
+        nombresColumna.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        apPColumna.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApellidoPaterno()));
+        ApMColumna.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApellidoMaterno()));
+        correoColumna.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCorreo()));
+        telefonoColumna.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getTelefono())));
+        fechaColumna.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaNacimiento().toString()));
+        contraColumna.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContrasenia()));
+        tarjetaColumna.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getNumeroTarjeta())));
+        nipColumna.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getNip())));
         tablaClientes.setItems(FXCollections.observableArrayList(clientes));
     }
 

@@ -64,18 +64,18 @@
             </Pane>
          </top>
          <center>
-            <TableView fx:id="tablaClientes" fixedCellSize="0.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #10182a;" BorderPane.alignment="CENTER">
+            <TableView fx:id="tablaClientes" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #10182a;" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Id Cliente" />
-                <TableColumn editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Nombres" />
-                  <TableColumn editable="false" prefWidth="150.0" resizable="false" sortable="false" text="Apellido Paterno" />
-                  <TableColumn editable="false" prefWidth="150.0" resizable="false" sortable="false" text="Apellido Materno" />
-                  <TableColumn editable="false" prefWidth="150.0" resizable="false" sortable="false" text="Correo" />
-                  <TableColumn editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Telefono" />
-                  <TableColumn editable="false" prefWidth="175.0" resizable="false" sortable="false" text="Fecha de nacimiento" />
-                  <TableColumn editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Contraseña" />
-                  <TableColumn editable="false" prefWidth="150.0" resizable="false" sortable="false" text="Numero de tarketa" />
-                  <TableColumn editable="false" prefWidth="75.0" resizable="false" sortable="false" text="NIP" />
+                <TableColumn fx:id="idClienteColumna" editable="false" prefWidth="74.0" resizable="false" sortable="false" text="Id Cliente" />
+                <TableColumn fx:id="nombresColumna" editable="false" prefWidth="96.0" resizable="false" sortable="false" text="Nombres" />
+                  <TableColumn fx:id="apPColumna" editable="false" prefWidth="180.0" resizable="false" sortable="false" text="Apellido Paterno" />
+                  <TableColumn fx:id="ApMColumna" editable="false" prefWidth="134.0" resizable="false" sortable="false" text="Apellido Materno" />
+                  <TableColumn fx:id="correoColumna" editable="false" prefWidth="214.0" resizable="false" sortable="false" text="Correo" />
+                  <TableColumn fx:id="telefonoColumna" editable="false" prefWidth="113.0" resizable="false" sortable="false" text="Telefono" />
+                  <TableColumn fx:id="fechaColumna" editable="false" prefWidth="92.0" resizable="false" sortable="false" text="Nacimiento" />
+                  <TableColumn fx:id="contraColumna" editable="false" prefWidth="151.0" resizable="false" sortable="false" text="Contraseña" />
+                  <TableColumn fx:id="tarjetaColumna" editable="false" prefWidth="140.0" resizable="false" sortable="false" text="Numero tarjeta" />
+                  <TableColumn fx:id="nipColumna" editable="false" prefWidth="56.0" resizable="false" sortable="false" text="NIP" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -89,7 +89,7 @@
                         <Shadow />
                      </bumpInput>
                      <light>
-                        <Light.Distant />
+                        <Light.Distant color="#e8d0a7" />
                      </light>
                   </Lighting>
                </effect>
