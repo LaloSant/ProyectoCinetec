@@ -17,6 +17,7 @@
             <items>
                   <MenuItem fx:id="mnuSelCine" mnemonicParsing="false" onAction="#mnuSelCineOnAction" text="Seleccionar cine" />
                   <MenuItem fx:id="mnuVerCartelera" disable="true" mnemonicParsing="false" onAction="#mnuVerCarteleraOnAction" text="Ver cartelera" />
+                  <MenuItem fx:id="mnuVerClientes" mnemonicParsing="false" onAction="#mnuVerClientesOnAction" text="Ver clientes" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Agregar">

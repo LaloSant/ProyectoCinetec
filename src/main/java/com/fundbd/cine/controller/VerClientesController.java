@@ -7,37 +7,32 @@ package com.fundbd.cine.controller;
 import com.fundbd.cine.App;
 import com.fundbd.cine.Global;
 import com.fundbd.cine.Queries;
+import com.fundbd.cine.model.Cliente;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class
  *
  * @author eduar
  */
-public class HomeController implements Initializable {
+public class VerClientesController implements Initializable {
 
-    @FXML
-    private ImageView imgViewLogo;
-    @FXML
-    private ComboBox<String> cbBoxCines;
-    @FXML
-    private MenuItem mnItAcercaDe;
-    @FXML
-    private Button btnVerFunciones;
+    ArrayList<Cliente> clientes = new ArrayList<>();
+
     @FXML
     private MenuItem mnuSelCine;
     @FXML
@@ -47,37 +42,48 @@ public class HomeController implements Initializable {
     @FXML
     private MenuItem mnuAgregarPelicula;
     @FXML
-    private MenuItem mnuVerClientes;
+    private MenuItem mnItAcercaDe;
+    @FXML
+    private TableView<Cliente> tablaClientes;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ResultSet rs = Global.getConSql().consulta(Queries.selectAllCines());
-        HashMap<String, String> cines = new HashMap<>();
+        for (TableColumn<? extends Object, ?> column : tablaClientes.getColumns()) {
+            column.setReorderable(false);
+        }
+        leerDatos();
+        crearColumnas();
+    }
+
+    private void leerDatos() {
+        ResultSet rs = Global.getConSql().consulta(Queries.selectAllClientes());
         try {
             while (rs.next()) {
-                cines.put(rs.getString(1), rs.getString(2));
+                String idCliente = rs.getString(1);
+                String nombre = rs.getString(2);
+                String apPat = rs.getString(3);
+                String apMat = rs.getString(4);
+                String correo = rs.getString(5);
+                long telefono = rs.getLong(6);
+                String fechaNac = rs.getString(7);
+                String contrasenia = rs.getString(8);
+                long numTarjeta = rs.getLong(9);
+                byte nip = rs.getByte(10);
+                System.out.println("Aqui no llego");
+                LocalDate ld = LocalDate.parse(fechaNac);
+                Cliente cli = new Cliente(idCliente, nombre, apPat, apMat, correo, telefono, ld, contrasenia, numTarjeta, nip);
+                clientes.add(cli);
             }
         } catch (SQLException ex) {
             Global.mostrarAlertaError(ex.getMessage());
         }
-
-        Global.setCines(cines);
-        ObservableList<String> datos = FXCollections.observableArrayList(new ArrayList(cines.values()));
-        cbBoxCines.setItems(datos);
     }
-
-    @FXML
-    private void cbBoxCinesOnAction(ActionEvent event) {
-        btnVerFunciones.setDisable(false);
-    }
-
-    @FXML
-    private void btnFuncionesOnAction(ActionEvent event) {
-        Global.setCineActual(cbBoxCines.getSelectionModel().getSelectedIndex());
-        App.cambiarVista("cartelera");
+    
+    private void crearColumnas(){
+        tablaClientes.setItems(FXCollections.observableArrayList(clientes));
     }
 
     @FXML
@@ -103,11 +109,6 @@ public class HomeController implements Initializable {
     @FXML
     private void mnuItemAcercaDeOnAction(ActionEvent event) {
         Global.mostrarMenuCreditos();
-    }
-
-    @FXML
-    private void mnuVerClientesOnAction(ActionEvent event) {
-        App.cambiarVista("verClientes");
     }
 
 }
