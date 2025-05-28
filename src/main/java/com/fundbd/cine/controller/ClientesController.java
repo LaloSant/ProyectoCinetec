@@ -16,8 +16,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -81,6 +79,7 @@ public class ClientesController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        btnModificar.setDisable(true);
         try {
             cargarClientes();
         } catch (SQLException ex) {
@@ -161,6 +160,7 @@ public class ClientesController implements Initializable {
 
     @FXML
     private void cbBoxClientesOnAction(ActionEvent event) {
+        btnModificar.setDisable(false);
         Cliente temp = clientes.get(cbBoxClientes.getSelectionModel().getSelectedIndex());
         txtId.setText(temp.getIdCliente());
         txtNombre.setText(temp.getNombre());
