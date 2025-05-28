@@ -30,7 +30,7 @@ public class ConexionSQL {
 
     private static final String USUARIO = "lalo";
     private static final String PASSWORD = "150605";
-    private static final String URL = "jdbc:oracle:thin:@//25.52.189.97:1521/XEPDB1";
+    private static final String URL = "jdbc:oracle:thin:@//localhost:1521/XEPDB1";
     private Connection conn;
 
     public ConexionSQL() {
@@ -179,6 +179,9 @@ public class ConexionSQL {
     }
 
     public Blob crearBlob(File file) throws IOException, SQLException {
+        if (file == null) {
+            return null;
+        }
         FileInputStream fis = new FileInputStream(file);
         byte[] bytes = new byte[(int) file.length()];
         int bytesRead;

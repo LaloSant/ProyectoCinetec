@@ -138,6 +138,8 @@ public class AsientosNormController implements Initializable {
     }
 
     private void cargarAsientos() throws SQLException {
+        boolean hayDisponibles = false;
+        ASIENTOS.clear();
         ResultSet rs = Global.getConSql().consulta(Queries.selectAsientos(Global.getIdFuncionActual()));
         char anterior = 'A';
         ArrayList<Asiento> temp = new ArrayList<>();
@@ -145,6 +147,9 @@ public class AsientosNormController implements Initializable {
             String idAsientos = rs.getString(1);
             String idFuncion = rs.getString(2);
             boolean disponible = rs.getString(3).trim().equalsIgnoreCase("true");
+            if (disponible) {
+                hayDisponibles = true;
+            }
             char fila = rs.getString(4).charAt(0);
             String columna = rs.getString(5);
             if (anterior != fila) {
@@ -152,9 +157,14 @@ public class AsientosNormController implements Initializable {
                 temp = new ArrayList<>();
                 anterior = fila;
             }
-            temp.add(new Asiento(idAsientos, idFuncion, disponible, fila, columna));
+            Asiento a = new Asiento(idAsientos, idFuncion, disponible, fila, columna);
+            temp.add(a);
         }
         ASIENTOS.add(temp);
+        if (!hayDisponibles) {
+            Global.mostrarAlertaError("No se pueden comprar mas boletos... la sala esta llena");
+        }
+        App.cambiarVista("pelicula");
     }
 
     @FXML
@@ -282,6 +292,7 @@ public class AsientosNormController implements Initializable {
                 Global.getConSql().insertarBoleto(idBoleto, seleccionado.getIdAsiento(), idCompra);
                 Global.getConSql().updateAsientoDisponible(seleccionado.getIdAsiento());
             }
+            App.cambiarVista("pelicula");
         } catch (SQLException | IOException ex) {
             Global.mostrarAlertaError(ex.getMessage());
         }

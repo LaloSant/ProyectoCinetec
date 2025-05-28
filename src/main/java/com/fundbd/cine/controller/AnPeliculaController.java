@@ -116,7 +116,7 @@ public class AnPeliculaController implements Initializable {
             }
             agregarPeliculas();
         } catch (SQLException ex) {
-            Global.mostrarAlertaError("Aqui 1: " + ex.getMessage());
+            Global.mostrarAlertaError(ex.getMessage());
         }
         cbNomCine.setItems(FXCollections.observableArrayList(nomCines));
     }
@@ -163,8 +163,10 @@ public class AnPeliculaController implements Initializable {
         try {
             String rutaImagen = txtImagen.getText();
             String rutaVideo = txtTrailer.getText();
-            File fileImagen = (rutaImagen.isBlank()) ? new File("src/main/resources/temp/img404.jpg") : new File(rutaImagen);
-            File fileVideo = (rutaVideo.isBlank()) ? new File("src/main/resources/temp/video404.mp4") : new File(rutaVideo);
+//            File fileImagen = (rutaImagen.isBlank()) ? new File("src/main/resources/temp/img404.jpg") : new File(rutaImagen);
+//            File fileVideo = (rutaVideo.isBlank()) ? new File("src/main/resources/temp/video404.mp4") : new File(rutaVideo);
+            File fileImagen = (rutaImagen.isBlank()) ? null : new File(rutaImagen);
+            File fileVideo = (rutaVideo.isBlank()) ? null : new File(rutaVideo);
             String idPelicula = txtIdPelicula.getText();
             String nomPelicula = txtNomPelicula.getText();
             String sinopsis = txtSinopsis.getText();
@@ -176,12 +178,13 @@ public class AnPeliculaController implements Initializable {
             Global.mostrarInfo("Se inserto pelicula exitosamente!");
             agregarPeliculas();
         } catch (SQLException | IOException e) {
-            Global.mostrarAlertaError("Aqui 2: " + e.getMessage());
+            Global.mostrarAlertaError(e.getMessage());
         }
     }
 
     @FXML
     private void cbIdPeliculaOnAction(ActionEvent event) {
+        cbNomCine.setDisable(false);
         String idPelicula = cbIdPelicula.getSelectionModel().getSelectedItem();
         ResultSet rs = Global.getConSql().consulta(Queries.selectPelicula(idPelicula, false));
         try {
@@ -195,8 +198,10 @@ public class AnPeliculaController implements Initializable {
             txtIdioma.setText(rs.getString(5));
             txtClasificacion.setText(rs.getString(6));
             txtGenero.setText(rs.getString(7));
+            txtImagen.setPromptText("(BLOB)");
+            txtTrailer.setPromptText("(BLOB)");
         } catch (SQLException ex) {
-            Global.mostrarAlertaError("Aqui 3: " + ex.getMessage());
+            Global.mostrarAlertaError(ex.getMessage());
         }
     }
 
@@ -206,6 +211,7 @@ public class AnPeliculaController implements Initializable {
         nomSalas.clear();
         salasNormales.clear();
         cbNomSala.setDisable(false);
+        btnAgregarFuncion.setDisable(true);
         String idCine = idsCines.get(cbNomCine.getSelectionModel().getSelectedIndex());
         ResultSet rs = Global.getConSql().consulta(Queries.selectSala(idCine));
         try {
@@ -216,13 +222,13 @@ public class AnPeliculaController implements Initializable {
             }
             cbNomSala.setItems(FXCollections.observableArrayList(nomSalas));
         } catch (SQLException ex) {
-            Global.mostrarAlertaError("Aqui 4: " + ex.getMessage());
+            Global.mostrarAlertaError(ex.getMessage());
         }
     }
 
     @FXML
     private void cbNomSalaOnAction(ActionEvent event) {
-
+        btnAgregarFuncion.setDisable(cbNomSala.getSelectionModel().getSelectedIndex() == -1);
     }
 
     @FXML
@@ -231,13 +237,18 @@ public class AnPeliculaController implements Initializable {
         String idPelicula = cbIdPelicula.getSelectionModel().getSelectedItem();
         String idSala = idsSalas.get(cbNomSala.getSelectionModel().getSelectedIndex());
         String idCine = idsCines.get(cbNomCine.getSelectionModel().getSelectedIndex());
-        String dia = dpHorarioDia.getValue().toString();
+        String dia = dpHorarioDia.getValue() == null ? null : dpHorarioDia.getValue().toString();
         String hora = cbHora.getSelectionModel().getSelectedItem();
         String minuto = cbMinuto.getSelectionModel().getSelectedItem();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
-            Date horaFormateada = dateFormat.parse(String.format("%s %s:%s", dia, hora, minuto));
-            Timestamp ts = new Timestamp(horaFormateada.getTime());
+            Timestamp ts;
+            if (dia == null || hora == null || minuto == null) {
+                ts = null;
+            } else {
+                Date horaFormateada = dateFormat.parse(String.format("%s %s:%s", dia, hora, minuto));
+                ts = new Timestamp(horaFormateada.getTime());
+            }
             Global.getConSql().insertarFuncion(idFuncion, idPelicula, idSala, idCine, ts);
             int numAsiento = numeroAsientos() + 1;
             char filasMax = 'E';
@@ -254,7 +265,7 @@ public class AnPeliculaController implements Initializable {
             }
             Global.mostrarInfo("Se inserto funcion exitosamente!");
         } catch (ParseException | SQLException ex) {
-            Global.mostrarAlertaError("Aqui 5: " + ex.getMessage());
+            Global.mostrarAlertaError(ex.getMessage());
         }
     }
 

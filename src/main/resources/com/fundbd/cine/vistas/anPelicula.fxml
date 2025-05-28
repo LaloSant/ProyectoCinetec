@@ -86,7 +86,7 @@
                               <Font name="Arial Bold" size="24.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbNomCine" layoutX="106.0" layoutY="182.0" onAction="#cbNomCineOnAction" prefWidth="150.0" promptText="Seleccione">
+                        <ComboBox fx:id="cbNomCine" disable="true" layoutX="106.0" layoutY="182.0" onAction="#cbNomCineOnAction" prefWidth="150.0" promptText="Seleccione">
                            <effect>
                               <Lighting>
                                  <bumpInput>
@@ -144,7 +144,7 @@
                               </Lighting>
                            </effect>
                         </ComboBox>
-                        <ComboBox fx:id="cbMinuto" layoutX="195.0" layoutY="382.0" prefHeight="31.0" prefWidth="62.0" promptText="MM">
+                        <ComboBox fx:id="cbMinuto" layoutX="174.0" layoutY="382.0" prefHeight="31.0" prefWidth="83.0" promptText="MM">
                            <effect>
                               <Lighting>
                                  <bumpInput>
@@ -156,7 +156,7 @@
                               </Lighting>
                            </effect>
                         </ComboBox>
-                        <Label layoutX="178.0" layoutY="382.0" prefHeight="31.0" text=":" textFill="WHITE">
+                        <Label layoutX="167.0" layoutY="382.0" prefHeight="31.0" text=":" textFill="WHITE">
                            <font>
                               <Font name="Arial Bold" size="24.0" />
                            </font>
@@ -181,7 +181,7 @@
                      </children></AnchorPane>
                   <AnchorPane prefHeight="57.0" prefWidth="292.0">
                      <children>
-                        <Button fx:id="btnAgregarFuncion" layoutX="100.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnAgregarFuncionOnAction" text="Agregar funcion">
+                        <Button fx:id="btnAgregarFuncion" disable="true" layoutX="100.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnAgregarFuncionOnAction" text="Agregar funcion">
                            <effect>
                               <Lighting>
                                  <bumpInput>

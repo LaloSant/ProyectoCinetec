@@ -125,27 +125,27 @@
                   </VBox>
                   <VBox prefHeight="498.0" prefWidth="344.0" spacing="20.0">
                      <children>
-                        <TextField fx:id="txtId" prefHeight="32.0" promptText="Si" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
+                        <TextField fx:id="txtId" prefHeight="32.0" promptText="CHAR (6 BYTE PK)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtNombre" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
+                        <TextField fx:id="txtNombre" prefHeight="32.0" promptText="(CHAR 30 NN)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtApellidoP" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
+                        <TextField fx:id="txtApellidoP" prefHeight="32.0" promptText="(CHAR 30 NN)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtApellidoM" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
+                        <TextField fx:id="txtApellidoM" prefHeight="32.0" promptText="(CHAR 30 NN)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtContrasenia" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
+                        <TextField fx:id="txtContrasenia" prefHeight="32.0" promptText="(CHAR 10 NN)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <DatePicker fx:id="dtpFecha" prefHeight="32.0" prefWidth="344.0">
+                        <DatePicker fx:id="dtpFecha" prefHeight="32.0" prefWidth="344.0" promptText="(DATE NN)">
                            <effect>
                               <Lighting>
                                  <bumpInput>
@@ -156,19 +156,19 @@
                                  </light>
                               </Lighting>
                            </effect></DatePicker>
-                        <TextField fx:id="txtTelefono" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
+                        <TextField fx:id="txtTelefono" prefHeight="32.0" promptText="(NUMBER NN)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtCorreo" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
+                        <TextField fx:id="txtCorreo" prefHeight="32.0" promptText="(CHAR 50 NN)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtTarjeta" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
+                        <TextField fx:id="txtTarjeta" prefHeight="32.0" promptText="(NUMBER NN)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="txtNip" prefHeight="32.0" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
+                        <TextField fx:id="txtNip" prefHeight="32.0" promptText="(NUMBER NN)" style="-fx-control-inner-background: #1a2b3f; -fx-text-fill: WHITE; -fx-prompt-text-fill: GRAY;">
                            <font>
                               <Font name="Arial" size="15.0" />
                            </font></TextField>
