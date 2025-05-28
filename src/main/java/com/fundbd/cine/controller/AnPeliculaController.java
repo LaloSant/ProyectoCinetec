@@ -18,6 +18,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -94,6 +96,8 @@ public class AnPeliculaController implements Initializable {
     private ComboBox<String> cbNomCine;
     @FXML
     private ComboBox<String> cbNomSala;
+    @FXML
+    private Button btnModificar;
 
     /**
      * Initializes the controller class.
@@ -185,6 +189,7 @@ public class AnPeliculaController implements Initializable {
     @FXML
     private void cbIdPeliculaOnAction(ActionEvent event) {
         cbNomCine.setDisable(false);
+        btnModificar.setDisable(false);
         String idPelicula = cbIdPelicula.getSelectionModel().getSelectedItem();
         ResultSet rs = Global.getConSql().consulta(Queries.selectPelicula(idPelicula, false));
         try {
@@ -229,6 +234,29 @@ public class AnPeliculaController implements Initializable {
     @FXML
     private void cbNomSalaOnAction(ActionEvent event) {
         btnAgregarFuncion.setDisable(cbNomSala.getSelectionModel().getSelectedIndex() == -1);
+    }
+
+    @FXML
+    private void btnModificarOnAction(ActionEvent event) {
+        String rutaImagen = txtImagen.getText();
+        String rutaVideo = txtTrailer.getText();
+//            File fileImagen = (rutaImagen.isBlank()) ? new File("src/main/resources/temp/img404.jpg") : new File(rutaImagen);
+//            File fileVideo = (rutaVideo.isBlank()) ? new File("src/main/resources/temp/video404.mp4") : new File(rutaVideo);
+        File fileImagen = (rutaImagen.isBlank()) ? null : new File(rutaImagen);
+        File fileVideo = (rutaVideo.isBlank()) ? null : new File(rutaVideo);
+        String idPelicula = txtIdPelicula.getText();
+        String nomPelicula = txtNomPelicula.getText();
+        String sinopsis = txtSinopsis.getText();
+        String duracion = txtDuracion.getText();
+        String idioma = txtIdioma.getText();
+        String clasificacion = txtClasificacion.getText();
+        String genero = txtGenero.getText();
+        try {
+            Global.getConSql().updatePelicula(idPelicula, nomPelicula, sinopsis, duracion, fileImagen, fileVideo, idioma, clasificacion, genero);
+            Global.mostrarInfo("Se modifico la pelicula");
+        } catch (SQLException | IOException ex) {
+            Global.mostrarAlertaError(ex.getMessage());
+        }
     }
 
     @FXML
@@ -294,7 +322,7 @@ public class AnPeliculaController implements Initializable {
 
     @FXML
     private void mnuAgregarClienteOnAction(ActionEvent event) {
-        App.cambiarVista("cliente");
+        App.cambiarVista("clientes");
     }
 
     @FXML

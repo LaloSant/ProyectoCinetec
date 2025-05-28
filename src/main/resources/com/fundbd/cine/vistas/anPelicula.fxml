@@ -55,7 +55,7 @@
                         <Image url="@../../../../temp/CineTecLogoEstilo2.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="250.0" layoutY="20.0" prefHeight="31.0" text="AÑADIR PELICULA / FUNCION" textFill="#e9d1a7">
+                  <Label layoutX="250.0" layoutY="20.0" prefHeight="31.0" text="AÑADIR / MODIFICAR PELICULA / AGREGAR FUNCION" textFill="#e9d1a7">
                      <font>
                         <Font name="Arial Bold" size="24.0" />
                      </font>
@@ -351,6 +351,21 @@
                                  </light>
                               </Lighting>
                            </effect>
+                        </Button>
+                        <Button fx:id="btnModificar" disable="true" layoutX="15.0" layoutY="374.0" mnemonicParsing="false" onAction="#btnModificarOnAction" text="Modificar pelicula">
+                           <effect>
+                              <Lighting>
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant color="#e9d1a7" />
+                                 </light>
+                              </Lighting>
+                           </effect>
+                           <font>
+                              <Font name="Arial Bold Italic" size="18.0" />
+                           </font>
                         </Button>
                      </children>
                   </AnchorPane>

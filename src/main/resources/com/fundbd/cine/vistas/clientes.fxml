@@ -211,6 +211,41 @@
                </children>
             </HBox>
          </center>
+         <right>
+            <AnchorPane prefHeight="500.0" prefWidth="341.0">
+               <children>
+                  <ComboBox fx:id="cbBoxClientes" layoutX="96.0" layoutY="119.0" onAction="#cbBoxClientesOnAction" prefWidth="150.0" promptText="Clientes" BorderPane.alignment="CENTER">
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant color="#e9d1a7" />
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </ComboBox>
+                  <Label layoutX="46.0" layoutY="25.0" prefHeight="31.0" text="MODIFICAR CLIENTE" textFill="#e9d1a7">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnModificar" layoutX="128.0" layoutY="235.0" mnemonicParsing="false" onAction="#btnModificarOnAction" text="Modificar">
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant color="#e9d1a7" />
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </right>
       </BorderPane>
   </children>
 </VBox>

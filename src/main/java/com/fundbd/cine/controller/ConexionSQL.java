@@ -178,6 +178,45 @@ public class ConexionSQL {
         ps.close();
     }
 
+    public void updatePelicula(String idPelicula, String nombre,
+            String sinopsis, String duracion, File imagen,
+            File video, String idioma, String clasificacion,
+            String genero) throws SQLException, IOException {
+        PreparedStatement ps = conn.prepareStatement(Queries.updatePelicula());
+        ps.setString(1, nombre);
+        ps.setString(2, sinopsis);
+        ps.setString(3, duracion);
+        ps.setBlob(4, crearBlob(imagen));
+        ps.setBlob(5, crearBlob(video));
+        ps.setString(6, idioma);
+        ps.setString(7, clasificacion);
+        ps.setString(8, genero);
+        ps.setString(9, idPelicula);
+        ps.executeUpdate();
+        ps.close();
+    }
+
+    public boolean updateCliente(String idCliente, String nombre,
+            String apellidoP, String apellidoM, String contrasenia,
+            Date fecha, String telefono, String correo, String numTarjeta,
+            String nip) throws SQLException, IOException {
+        PreparedStatement ps = conn.prepareStatement(Queries.updateCliente());
+        ps.setString(1, nombre);
+        ps.setString(2, apellidoP);
+        ps.setString(3, apellidoM);
+        ps.setString(4, correo);
+        ps.setString(5, telefono);
+        ps.setDate(6, fecha);
+        ps.setString(7, contrasenia);
+        ps.setString(8, numTarjeta);
+        ps.setString(9, nip);
+        ps.setString(10, idCliente);
+        ps.executeUpdate();
+        ps.close();
+        System.out.println("Salio");
+        return true;
+    }
+
     public Blob crearBlob(File file) throws IOException, SQLException {
         if (file == null) {
             return null;

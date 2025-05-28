@@ -135,6 +135,37 @@ public class Queries {
         return "UPDATE ASIENTOS SET DISPONIBLE = 'FALSE' WHERE ID_ASIENTO = (?)";
     }
 
+    public static String updatePelicula() {
+        return "UPDATE PELICULAS\n"
+                + "SET\n"
+                + "    NOMBRE = (?),\n"
+                + "    SINOPSIS = (?),\n"
+                + "    DURACION = (?),\n"
+                + "    IMAGEN = (?),\n"
+                + "    TRAILER = (?),\n"
+                + "    IDIOMA = (?),\n"
+                + "    CLASIFICACION = (?),\n"
+                + "    GENERO = (?)\n"
+                + "WHERE\n"
+                + "    ID_PELICULA = (?)";
+    }
+
+    public static String updateCliente() {
+        return "UPDATE CLIENTES\n"
+                + "SET\n"
+                + "    NOMBRE = (?),\n"
+                + "    APELLIDO_P = (?),\n"
+                + "    APELLIDO_M = (?),\n"
+                + "    CORREO = (?),\n"
+                + "    TELEFONO = (?),\n"
+                + "    FECHA_DE_NACIMIENTO = (?),\n"
+                + "    CONSTRASENIA = (?),\n"
+                + "    NUMERO_DE_TARJETA = (?),\n"
+                + "    NIP = (?)\n"
+                + "WHERE\n"
+                + "    ID_CLIENTE = (?)";
+    }
+
     public static String insertarCompra() {
         return "INSERT INTO COMPRAS VALUES(\n"
                 + "    (?),\n"
